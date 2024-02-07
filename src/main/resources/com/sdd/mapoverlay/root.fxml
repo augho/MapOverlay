@@ -11,9 +11,10 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.sdd.mapoverlay.RootController"
-      prefHeight="400.0" prefWidth="600.0">
+      stylesheets="/styles/styles.css" styleClass="root"
+      >
 
-    <LineChart>
+    <LineChart styleClass="fill-width">
         <xAxis>
             <NumberAxis label="X-Axis"/>
         </xAxis>

@@ -7,13 +7,18 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sdd.mapoverlay.EditPanelController"
-            prefHeight="400.0" prefWidth="600.0">
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.sdd.mapoverlay.EditPanelController"
+      stylesheets="/styles/styles.css"
+      spacing="150">
 
-    <Button text="Load" />
-    <TextField promptText="Segment x-value" />
-    <TextField promptText="Segment y-value" />
-    <Button text="Add" />
-    <Button text="Save" />
+    <Button text="Load" styleClass="big-btn" />
+    <VBox spacing="5" styleClass="add-segment-block">
+        <Label text="Add segment:" styleClass="label-text" />
+        <TextField promptText="Segment x-value" />
+        <TextField promptText="Segment y-value" />
+        <Button text="Add" styleClass="btn" />
+    </VBox>
+
+    <Button text="Save" styleClass="big-btn" />
 </VBox>

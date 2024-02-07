@@ -6,11 +6,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.shape.Box?>
 <VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sdd.mapoverlay.SidePanelController"
-            prefHeight="400.0" prefWidth="600.0">
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.sdd.mapoverlay.SidePanelController"
+      stylesheets="/styles/styles.css"
+      styleClass="side-panel"
+      spacing="60">
 
-    <HBox> <Button text="Play" /> <Button text="Edit" /> </HBox>
-    <fx:include source="edit-panel.fxml" />
+    <HBox alignment="CENTER">
+        <Button fx:id="playButton" text="Play Menu" styleClass="btn" onAction="#onPlayButtonCLick" />
+        <Button fx:id="editButton" text="Edit Menu" styleClass="btn" disable="true" onAction="#onEditButtonCLick" />
+    </HBox>
+    <VBox fx:id="swapContainer">
+        <fx:include source="edit-panel.fxml" />
+    </VBox>
+
 </VBox>

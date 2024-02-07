@@ -7,11 +7,15 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sdd.mapoverlay.PlayPanelController"
-            prefHeight="400.0" prefWidth="600.0">
-    <CheckBox text="Show Overlay" />
-    <Slider />
-    <Button text="Play" />
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.sdd.mapoverlay.PlayPanelController"
+      spacing="150"  >
+    <CheckBox text="Show Overlay" styleClass="label-text" />
+    <VBox spacing="5" styleClass="add-segment-block">
+        <Label text="Speed" styleClass="label-text"/>
+        <Slider />
+    </VBox>
+
+    <Button text="Play" styleClass="big-btn" />
 
 </VBox>

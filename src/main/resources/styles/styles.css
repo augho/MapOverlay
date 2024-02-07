@@ -1,0 +1,38 @@
+.root {
+    -fx-background-color: #caf0f8;
+}
+.fill-width {
+    -fx-fill-width: true;
+    -fx-fill-height: true;
+    -fx-pref-width: 10000px;
+}
+
+.side-panel {
+    -fx-min-width: 250px;
+    -fx-vgap: 15px;
+    -fx-hgap: 15px;
+    -fx-padding: 10 10 10 10;
+}
+
+.big-btn {
+    -fx-background-radius: 10px;
+    -fx-padding: 20 25 20 25;
+    -fx-background-color: #03045E;
+    -fx-text-fill: #FFFFFF;
+}
+.btn {
+    -fx-background-radius: 5px;
+    -fx-padding: 8 16 8 16;
+    -fx-background-color: #0077B6;
+}
+
+.label-text {
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+.add-segment-block {
+    -fx-background-color: #90E0EF;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px;
+}
