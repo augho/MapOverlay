@@ -11,13 +11,29 @@
       fx:controller="com.sdd.mapoverlay.EditPanelController"
       stylesheets="/styles/styles.css"
       spacing="150">
+    <HBox spacing="5">
+        <Button text="Load" styleClass="big-btn" onAction="#onLoadButtonClick" />
+        <Label fx:id="loadFileError" styleClass="error-label" visible="false" />
+    </HBox>
 
-    <Button text="Load" styleClass="big-btn" />
-    <VBox spacing="5" styleClass="add-segment-block">
+    <VBox spacing="10" styleClass="add-segment-block">
         <Label text="Add segment:" styleClass="label-text" />
-        <TextField promptText="Segment x-value" />
-        <TextField promptText="Segment y-value" />
-        <Button text="Add" styleClass="btn" />
+        <HBox spacing="3">
+            <TextField fx:id="x1Field" promptText="Point A x-value" />
+            <TextField fx:id="y1Field" promptText="Point A y-value" />
+        </HBox>
+        <HBox spacing="3">
+            <TextField fx:id="x2Field" promptText="Point B x-value" />
+            <TextField fx:id="y2Field" promptText="Point B y-value" />
+        </HBox>
+        <Label fx:id="segmentError" visible="false" styleClass="error-label" />
+
+        <Button
+                fx:id="addSegmentButton"
+                text="Add"
+                styleClass="btn"
+                onAction="#onAddSegmentButtonClick"
+        />
     </VBox>
 
     <Button text="Save" styleClass="big-btn" />

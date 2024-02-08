@@ -36,3 +36,7 @@
     -fx-padding: 8px;
     -fx-background-radius: 10px;
 }
+
+.error-label {
+    -fx-text-fill: red;
+}
