@@ -1,5 +1,7 @@
 package com.sdd.mapoverlay;
 
+import com.sdd.mapoverlay.utils.Segment;
+import com.sdd.mapoverlay.utils.Store;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,10 +10,8 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class EditPanelController {
     public Button addSegmentButton;
@@ -21,6 +21,7 @@ public class EditPanelController {
     public TextField y2Field;
     public Label segmentError;
     public Label loadFileError;
+    public Label saveFileError;
 
     @FXML
     protected void onAddSegmentButtonClick() {
@@ -40,12 +41,12 @@ public class EditPanelController {
             return;
         }
 
-        float x1, y1, x2, y2;
+        double x1, y1, x2, y2;
         try {
-            x1 = Float.parseFloat(x1Value);
-            x2 = Float.parseFloat(x2Value);
-            y2 = Float.parseFloat(y2Value);
-            y1 = Float.parseFloat(y1Value);
+            x1 = Double.parseDouble(x1Value);
+            x2 = Double.parseDouble(x2Value);
+            y2 = Double.parseDouble(y2Value);
+            y1 = Double.parseDouble(y1Value);
         } catch (NumberFormatException e) {
             displayAddSegmentError(e.getMessage());
             return;
@@ -84,24 +85,16 @@ public class EditPanelController {
         } catch (IOException e) {
             displayLoadFileError(e.getMessage());
         }
-        fileContent.forEach(System.out::println);
 
         try {
-            List<List<Float>> parsedCoordinates = fileContent
+            List<Segment> segments = fileContent
                     .stream()
-                    .map(line -> Arrays.stream(line.split("\\s+"))
-                            .map(Float::parseFloat)
-                            .collect(Collectors.toList()))
+                    .map(Segment::fromString)
                     .toList();
 
-            parsedCoordinates.forEach(segment -> {
-                if (segment.size() != 4) {
-                    throw new NumberFormatException("File format invalid");
-                }
-            });
-            Store.getRootController().displayFileContent(parsedCoordinates);
+            Store.getRootController().displayFileContent(segments);
             loadFileError.setVisible(false);
-        } catch (NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException e) {
             displayLoadFileError(e.getMessage());
         }
 
@@ -110,6 +103,30 @@ public class EditPanelController {
     private void displayLoadFileError(String msg) {
         loadFileError.setText(msg);
         loadFileError.setVisible(true);
+    }
+
+    @FXML
+    private void onSaveButtonClick() {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(null);
+        if (file == null) {
+            displaySaveFileError("You need to select a file");
+            return;
+        }
+        try (FileWriter writer = new FileWriter(file)) {
+            StringBuilder builder = new StringBuilder();
+            Store.getRootController().getChartContent()
+                            .forEach(segment -> builder.append(segment.toString()).append("\n"));
+            writer.write(builder.toString());
+        } catch (IOException e) {
+            displaySaveFileError(e.getMessage());
+        }
+        saveFileError.setVisible(false);
+    }
+
+    private void displaySaveFileError(String msg) {
+        saveFileError.setText(msg);
+        saveFileError.setVisible(true);
     }
 }
 

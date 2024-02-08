@@ -35,6 +35,9 @@
                 onAction="#onAddSegmentButtonClick"
         />
     </VBox>
+    <HBox spacing="5">
+        <Button text="Save" styleClass="big-btn" onAction="#onSaveButtonClick" />
+        <Label fx:id="saveFileError" styleClass="error-label" visible="false" />
+    </HBox>
 
-    <Button text="Save" styleClass="big-btn" />
 </VBox>

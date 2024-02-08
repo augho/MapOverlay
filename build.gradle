@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
   mainModule = 'com.sdd.mapoverlay'
-  mainClass = 'com.sdd.mapoverlay.HelloApplication'
+  mainClass = 'com.sdd.mapoverlay.MapOverlayApplication'
 }
 
 javafx {

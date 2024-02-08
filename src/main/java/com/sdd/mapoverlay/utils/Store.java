@@ -1,5 +1,6 @@
-package com.sdd.mapoverlay;
+package com.sdd.mapoverlay.utils;
 
+import com.sdd.mapoverlay.RootController;
 import javafx.fxml.FXMLLoader;
 
 public class Store {

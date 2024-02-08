@@ -5,4 +5,6 @@ module com.sdd.mapoverlay {
 
     opens com.sdd.mapoverlay to javafx.fxml;
     exports com.sdd.mapoverlay;
+    exports com.sdd.mapoverlay.utils;
+    opens com.sdd.mapoverlay.utils to javafx.fxml;
 }
