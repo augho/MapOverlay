@@ -4,13 +4,29 @@ import javafx.scene.chart.XYChart;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Segment {
-    private Point a, b;
+    private Point lowerEndpoint, upperEndpoint;
 
     public Segment(Double x1, Double y1, Double x2, Double y2) {
-        this.a = new Point(x1, y1);
-        this.b = new Point(x2, y2);
+
+        if (y1 < y2) {
+            this.lowerEndpoint = new Point(x1, y1);
+            this.upperEndpoint = new Point(x2, y2);
+        } else if (y1 > y2) {
+            this.lowerEndpoint = new Point(x2, y2);
+            this.upperEndpoint = new Point(x1, y1);
+        } else {
+            // When horizontal left endpoint is upperEndpoint
+            if(x1 < x2) {
+                this.lowerEndpoint = new Point(x2, y2);
+                this.upperEndpoint = new Point(x1, y1);
+            } else {
+                this.lowerEndpoint = new Point(x1, y1);
+                this.upperEndpoint = new Point(x2, y2);
+            }
+        }
     }
 
     public static Segment fromString(String line) throws NumberFormatException {
@@ -27,12 +43,12 @@ public class Segment {
         }
     }
 
-    public Point getA() {
-        return a;
+    public Point getLowerEndpoint() {
+        return lowerEndpoint;
     }
 
-    public Point getB() {
-        return b;
+    public Point getUpperEndpoint() {
+        return upperEndpoint;
     }
 
     public static Segment fromSeries(XYChart.Series<Number, Number> series) {
@@ -46,6 +62,10 @@ public class Segment {
 
     @Override
     public String toString() {
-        return a.toString() + " " + b.toString();
+        return lowerEndpoint.toString() + " " + upperEndpoint.toString();
+    }
+
+    public boolean sameAs(Segment s) {
+        return this.getUpperEndpoint().sameAs(s.getUpperEndpoint()) && this.lowerEndpoint.sameAs(s.getLowerEndpoint());
     }
 }

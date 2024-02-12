@@ -20,4 +20,8 @@ public class Point {
     public String toString() {
         return x.toString() +  " " + y.toString();
     }
+
+    public boolean sameAs(Point point) {
+        return point.getX().equals(this.getX()) && point.getY().equals(this.getY());
+    }
 }

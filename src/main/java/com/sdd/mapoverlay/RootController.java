@@ -22,7 +22,11 @@ public class RootController {
         lineChart.getData().add(series);
     }
     public void addSegment(Segment segment) {
-        this.addSegment(segment.getA().getX(), segment.getA().getY(), segment.getB().getX(), segment.getB().getY());
+        this.addSegment(
+                segment.getLowerEndpoint().getX(),
+                segment.getLowerEndpoint().getY(),
+                segment.getUpperEndpoint().getX(),
+                segment.getUpperEndpoint().getY());
     }
 
     private void clearLineChart() {
