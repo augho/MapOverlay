@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="File saving + utils classes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Added Q and EventPoint + refactoring">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/AVLTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/RootController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/RootController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,6 +79,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -122,7 +122,11 @@
       <workItem from="1707321706565" duration="9582000" />
       <workItem from="1707404389971" duration="5755000" />
       <workItem from="1707411951829" duration="3847000" />
-      <workItem from="1707763106836" duration="4718000" />
+      <workItem from="1707763106836" duration="7601000" />
+      <workItem from="1707771556582" duration="19000" />
+      <workItem from="1707773230830" duration="2314000" />
+      <workItem from="1707914138861" duration="6128000" />
+      <workItem from="1707920706957" duration="5597000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -156,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707415709566</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added Q and EventPoint + refactoring">
+      <option name="closed" value="true" />
+      <created>1707771510657</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707771510657</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +179,7 @@
     <MESSAGE value="added basic fxml layout" />
     <MESSAGE value="File loading, manual add segment" />
     <MESSAGE value="File saving + utils classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="File saving + utils classes" />
+    <MESSAGE value="Added Q and EventPoint + refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Q and EventPoint + refactoring" />
   </component>
 </project>
