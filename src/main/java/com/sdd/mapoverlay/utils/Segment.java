@@ -8,7 +8,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class Segment {
-    private Point lowerEndpoint, upperEndpoint;
+    private final Point lowerEndpoint, upperEndpoint;
+
+    private Double lineCoefficient = null;
+    private Double lineOrigin = null;
 
     public Segment(Double x1, Double y1, Double x2, Double y2) {
 
@@ -71,16 +74,40 @@ public class Segment {
     }
 
     private double getLineCoefficient() {
-        return (upperEndpoint.getX() - lowerEndpoint.getX()) / (upperEndpoint.getY() - lowerEndpoint.getY());
+        if (lineCoefficient == null) {
+            lineCoefficient =
+                    (upperEndpoint.getY() - lowerEndpoint.getY()) / (upperEndpoint.getX() - lowerEndpoint.getX());
+        }
+        return lineCoefficient;
     }
 
     private double getLineOrigin() {
-        return upperEndpoint.getY() - this.getLineCoefficient() * upperEndpoint.getX();
+        if (lineOrigin == null) {
+            lineOrigin = upperEndpoint.getY() - this.getLineCoefficient() * upperEndpoint.getX();
+        }
+        return lineOrigin;
+    }
+
+    public Position whereIs(Point point) {
+        /*
+            y < ax + b -> right
+            y > ax + b -> left
+            y = ax + b -> intersection
+        */
+
+         final double axPlusB = getLineCoefficient() * point.getX() + getLineOrigin();
+         if (point.getY() > axPlusB) {
+             return Position.LEFT;
+         } else if (point.getY() < axPlusB) {
+             return Position.RIGHT;
+         } else {
+             return Position.INTERSECT;
+         }
     }
     public Optional<Point> getIntersection(Segment segment) {
         /*
             For a segment given by 2 points {(x1, y1), (x2, y2)}
-            coefficient a = (x2 - x1) / (y2 - y1)
+            coefficient a = (y2 - y1) / (x2 - x1)
             line of s1 is y = ax + b with b = y1 - a * x1
 
             line of s1 := y = ax + b

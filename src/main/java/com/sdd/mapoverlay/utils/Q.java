@@ -38,20 +38,30 @@ public class Q extends AVLTree<EventPoint> {
             return;
         }
         // New eventPoint in this node, we add the segment of the new event to this node's eventPoint
+        // TODO is this correct ?
         if (this.getData().contains(newEventPoint.getSegments().get(0))) {
             this.getData().addSegment(newEventPoint.getSegments().get(0));
-        } else if (newEventPoint.isLeftOf(this.getData())) {
-            // if no child then create new one with newEventPoint otherwise inserts into child
-            this.getLeftChild().ifPresentOrElse(
-                    (left) -> ((Q) left).insert(newEventPoint),
-                    () -> this.setLeftChild(new Q(newEventPoint, this))
-            );
-        } else if (newEventPoint.isRightOf(this.getData())) {
-            // if no child then create new one with newEventPoint otherwise inserts into child
-            this.getRightChild().ifPresentOrElse(
-                    (right) -> ((Q) right).insert(newEventPoint),
-                    () -> this.setRightChild(new Q(newEventPoint, this))
-            );
         }
+
+        switch (newEventPoint.compare(this.getData())) {
+            case LEFT -> {
+                // if no child then create new one with newEventPoint otherwise inserts into child
+                this.getLeftChild().ifPresentOrElse(
+                        (left) -> ((Q) left).insert(newEventPoint),
+                        () -> this.setLeftChild(new Q(newEventPoint, this))
+                );
+            }
+            case RIGHT -> {
+                // if no child then create new one with newEventPoint otherwise inserts into child
+                this.getRightChild().ifPresentOrElse(
+                        (right) -> ((Q) right).insert(newEventPoint),
+                        () -> this.setRightChild(new Q(newEventPoint, this))
+                );
+            }
+            case INTERSECT -> {
+                // TODO something
+            }
+        }
+
     }
 }
