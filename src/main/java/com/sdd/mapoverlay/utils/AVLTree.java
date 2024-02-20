@@ -2,19 +2,19 @@ package com.sdd.mapoverlay.utils;
 
 import java.util.Optional;
 
-public class AVLTree<T> {
+public class AVLTree<S> {
 
-    private T data;
+    private S data;
 
     private int height = 1;
 
-    private AVLTree<T> parent;
+    private AVLTree<S> parent;
 
-    private AVLTree<T> leftChild;
+    private AVLTree<S> leftChild;
 
-    private AVLTree<T> rightChild;
+    private AVLTree<S> rightChild;
 
-    protected AVLTree(AVLTree<T> node) {
+    private AVLTree(AVLTree<S> node) {
         if(node != null) {
             this.data = node.getData();
             this.height = node.getHeight();
@@ -23,12 +23,12 @@ public class AVLTree<T> {
         }
     }
 
-    protected AVLTree(T data, AVLTree<T> parent) {
+    protected AVLTree(S data, AVLTree<S> parent) {
         this.data = data;
         this.parent = parent;
     }
 
-    public AVLTree<T> getParent() {
+    public AVLTree<S> getParent() {
         return parent;
     }
 
@@ -36,24 +36,24 @@ public class AVLTree<T> {
         return this.parent == null;
     }
 
-    public void setParent(AVLTree<T> parent) {
+    public void setParent(AVLTree<S> parent) {
         this.parent = parent;
     }
 
-    public T getData() { return data; }
+    public S getData() { return data; }
 
-    public Optional<AVLTree<T>> getLeftChild() { return Optional.ofNullable(leftChild); }
+    public Optional<AVLTree<S>> getLeftChild() { return Optional.ofNullable(leftChild); }
 
-    public Optional<AVLTree<T>> getRightChild() { return Optional.ofNullable(rightChild); }
+    public Optional<AVLTree<S>> getRightChild() { return Optional.ofNullable(rightChild); }
 
-    public void setLeftChild(AVLTree<T> leftChild) {
+    public void setLeftChild(AVLTree<S> leftChild) {
         this.leftChild = leftChild;
         if (leftChild != null) {
             this.leftChild.setParent(this);
         }
     }
 
-    public void setRightChild(AVLTree<T> rightChild) {
+    public void setRightChild(AVLTree<S> rightChild) {
         this.rightChild = rightChild;
         if (rightChild != null) {
             this.rightChild.setParent(this);
@@ -107,21 +107,21 @@ public class AVLTree<T> {
         return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
     }
 
-    public void setData(T data) {
+    public void setData(S data) {
         this.data = data;
     }
 
-    protected void become(AVLTree<T> node) {
+    protected void become(AVLTree<S> node) {
         this.data = node.getData();
         this.height = node.getHeight();
         this.setLeftChild(node.getLeftChild().orElse(null));
         this.setRightChild(node.getRightChild().orElse(null));
     }
     private void doLeftRotation() {
-        AVLTree<T> rootCopy = new AVLTree<>(this);
+        AVLTree<S> rootCopy = new AVLTree<>(this);
         this.become(getRightChild().orElseThrow());
 
-        AVLTree<T> leftChildCopy = new AVLTree<>(this.leftChild);
+        AVLTree<S> leftChildCopy = new AVLTree<>(this.leftChild);
         this.setLeftChild(rootCopy);
         this.leftChild.setRightChild(leftChildCopy);
 
@@ -130,10 +130,10 @@ public class AVLTree<T> {
     }
 
     private void doRightRotation() {
-        AVLTree<T> rootCopy = new AVLTree<>(this);
+        AVLTree<S> rootCopy = new AVLTree<>(this);
         this.become(getLeftChild().orElseThrow());
 
-        AVLTree<T> rightChildCopy = new AVLTree<>(this.rightChild);
+        AVLTree<S> rightChildCopy = new AVLTree<>(this.rightChild);
         this.setRightChild(rootCopy);
         this.rightChild.setLeftChild(rightChildCopy);
 
