@@ -26,6 +26,10 @@ public class EventPoint extends Point {
         this.segments.add(segment);
     }
 
+    public void addSegments(ArrayList<Segment> segments) {
+        this.segments.addAll(segments);
+    }
+
     public Position compare(EventPoint eventPoint) {
         if (eventPoint.sameAs(this)) {
             return Position.INTERSECT;

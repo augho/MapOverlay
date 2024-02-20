@@ -37,11 +37,6 @@ public class Q extends AVLTree<EventPoint> {
             this.setData(newEventPoint);
             return;
         }
-        // New eventPoint in this node, we add the segment of the new event to this node's eventPoint
-        // TODO is this correct ?
-        if (this.getData().contains(newEventPoint.getSegments().get(0))) {
-            this.getData().addSegment(newEventPoint.getSegments().get(0));
-        }
 
         switch (newEventPoint.compare(this.getData())) {
             case LEFT -> {
@@ -59,7 +54,8 @@ public class Q extends AVLTree<EventPoint> {
                 );
             }
             case INTERSECT -> {
-                // TODO something
+                // New eventPoint in this node, we add the segment of the new event to this node's eventPoint
+                this.getData().addSegments(newEventPoint.getSegments());
             }
         }
 

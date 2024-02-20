@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="AVLTree implementation, refactoring of Q and 2 segments intersection compute">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Position.java" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="better math and relative position for points">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +43,7 @@
         <option value="FxmlFile" />
         <option value="CSS File" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -126,7 +125,7 @@
       <workItem from="1707914138861" duration="6128000" />
       <workItem from="1707920706957" duration="5757000" />
       <workItem from="1707932179753" duration="20000" />
-      <workItem from="1708181998825" duration="491000" />
+      <workItem from="1708181998825" duration="2234000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -176,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707926445194</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="better math and relative position for points">
+      <option name="closed" value="true" />
+      <created>1708184221887</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1708184221887</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +196,7 @@
     <MESSAGE value="File saving + utils classes" />
     <MESSAGE value="Added Q and EventPoint + refactoring" />
     <MESSAGE value="AVLTree implementation, refactoring of Q and 2 segments intersection compute" />
-    <option name="LAST_COMMIT_MESSAGE" value="AVLTree implementation, refactoring of Q and 2 segments intersection compute" />
+    <MESSAGE value="better math and relative position for points" />
+    <option name="LAST_COMMIT_MESSAGE" value="better math and relative position for points" />
   </component>
 </project>
