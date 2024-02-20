@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="better math and relative position for points">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Q insert refactor" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,6 +124,7 @@
       <workItem from="1707920706957" duration="5757000" />
       <workItem from="1707932179753" duration="20000" />
       <workItem from="1708181998825" duration="2234000" />
+      <workItem from="1708440874460" duration="573000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -183,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708184221887</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Q insert refactor">
+      <option name="closed" value="true" />
+      <created>1708441399575</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1708441399575</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,6 +204,7 @@
     <MESSAGE value="Added Q and EventPoint + refactoring" />
     <MESSAGE value="AVLTree implementation, refactoring of Q and 2 segments intersection compute" />
     <MESSAGE value="better math and relative position for points" />
-    <option name="LAST_COMMIT_MESSAGE" value="better math and relative position for points" />
+    <MESSAGE value="Q insert refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Q insert refactor" />
   </component>
 </project>

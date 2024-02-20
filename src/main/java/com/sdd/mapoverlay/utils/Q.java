@@ -8,8 +8,6 @@ public class Q extends AVLTree<EventPoint> {
         super(eventPoint, parent);
     }
 
-    private void balanceTree() {}
-
     public EventPoint popNextEvent() {
         // Leaf node we return this node's event
         if (this.getLeftChild().isEmpty()) {
@@ -42,14 +40,20 @@ public class Q extends AVLTree<EventPoint> {
             case LEFT -> {
                 // if no child then create new one with newEventPoint otherwise inserts into child
                 this.getLeftChild().ifPresentOrElse(
-                        (left) -> ((Q) left).insert(newEventPoint),
+                        (left) -> {
+                            ((Q) left).insert(newEventPoint);
+                            this.doEquilibrate();
+                        },
                         () -> this.setLeftChild(new Q(newEventPoint, this))
                 );
             }
             case RIGHT -> {
                 // if no child then create new one with newEventPoint otherwise inserts into child
                 this.getRightChild().ifPresentOrElse(
-                        (right) -> ((Q) right).insert(newEventPoint),
+                        (right) -> {
+                            ((Q) right).insert(newEventPoint);
+                            this.doEquilibrate();
+                        },
                         () -> this.setRightChild(new Q(newEventPoint, this))
                 );
             }

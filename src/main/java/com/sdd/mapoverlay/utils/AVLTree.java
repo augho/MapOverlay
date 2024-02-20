@@ -151,7 +151,7 @@ public class AVLTree<T> {
         this.doRightRotation();
     }
 
-    private void doEquilibrate() {
+    protected void doEquilibrate() {
         if (this.getBalance() == 2) {
             if(this.rightChild.getBalance() >= 0) {
                 this.doLeftRotation();
