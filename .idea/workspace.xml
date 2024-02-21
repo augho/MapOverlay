@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Q insert fix (included balancing)">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="T insertion beginning">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/AVLTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/AVLTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +126,7 @@
       <workItem from="1707920706957" duration="5757000" />
       <workItem from="1707932179753" duration="20000" />
       <workItem from="1708181998825" duration="2234000" />
-      <workItem from="1708440874460" duration="2627000" />
+      <workItem from="1708440874460" duration="3192000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -202,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708441696747</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="T insertion beginning">
+      <option name="closed" value="true" />
+      <created>1708444030003</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1708444030003</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,6 +224,7 @@
     <MESSAGE value="better math and relative position for points" />
     <MESSAGE value="Q insert refactor" />
     <MESSAGE value="Q insert fix (included balancing)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Q insert fix (included balancing)" />
+    <MESSAGE value="T insertion beginning" />
+    <option name="LAST_COMMIT_MESSAGE" value="T insertion beginning" />
   </component>
 </project>

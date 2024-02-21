@@ -33,6 +33,12 @@ public class Segment {
         }
     }
 
+    /**
+     * Parse a segment from a line of a txt file containing 4 decimal numbers
+     * @param line Line of the txt file
+     * @return Parsed segment
+     * @throws NumberFormatException When the file isn't formatted correctly
+     */
     public static Segment fromString(String line) throws NumberFormatException {
         try {
             List<Double> parsed = Arrays.stream(line.split("\\s+"))
@@ -55,6 +61,7 @@ public class Segment {
         return upperEndpoint;
     }
 
+    // TODO change to array
     public static Segment fromSeries(XYChart.Series<Number, Number> series) {
         return new Segment(
                 (Double) series.getData().get(0).getXValue(),
@@ -69,10 +76,18 @@ public class Segment {
         return lowerEndpoint.toString() + " " + upperEndpoint.toString();
     }
 
+    /**
+     * Checks if the segments endpoints match
+     * @param s Other segment
+     * @return true if equals
+     */
     public boolean sameAs(Segment s) {
         return this.getUpperEndpoint().sameAs(s.getUpperEndpoint()) && this.lowerEndpoint.sameAs(s.getLowerEndpoint());
     }
 
+    /**
+     * @return The coefficient of the line containing this segment
+     */
     private double getLineCoefficient() {
         if (lineCoefficient == null) {
             lineCoefficient =
@@ -81,6 +96,9 @@ public class Segment {
         return lineCoefficient;
     }
 
+    /**
+     * @return The origin of the line containing this segments (y when x = 0)
+     */
     private double getLineOrigin() {
         if (lineOrigin == null) {
             lineOrigin = upperEndpoint.getY() - this.getLineCoefficient() * upperEndpoint.getX();
@@ -88,6 +106,12 @@ public class Segment {
         return lineOrigin;
     }
 
+    /**
+     * Checks the position of a point relative to this segment.
+     * @param point Point to be located
+     * @return LEFT if the point is in the half-plane left of this segment's line, RIGHT if it's in the right one
+     *         and INTERSECT if it's on the line
+     */
     public Position whereIs(Point point) {
         /*
             y < ax + b -> right
@@ -104,6 +128,12 @@ public class Segment {
              return Position.INTERSECT;
          }
     }
+
+    /**
+     * Computes the intersection between two segments
+     * @param segment Compared segment
+     * @return The intersection point if it exists
+     */
     public Optional<Point> getIntersection(Segment segment) {
         /*
             For a segment given by 2 points {(x1, y1), (x2, y2)}

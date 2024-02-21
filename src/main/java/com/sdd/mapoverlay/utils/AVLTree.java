@@ -2,6 +2,12 @@ package com.sdd.mapoverlay.utils;
 
 import java.util.Optional;
 
+/**
+ * Implementation of an AVL tree as described in the slides and adds a parent attribute
+ * that points to the parent of a node.
+ * The insert and delete are not implemented as they differ between Q and T
+ * @param <S> Type of the data to be stored in the node
+ */
 public class AVLTree<S> {
 
     private S data;
@@ -14,6 +20,11 @@ public class AVLTree<S> {
 
     private AVLTree<S> rightChild;
 
+    /**
+     * Construct a new node as the clone of the one provided as arguments
+     * It doesn't change the parent relationship only the data, height and children
+     * @param node Node to be copied
+     */
     private AVLTree(AVLTree<S> node) {
         if(node != null) {
             this.data = node.getData();
@@ -23,6 +34,10 @@ public class AVLTree<S> {
         }
     }
 
+    /**
+     * @param data Data to be contained in this node
+     * @param parent Node parent of this one
+     */
     protected AVLTree(S data, AVLTree<S> parent) {
         this.data = data;
         this.parent = parent;
@@ -65,11 +80,18 @@ public class AVLTree<S> {
         return this.height;
     }
 
+    /**
+     * @return Balance of this node computed in O(1)
+     */
     private int getBalance() {
         return getRightChild().map(AVLTree::getHeight).orElse(0)
                 - getLeftChild().map(AVLTree::getHeight).orElse(0);
     }
 
+    /**
+     * Update the height by looking at the height of its children
+     * Complexity: O(1)
+     */
     private void updateHeight() {
         if (this.isLeaf()) {
             height = 1;
@@ -89,34 +111,25 @@ public class AVLTree<S> {
         return this.data == null;
     }
 
-    public boolean hasLeftChild() {
-        return this.leftChild != null;
-    }
-
-    public boolean hasRightChild() {
-        return this.rightChild != null;
-    }
-
-    private int getDepth() {
-        if (this.isLeaf()) {
-            return 0;
-        }
-        int leftDepth = getLeftChild().map(AVLTree::getDepth).orElse(0);
-        int rightDepth = getLeftChild().map(AVLTree::getDepth).orElse(0);
-
-        return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
-    }
-
     public void setData(S data) {
         this.data = data;
     }
 
+    /**
+     * Copies the data, height and children of the provided node into this one
+     * It doesn't update the parent
+     * @param node Node to copy
+     */
     protected void become(AVLTree<S> node) {
         this.data = node.getData();
         this.height = node.getHeight();
         this.setLeftChild(node.getLeftChild().orElse(null));
         this.setRightChild(node.getRightChild().orElse(null));
     }
+
+    /**
+     * Implements the algorithm seen in class
+     */
     private void doLeftRotation() {
         AVLTree<S> rootCopy = new AVLTree<>(this);
         this.become(getRightChild().orElseThrow());
@@ -129,6 +142,9 @@ public class AVLTree<S> {
         this.updateHeight();
     }
 
+    /**
+     * Implements the algorithm seen in class
+     */
     private void doRightRotation() {
         AVLTree<S> rootCopy = new AVLTree<>(this);
         this.become(getLeftChild().orElseThrow());
@@ -151,6 +167,9 @@ public class AVLTree<S> {
         this.doRightRotation();
     }
 
+    /**
+     * Implements the algorithm seen in class
+     */
     protected void doEquilibrate() {
         if (this.getBalance() == 2) {
             if(this.rightChild.getBalance() >= 0) {

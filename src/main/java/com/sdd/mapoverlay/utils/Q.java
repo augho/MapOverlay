@@ -2,12 +2,19 @@ package com.sdd.mapoverlay.utils;
 
 import java.util.ArrayList;
 
+/**
+ * AVL storing the event points to be treated by the sweep line algorithm
+ * It doesn't allow duplicate event points
+ */
 public class Q extends AVLTree<EventPoint> {
 
     private Q(EventPoint eventPoint, Q parent) {
         super(eventPoint, parent);
     }
 
+    /**
+     * @return The next event point to be treated meaning the highest one below the sweep line
+     */
     public EventPoint popNextEvent() {
         // Leaf node we return this node's event
         if (this.getLeftChild().isEmpty()) {
@@ -28,6 +35,11 @@ public class Q extends AVLTree<EventPoint> {
         return ((Q) getLeftChild().orElseThrow()).popNextEvent();
     }
 
+    /**
+     * If the event point already exists, copies its data (segments) into the existing one
+     * but doesn't create a new node
+     * @param newEventPoint Event point to be inserted
+     */
     public void insert(EventPoint newEventPoint) {
         assert newEventPoint.getSegments().size() == 1;
         // Structure is empty we insert the event on the root node
