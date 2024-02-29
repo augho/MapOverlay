@@ -9,7 +9,6 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.sdd.mapoverlay.EditPanelController"
-      stylesheets="/styles/styles.css"
       spacing="150">
     <HBox spacing="5">
         <Button text="Load" styleClass="big-btn" onAction="#onLoadButtonClick" />

@@ -11,7 +11,7 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.sdd.mapoverlay.RootController"
-      stylesheets="/styles/styles.css" styleClass="root"
+      stylesheets="@styles.css" styleClass="root"
       >
 
     <LineChart fx:id="lineChart" styleClass="fill-width">
