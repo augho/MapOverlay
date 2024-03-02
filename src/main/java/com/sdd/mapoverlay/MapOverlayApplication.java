@@ -4,6 +4,7 @@ import com.sdd.mapoverlay.utils.Store;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +16,8 @@ public class MapOverlayApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MapOverlayApplication.class.getResource("root.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         Store.setRootController(fxmlLoader);
+        Image icon = new Image(getClass().getResourceAsStream("radar.png"));
+        stage.getIcons().add(icon);
         stage.setTitle("Map Overlay");
         stage.setScene(scene);
         stage.show();
