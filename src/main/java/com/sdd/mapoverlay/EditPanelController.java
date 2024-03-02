@@ -108,16 +108,15 @@ public class EditPanelController {
     @FXML
     private void onSaveButtonClick() {
         FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(null);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        File file = fileChooser.showSaveDialog(null);
         if (file == null) {
             displaySaveFileError("You need to select a file");
             return;
         }
-        try (FileWriter writer = new FileWriter(file)) {
-            StringBuilder builder = new StringBuilder();
+        try (PrintWriter writer = new PrintWriter(file)) {
             Store.getRootController().getChartContent()
-                            .forEach(segment -> builder.append(segment.toString()).append("\n"));
-            writer.write(builder.toString());
+                    .forEach(segment -> writer.println(segment.toString()));
         } catch (IOException e) {
             displaySaveFileError(e.getMessage());
         }
