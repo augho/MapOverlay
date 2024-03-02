@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.sdd.mapoverlay.EditPanelController"
-      spacing="150">
+<VBox spacing="150" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.EditPanelController">
     <HBox spacing="5">
-        <Button text="Load" styleClass="big-btn" onAction="#onLoadButtonClick" />
+        <Button onAction="#onLoadButtonClick" styleClass="big-btn" text="Load" />
         <Label fx:id="loadFileError" styleClass="error-label" visible="false" />
     </HBox>
 
     <VBox spacing="10" styleClass="add-segment-block">
-        <Label text="Add segment:" styleClass="label-text" />
+        <Label styleClass="label-text" text="Add segment:" />
         <HBox spacing="3">
-            <TextField fx:id="x1Field" promptText="Point A x-value" />
+            <TextField promptText="Point A x-value" fx:id="x1Field" />
             <TextField fx:id="y1Field" promptText="Point A y-value" />
         </HBox>
         <HBox spacing="3">
-            <TextField fx:id="x2Field" promptText="Point B x-value" />
+            <TextField promptText="Point B x-value" fx:id="x2Field" />
             <TextField fx:id="y2Field" promptText="Point B y-value" />
         </HBox>
-        <Label fx:id="segmentError" visible="false" styleClass="error-label" />
-
-        <Button
-                fx:id="addSegmentButton"
-                text="Add"
-                styleClass="btn"
-                onAction="#onAddSegmentButtonClick"
-        />
+        <Label fx:id="segmentError" styleClass="error-label" visible="false" />
+      <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="301.0" spacing="32.0">
+         <children>
+      
+              <Button fx:id="addSegmentButton" onAction="#onAddSegmentButtonClick" styleClass="btn" text="Add" />
+            <Button fx:id="addPointButton" onAction="#onAddButtonClick" styleClass="btn" text="Add Point" />
+         </children>
+      </HBox>
     </VBox>
     <HBox spacing="5">
-        <Button text="Save" styleClass="big-btn" onAction="#onSaveButtonClick" />
+        <Button onAction="#onSaveButtonClick" styleClass="big-btn" text="Save" />
         <Label fx:id="saveFileError" styleClass="error-label" visible="false" />
     </HBox>
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
 
 </VBox>

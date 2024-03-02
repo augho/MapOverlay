@@ -29,6 +29,12 @@ public class RootController {
                 segment.getUpperEndpoint().getY());
     }
 
+    protected void addPoint(Double x, Double y) {
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<>(x, y));
+        lineChart.getData().add(series);
+    }
+
     private void clearLineChart() {
         this.lineChart.getData().clear();
     }

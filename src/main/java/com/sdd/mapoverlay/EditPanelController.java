@@ -55,6 +55,26 @@ public class EditPanelController {
         segmentError.setVisible(false);
     }
 
+    @FXML
+    protected void onAddButtonClick(){
+        String x1Value = this.x1Field.getText();
+        String y1Value = this.y1Field.getText();
+
+        x1Field.setText("");
+        y1Field.setText("");
+
+        double x1, y1;
+        try {
+            x1 = Double.parseDouble(x1Value);
+            y1 = Double.parseDouble(y1Value);
+        } catch (NumberFormatException e) {
+            displayAddSegmentError(e.getMessage());
+            return;
+        }
+        Store.getRootController().addPoint(x1, y1);
+        segmentError.setVisible(false);
+    }
+
     private void displayAddSegmentError(String msg) {
         segmentError.setText(msg);
         segmentError.setVisible(true);
