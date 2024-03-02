@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="150" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.EditPanelController">
+<VBox spacing="150" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.EditPanelController">
     <HBox spacing="5">
         <Button onAction="#onLoadButtonClick" styleClass="big-btn" text="Load" />
         <Label fx:id="loadFileError" styleClass="error-label" visible="false" />

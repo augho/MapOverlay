@@ -1,6 +1,8 @@
 package com.sdd.mapoverlay;
 
 import com.sdd.mapoverlay.utils.Segment;
+
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
@@ -20,6 +22,17 @@ public class RootController {
         series.getData().add(new XYChart.Data<>(x1, y1));
         series.getData().add(new XYChart.Data<>(x2, y2));
         lineChart.getData().add(series);
+
+        // Change the color of the 2 points and segment added to black
+        for (XYChart.Data<Number, Number> data : series.getData()) {
+            Node point = data.getNode();
+            point.setStyle("-fx-background-color: #0077B6;");
+            point.setScaleX(0.75);
+            point.setScaleY(0.75);
+        }
+        Node line = series.getNode().lookup(".chart-series-line");
+        line.setStyle("-fx-stroke-width: 2px;");
+        line.setStyle("-fx-stroke: #90E0EF;");
     }
     public void addSegment(Segment segment) {
         this.addSegment(
