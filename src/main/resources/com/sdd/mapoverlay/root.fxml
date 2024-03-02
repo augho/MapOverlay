@@ -16,10 +16,10 @@
 
     <LineChart fx:id="lineChart" styleClass="fill-width" legendVisible="false">
         <xAxis>
-            <NumberAxis label="X-Axis"/>
+            <NumberAxis fx:id="xAxis" label="X-Axis"/>
         </xAxis>
         <yAxis>
-            <NumberAxis label="Y-Axis"/>
+            <NumberAxis fx:id="yAxis" label="Y-Axis"/>
         </yAxis>
     </LineChart>
     <fx:include source="sidepanel.fxml" />

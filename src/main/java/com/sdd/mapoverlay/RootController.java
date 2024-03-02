@@ -2,16 +2,34 @@ package com.sdd.mapoverlay;
 
 import com.sdd.mapoverlay.utils.Segment;
 
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class RootController {
+public class RootController implements Initializable{
+
+    @FXML
     public LineChart<Number, Number> lineChart;
+
+    @FXML
+    private NumberAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
+
+    private double lastX;
+    private double lastY;
 
     public void addSegment(Double x1, Double y1, Double x2, Double y2) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -62,5 +80,55 @@ public class RootController {
                 .stream()
                 .map(Segment::fromSeries)
                 .toList();
+    }
+
+    private void handleScrollEvent(ScrollEvent event) {
+        double zoomFactor = event.getDeltaY() > 0 ? 0.9 : 1.1;
+        
+        // Get the mouse cursor's position relative to the LineChart
+        double mouseX = event.getX();
+        double mouseY = event.getY();
+
+        // Zoom in or out
+        xAxis.setAutoRanging(false);
+        yAxis.setAutoRanging(false);
+        double xCenter = xAxis.getValueForDisplay(mouseX).doubleValue();
+        double yCenter = yAxis.getValueForDisplay(mouseY).doubleValue();
+        double newLowerX = xCenter - (xCenter - xAxis.getLowerBound()) * zoomFactor;
+        double newUpperX = xCenter + (xAxis.getUpperBound() - xCenter) * zoomFactor;
+        double newLowerY = yCenter - (yCenter - yAxis.getLowerBound()) * zoomFactor;
+        double newUpperY = yCenter + (yAxis.getUpperBound() - yCenter) * zoomFactor;
+
+        xAxis.setLowerBound(newLowerX);
+        xAxis.setUpperBound(newUpperX);
+        yAxis.setLowerBound(newLowerY);
+        yAxis.setUpperBound(newUpperY);
+    }
+
+    private void handleMousePressed(MouseEvent event) {
+        lastX = event.getX();
+        lastY = event.getY();
+    }
+
+    private void handleMouseDragged(MouseEvent event) {
+        double deltaX = (lastX - event.getX()) * 0.6 ;
+        double deltaY = (lastY - event.getY()) * 0.6 ;
+
+        xAxis.setAutoRanging(false);
+        yAxis.setAutoRanging(false);
+        xAxis.setLowerBound(xAxis.getLowerBound() + deltaX);
+        xAxis.setUpperBound(xAxis.getUpperBound() + deltaX);
+        yAxis.setLowerBound(yAxis.getLowerBound() - deltaY);
+        yAxis.setUpperBound(yAxis.getUpperBound() - deltaY);
+
+        lastX = event.getX();
+        lastY = event.getY();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        lineChart.setOnScroll(this::handleScrollEvent);
+        lineChart.setOnMousePressed(this::handleMousePressed);
+        lineChart.setOnMouseDragged(this::handleMouseDragged);
     }
 }
