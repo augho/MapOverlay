@@ -83,7 +83,7 @@ public class RootController implements Initializable{
     }
 
     private void handleScrollEvent(ScrollEvent event) {
-        double zoomFactor = event.getDeltaY() > 0 ? 0.9 : 1.1;
+        double zoomFactor = event.getDeltaY() > 0 ? 0.75 : 1.25;
         
         // Get the mouse cursor's position relative to the LineChart
         double mouseX = event.getX();
@@ -111,8 +111,11 @@ public class RootController implements Initializable{
     }
 
     private void handleMouseDragged(MouseEvent event) {
-        double deltaX = (lastX - event.getX()) * 0.6 ;
-        double deltaY = (lastY - event.getY()) * 0.6 ;
+        double xAxisVisibleRange = xAxis.getUpperBound() - xAxis.getLowerBound();
+        double yAxisVisibleRange = yAxis.getUpperBound() - yAxis.getLowerBound();
+
+        double deltaX = (lastX - event.getX()) * (xAxisVisibleRange / lineChart.getWidth());
+        double deltaY = (lastY - event.getY()) * (yAxisVisibleRange / lineChart.getHeight());
 
         xAxis.setAutoRanging(false);
         yAxis.setAutoRanging(false);
