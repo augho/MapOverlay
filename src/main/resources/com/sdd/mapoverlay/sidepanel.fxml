@@ -16,6 +16,7 @@
     <HBox alignment="CENTER">
         <Button fx:id="playButton" text="Play Menu" styleClass="btn" onAction="#onPlayButtonCLick" />
         <Button fx:id="editButton" text="Edit Menu" styleClass="btn" disable="true" onAction="#onEditButtonCLick" />
+        <Button fx:id="segmentsListButton" text="Segments" styleClass="btn" disable="false" onAction="#onSegmentsListButtonCLick" />
     </HBox>
     <VBox fx:id="swapContainer">
         <fx:include source="edit-panel.fxml" />
