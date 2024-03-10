@@ -14,7 +14,7 @@
       stylesheets="@styles.css" styleClass="root"
       >
 
-    <LineChart fx:id="lineChart" styleClass="fill-width" legendVisible="false">
+    <LineChart fx:id="lineChart" animated="false" legendVisible="false" styleClass="fill-width">
         <xAxis>
             <NumberAxis fx:id="xAxis" label="X-Axis"/>
         </xAxis>

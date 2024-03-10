@@ -34,8 +34,9 @@ public class SegmentsListController implements Initializable{
         Segment segment = segmentsListView.getSelectionModel().getSelectedItem();
         if (segment != null) {
             segmentsListView.getItems().remove(segment);
-            //Store.getRootController().removeSegment(segment);
+            Store.getRootController().removeSegment(segment);
         }
+        System.out.println("Deleting segment: " + segment.toString());
     }
 
     @Override
@@ -45,8 +46,12 @@ public class SegmentsListController implements Initializable{
 
         segmentsListView.getItems().addAll(segments);
 
+        /* System.out.println("Segments: " + segments); */
+
         
         segmentsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            /* if (newValue != null)
+                System.out.println("Selected segment: " + newValue.toString()); */
             deleteButton.setDisable(newValue == null);
         });
         
