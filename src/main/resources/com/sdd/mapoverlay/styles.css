@@ -4,7 +4,6 @@
 .fill-width {
     -fx-fill-width: true;
     -fx-fill-height: true;
-    -fx-pref-width: 10000px;
 }
 
 .side-panel {
