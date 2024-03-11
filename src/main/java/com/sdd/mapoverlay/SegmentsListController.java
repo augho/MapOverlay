@@ -50,6 +50,8 @@ public class SegmentsListController implements Initializable{
 
         
         segmentsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Change the strike color of the newValue (Segment) in the chart to orange
+            Store.getRootController().highlightSegment(newValue);
             /* if (newValue != null)
                 System.out.println("Selected segment: " + newValue.toString()); */
             deleteButton.setDisable(newValue == null);
