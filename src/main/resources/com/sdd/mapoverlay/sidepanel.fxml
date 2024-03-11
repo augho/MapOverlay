@@ -7,9 +7,9 @@
 <VBox minHeight="650.0" minWidth="270.0" prefHeight="673.0" prefWidth="293.0" spacing="40" styleClass="side-panel" stylesheets="@styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.SidePanelController">
 
     <HBox prefHeight="32.0" prefWidth="278.0">
-        <Button fx:id="playButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPlayButtonCLick" prefHeight="32.0" prefWidth="90.0" styleClass="btn" stylesheets="@styles.css" text="Play Menu" wrapText="true" />
-        <Button fx:id="editButton" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#onEditButtonCLick" prefHeight="32.0" prefWidth="90.0" styleClass="btn" stylesheets="@styles.css" text="Edit Menu" wrapText="true" />
-        <Button fx:id="segmentsListButton" disable="false" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSegmentsListButtonCLick" prefHeight="32.0" prefWidth="90.0" styleClass="btn" stylesheets="@styles.css" text="Segments List" wrapText="true" />
+        <Button fx:id="playButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPlayButtonCLick" prefHeight="32.0" prefWidth="90.0" styleClass="btn" stylesheets="@styles.css" text="Play Menu" />
+        <Button fx:id="editButton" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#onEditButtonCLick" prefHeight="32.0" prefWidth="90.0" styleClass="btn" stylesheets="@styles.css" text="Edit Menu" />
+        <Button fx:id="segmentsListButton" disable="false" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSegmentsListButtonCLick" prefHeight="32.0" prefWidth="90.0" styleClass="btn" stylesheets="@styles.css" text="Segments List" />
     </HBox>
     <VBox fx:id="swapContainer" prefHeight="580.0" prefWidth="272.0">
         <fx:include source="edit-panel.fxml" />

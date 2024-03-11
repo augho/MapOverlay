@@ -82,9 +82,18 @@ public class EditPanelController {
 
     @FXML
     protected void onLoadButtonClick() {
-        String defaultDirectory = System.getProperty("user.home") + File.separator + "Downloads";
+        String defaultDirectory = System.getProperty("user.home");
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(defaultDirectory));
+    	
+        //Check if defaultDirectory+File.Separator+"Downloads" exists, if not, same for "Téléchargements", if not just open the defaultDirectory
+        if (new File(defaultDirectory + File.separator + "Downloads").exists()) {
+            fileChooser.setInitialDirectory(new File(defaultDirectory + File.separator + "Downloads"));
+        } else if (new File(defaultDirectory + File.separator + "Téléchargements").exists()) {
+            fileChooser.setInitialDirectory(new File(defaultDirectory + File.separator + "Téléchargements"));
+        } else {
+            fileChooser.setInitialDirectory(new File(defaultDirectory));
+        }
+
         File file = fileChooser.showOpenDialog(null);
         if (file == null) {
             displayLoadFileError("You need to select a file");
