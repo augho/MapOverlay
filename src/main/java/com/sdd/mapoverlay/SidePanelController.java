@@ -1,6 +1,9 @@
 package com.sdd.mapoverlay;
 
 import java.io.IOException;
+import java.util.Stack;
+
+import com.sdd.mapoverlay.utils.Logs;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +15,7 @@ public class SidePanelController {
     public Button playButton;
     public Button editButton;
     public Button segmentsListButton;
+    static Stack<Logs> logsHistory = new Stack<Logs>();
 
     @FXML
     protected void onPlayButtonCLick() {
