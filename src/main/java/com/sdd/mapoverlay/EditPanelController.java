@@ -1,5 +1,6 @@
 package com.sdd.mapoverlay;
 
+import com.sdd.mapoverlay.utils.Logs;
 import com.sdd.mapoverlay.utils.Segment;
 import com.sdd.mapoverlay.utils.Store;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 public class EditPanelController {
     public Button addSegmentButton;
@@ -22,6 +24,7 @@ public class EditPanelController {
     public Label segmentError;
     public Label loadFileError;
     public Label saveFileError;
+    public static Stack<Logs> logsHistory = SegmentsListController.logsHistory;
 
     @FXML
     protected void onAddSegmentButtonClick() {
@@ -52,6 +55,13 @@ public class EditPanelController {
             return;
         }
         Store.getRootController().addSegment(x1, y1, x2, y2);
+        logsHistory.push(new Logs(new Segment(x1, y1, x2, y2), "ADD"));
+        
+        System.out.println("Showing logs");
+        for (Logs log : logsHistory) {
+            System.out.println(log.toString());
+        }
+
         segmentError.setVisible(false);
     }
 
@@ -82,9 +92,18 @@ public class EditPanelController {
 
     @FXML
     protected void onLoadButtonClick() {
-        String defaultDirectory = System.getProperty("user.home") + File.separator + "Downloads";
+        String defaultDirectory = System.getProperty("user.home");
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(defaultDirectory));
+    	
+        //Check if defaultDirectory+File.Separator+"Downloads" exists, if not, same for "Téléchargements", if not just open the defaultDirectory
+        if (new File(defaultDirectory + File.separator + "Downloads").exists()) {
+            fileChooser.setInitialDirectory(new File(defaultDirectory + File.separator + "Downloads"));
+        } else if (new File(defaultDirectory + File.separator + "Téléchargements").exists()) {
+            fileChooser.setInitialDirectory(new File(defaultDirectory + File.separator + "Téléchargements"));
+        } else {
+            fileChooser.setInitialDirectory(new File(defaultDirectory));
+        }
+
         File file = fileChooser.showOpenDialog(null);
         if (file == null) {
             displayLoadFileError("You need to select a file");

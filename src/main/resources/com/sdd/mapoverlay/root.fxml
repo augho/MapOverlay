@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<HBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.sdd.mapoverlay.RootController"
-      stylesheets="@styles.css" styleClass="root"
-      >
+<?import javafx.scene.layout.HBox?>
 
-    <LineChart fx:id="lineChart" styleClass="fill-width" legendVisible="false">
+<HBox styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.RootController">
+
+    <LineChart fx:id="lineChart" animated="false" legendVisible="false" styleClass="fill-width" HBox.hgrow="ALWAYS" >
         <xAxis>
-            <NumberAxis fx:id="xAxis" label="X-Axis"/>
+            <NumberAxis label="X-Axis" fx:id="xAxis" />
         </xAxis>
         <yAxis>
-            <NumberAxis fx:id="yAxis" label="Y-Axis"/>
+            <NumberAxis fx:id="yAxis" label="Y-Axis" />
         </yAxis>
     </LineChart>
-    <fx:include source="sidepanel.fxml" />
+    <fx:include source="sidepanel.fxml" HBox.hgrow="NEVER" />
 
 </HBox>

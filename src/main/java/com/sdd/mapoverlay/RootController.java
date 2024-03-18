@@ -64,10 +64,64 @@ public class RootController implements Initializable{
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>(x, y));
         lineChart.getData().add(series);
+        for (XYChart.Data<Number, Number> data : series.getData()) {
+            System.out.println("Test");
+            Node point = data.getNode();
+            point.setStyle("-fx-background-color: #0077B6;");
+            point.setScaleX(0.75);
+            point.setScaleY(0.75);
+            System.out.println(point);
+        }
+    }
+
+    public void removeSegment(Segment segment) {
+        List<XYChart.Series<Number, Number>> toRemove = new ArrayList<>();
+        for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            if (series.getData().size() == 2) {
+                if (series.getData().get(0).getXValue().equals(segment.getLowerEndpoint().getX()) &&
+                        series.getData().get(0).getYValue().equals(segment.getLowerEndpoint().getY()) &&
+                        series.getData().get(1).getXValue().equals(segment.getUpperEndpoint().getX()) &&
+                        series.getData().get(1).getYValue().equals(segment.getUpperEndpoint().getY())) {
+                    toRemove.add(series);
+                }
+            }
+        }
+        lineChart.getData().removeAll(toRemove);
     }
 
     private void clearLineChart() {
         this.lineChart.getData().clear();
+    }
+
+    public void highlightSegment(Segment segment) {
+        for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            if (series.getData().get(0).getXValue().equals(segment.getLowerEndpoint().getX()) &&
+                    series.getData().get(0).getYValue().equals(segment.getLowerEndpoint().getY()) &&
+                    series.getData().get(1).getXValue().equals(segment.getUpperEndpoint().getX()) &&
+                    series.getData().get(1).getYValue().equals(segment.getUpperEndpoint().getY())) {
+                Node line = series.getNode().lookup(".chart-series-line");
+                line.setStyle("-fx-stroke-width: 2px;");
+                line.setStyle("-fx-stroke: #FFA500;");
+                line.toFront();
+                for (XYChart.Data<Number, Number> data : series.getData()) {
+                    Node point = data.getNode();
+                    point.setStyle("-fx-background-color: #FFA500;");
+                    point.setScaleX(0.75);
+                    point.setScaleY(0.75);
+                    point.toFront();
+                }
+            } else {
+                for (XYChart.Data<Number, Number> data : series.getData()) {
+                    Node point = data.getNode();
+                    point.setStyle("-fx-background-color: #0077B6;");
+                    point.setScaleX(0.75);
+                    point.setScaleY(0.75);
+                }
+                Node line = series.getNode().lookup(".chart-series-line");
+                line.setStyle("-fx-stroke-width: 2px;");
+                line.setStyle("-fx-stroke: #90E0EF;");
+            }
+        }
     }
 
     public void displayFileContent(List<Segment> fileContent) {
