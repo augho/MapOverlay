@@ -59,7 +59,12 @@ public class AVLTree<S> {
 
     public Optional<AVLTree<S>> getLeftChild() { return Optional.ofNullable(leftChild); }
 
+    public AVLTree<S> getLeftChildUnsafe() { return leftChild; }
+
     public Optional<AVLTree<S>> getRightChild() { return Optional.ofNullable(rightChild); }
+
+    public AVLTree<S> getRightChildUnsafe() { return rightChild; }
+
 
     public void setLeftChild(AVLTree<S> leftChild) {
         this.leftChild = leftChild;

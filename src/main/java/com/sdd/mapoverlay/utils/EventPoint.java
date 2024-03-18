@@ -10,6 +10,11 @@ public class EventPoint extends Point {
         this.segments.add(segment);
     }
 
+    public EventPoint(ArrayList<Segment> segments, Point point) {
+        super(point.getX(), point.getY());
+        this.segments.addAll(segments);
+    }
+
     public ArrayList<Segment> getSegments() {
         return segments;
     }

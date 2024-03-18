@@ -8,6 +8,8 @@ import java.util.ArrayList;
  */
 public class Q extends AVLTree<EventPoint> {
 
+    public static Q getEmptyQueue() { return new Q(null, null); }
+
     private Q(EventPoint eventPoint, Q parent) {
         super(eventPoint, parent);
     }
