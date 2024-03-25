@@ -1,7 +1,11 @@
 package com.sdd.mapoverlay.utils;
 
+import com.sdd.mapoverlay.utils.Records.DeleteResult;
+import com.sdd.mapoverlay.utils.Records.SegmentPair;
+import com.sdd.mapoverlay.utils.Records.ULCSets;
+
 import java.util.ArrayList;
-import java.util.Optional;
+
 // TODO Edge case when segment intersect on the lower endpoint of one what happens
 // TODO doEquilibrate may break recursion it would be a pain (update should be ok but t keep in mind if weird stuff happens)
 public class T extends AVLTree<Segment> {
@@ -17,6 +21,16 @@ public class T extends AVLTree<Segment> {
     private T(Segment data, T parent) {
         super(data, parent);
         this.intersectionCollection = parent.getIntersectionCollection();
+    }
+
+    @Override
+    public T getLeftChildUnsafe() {
+        return ((T) super.getLeftChildUnsafe());
+    }
+
+    @Override
+    public T getRightChildUnsafe() {
+        return ((T) super.getRightChildUnsafe());
     }
 
     public ArrayList<Point> getIntersectionCollection() {
@@ -94,7 +108,7 @@ public class T extends AVLTree<Segment> {
         }
         // inside node to be deleted
         if (getData().sameAs(data)) {
-            DeleteResult result = ((T) getLeftChildUnsafe()).delete(data);
+            DeleteResult result = getLeftChildUnsafe().delete(data);
             setData(result.newData());
             this.doEquilibrate();
             return new DeleteResult(result.newData(), this);
@@ -102,12 +116,12 @@ public class T extends AVLTree<Segment> {
         // For the search we look at the lower endpoint as it's the one on the sweep line
         switch (this.getData().whereIs(data.getLowerEndpoint())) {
             case LEFT -> {
-                DeleteResult result = ((T) getLeftChildUnsafe()).delete(data);
+                DeleteResult result = getLeftChildUnsafe().delete(data);
                 this.doEquilibrate();
                 return result;
             }
             case RIGHT -> {
-                DeleteResult result = ((T) getRightChildUnsafe()).delete(data);
+                DeleteResult result = getRightChildUnsafe().delete(data);
                 this.doEquilibrate();
                 return result;
             }
@@ -117,6 +131,80 @@ public class T extends AVLTree<Segment> {
         throw new RuntimeException("Shouldn't be here");
     }
 
+    public ULCSets findAllContaining(Point point) {
+        ULCSets ulcSets = ULCSets.getEmpty();
+        addAllContaining(point, ulcSets);
+        return ulcSets;
+    }
+
+    private void addAllContaining(Point point, ULCSets sets) {
+        switch (getData().whereIs(point)) {
+            case LEFT -> {
+                if (!isLeaf()) {
+                    this.getLeftChildUnsafe().addAllContaining(point, sets);
+                }
+            }
+            case RIGHT -> {
+                if (!isLeaf()) {
+                    this.getRightChildUnsafe().addAllContaining(point, sets);
+                }
+            }
+            case INTERSECT -> {
+                if (isLeaf()) {
+                    this.getLeftChildUnsafe().addAllContaining(point, sets);
+                    this.getRightChildUnsafe().addAllContaining(point, sets);
+                } else {
+                    Segment data = getData();
+                    if (data.getLowerEndpoint().sameAs(point)) {
+                        sets.L().add(data);
+                    } else {
+                        sets.C().add(data);
+                    }
+                }
+            }
+        }
+    }
+    public SegmentPair findLeftAndRightNeighbour(Point p) {
+        // Tree with 1 node or empty
+        if (isRoot() && isLeaf()) {
+            switch (getData().whereIs(p)) {
+                case LEFT -> {
+                    return new SegmentPair(null, getData());
+                }
+                case RIGHT -> {
+                    return new SegmentPair(getData(), null);
+                }
+                case INTERSECT -> throw new RuntimeException("Idk what should happen");
+            }
+        }
+
+        switch (getData().whereIs(p)) {
+            case LEFT -> {
+                // Need a parent to sandwich the event point
+                if (isRoot()) { return getLeftChildUnsafe().findLeftAndRightNeighbour(p); }
+
+                if (isLeaf()) {
+                    return getParent().getData().whereIs(p) == Position.RIGHT ?
+                            new SegmentPair(getParent().getData(), getData())
+                            : new SegmentPair(null, getData());
+                }
+            }
+            case RIGHT -> {
+                // Need a parent to sandwich the event point
+                if (isRoot()) { return getRightChildUnsafe().findLeftAndRightNeighbour(p); }
+
+                if (isLeaf()) {
+                    // Parent is either segment to the right or itself
+                    return getParent().getData().whereIs(p) == Position.LEFT ?
+                            new SegmentPair(getData(), getParent().getData())
+                            : new SegmentPair(getData(), null);
+                }
+
+            }
+        }
+    }
+
+    // TODO intersection reporting should be out of this class I think
     private void addIntersectionPoint(Point point) {
         intersectionCollection.add(point);
     }

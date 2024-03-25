@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="javadoc is joy">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/DeleteResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="T.delete, edge cases, findIntersection and findNewEvent">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/SegmentPair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/AVLTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/AVLTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/DeleteResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/DeleteResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,9 +60,9 @@
       <list>
         <option value="FxmlFile" />
         <option value="CSS File" />
-        <option value="Record" />
         <option value="Class" />
         <option value="Enum" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -109,7 +109,7 @@
       <module name="MapOverlay.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.sdd.mapoverlay.utils.*" />
+          <option name="PATTERN" value="com.sdd.mapoverlay.utils.Records.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -175,7 +175,9 @@
       <workItem from="1708440874460" duration="3192000" />
       <workItem from="1709208222780" duration="65000" />
       <workItem from="1710751906107" duration="4436000" />
-      <workItem from="1710756364145" duration="2660000" />
+      <workItem from="1710756364145" duration="2927000" />
+      <workItem from="1711111206881" duration="1541000" />
+      <workItem from="1711391712148" duration="7521000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -257,7 +259,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708444030003</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="T.delete, edge cases, findIntersection and findNewEvent">
+      <option name="closed" value="true" />
+      <created>1710759120358</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1710759120358</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,6 +295,7 @@
     <MESSAGE value="Q insert refactor" />
     <MESSAGE value="Q insert fix (included balancing)" />
     <MESSAGE value="T insertion beginning" />
-    <option name="LAST_COMMIT_MESSAGE" value="T insertion beginning" />
+    <MESSAGE value="T.delete, edge cases, findIntersection and findNewEvent" />
+    <option name="LAST_COMMIT_MESSAGE" value="T.delete, edge cases, findIntersection and findNewEvent" />
   </component>
 </project>

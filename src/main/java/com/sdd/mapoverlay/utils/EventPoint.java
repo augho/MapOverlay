@@ -2,6 +2,10 @@ package com.sdd.mapoverlay.utils;
 
 import java.util.ArrayList;
 
+/**
+ * If there is more than one segment, all segments contained within this event point intersect on this point,
+ * some may have their endpoint on it too and should be treated accordingly
+ */
 public class EventPoint extends Point {
     private ArrayList<Segment> segments = new ArrayList<>();
 
