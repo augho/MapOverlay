@@ -1,5 +1,6 @@
 package com.sdd.mapoverlay.utils;
 
+import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
 import java.util.ArrayList;
@@ -31,12 +32,12 @@ public class SegmentCollection {
         });
         T statusStructure = T.getEmpty(overlay);
         while (!eventQueue.isEmpty()) {
-            handleEventPoint(eventQueue.popNextEvent(), statusStructure);
+            handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue);
         }
         return overlay;
     }
 
-    private void handleEventPoint(EventPoint p, T statusStructure) {
+    private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue) {
         ULCSets ulcSets;
         // Line 2 in algo
         if(p.getSegments().size() > 1) {
@@ -61,7 +62,11 @@ public class SegmentCollection {
         ulcSets.U().forEach(statusStructure::insert);
         ulcSets.C().forEach(statusStructure::insert);
         if (ulcSets.U().isEmpty() && ulcSets.C().isEmpty()) {
-
+            SegmentPair neighbours = statusStructure.findLeftAndRightNeighbour(p);
+            if (neighbours.bothPresent()) {
+                // TODO provide correct arguments
+                findNewEvent(neighbours.left(), neighbours.right(), p, 0.0, eventQueue);
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 // TODO Edge case when segment intersect on the lower endpoint of one what happens
 // TODO doEquilibrate may break recursion it would be a pain (update should be ok but t keep in mind if weird stuff happens)
@@ -164,45 +165,31 @@ public class T extends AVLTree<Segment> {
             }
         }
     }
-    public SegmentPair findLeftAndRightNeighbour(Point p) {
-        // Tree with 1 node or empty
-        if (isRoot() && isLeaf()) {
-            switch (getData().whereIs(p)) {
-                case LEFT -> {
-                    return new SegmentPair(null, getData());
-                }
-                case RIGHT -> {
-                    return new SegmentPair(getData(), null);
-                }
-                case INTERSECT -> throw new RuntimeException("Idk what should happen");
-            }
-        }
 
+    public SegmentPair findLeftAndRightNeighbour(Point p) {
+        return findLeftAndRightNeighbour(p, null, null);
+    }
+    private SegmentPair findLeftAndRightNeighbour(Point p, Segment left, Segment right) {
         switch (getData().whereIs(p)) {
             case LEFT -> {
-                // Need a parent to sandwich the event point
-                if (isRoot()) { return getLeftChildUnsafe().findLeftAndRightNeighbour(p); }
-
                 if (isLeaf()) {
-                    return getParent().getData().whereIs(p) == Position.RIGHT ?
-                            new SegmentPair(getParent().getData(), getData())
-                            : new SegmentPair(null, getData());
+                    return new SegmentPair(left, getData());
                 }
+                return getLeftChildUnsafe().findLeftAndRightNeighbour(p, left, getData());
+
             }
             case RIGHT -> {
-                // Need a parent to sandwich the event point
-                if (isRoot()) { return getRightChildUnsafe().findLeftAndRightNeighbour(p); }
-
                 if (isLeaf()) {
-                    // Parent is either segment to the right or itself
-                    return getParent().getData().whereIs(p) == Position.LEFT ?
-                            new SegmentPair(getData(), getParent().getData())
-                            : new SegmentPair(getData(), null);
+                    return new SegmentPair(getData(), right);
                 }
-
+                return getRightChildUnsafe().findLeftAndRightNeighbour(p, getData(), right);
             }
+            case INTERSECT -> throw new RuntimeException("Why here ?");
         }
+
+        return new SegmentPair(left, right);
     }
+
 
     // TODO intersection reporting should be out of this class I think
     private void addIntersectionPoint(Point point) {

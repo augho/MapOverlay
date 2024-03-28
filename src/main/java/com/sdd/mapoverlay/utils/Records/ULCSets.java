@@ -12,4 +12,8 @@ public record ULCSets(ArrayList<Segment> U, ArrayList<Segment> L, ArrayList<Segm
     public int getULCSize() {
         return U.size() + L.size() + C.size();
     }
+
+    public SegmentPair getEdgeSegmentsOfUC() {
+        return null;
+    }
 }

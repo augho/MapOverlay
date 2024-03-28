@@ -106,6 +106,12 @@ public class Segment {
         return lineOrigin;
     }
 
+    public Double xAt(Double y) {
+        // y = ax + b
+        // x = (y - b) / a
+        return (y - getLineOrigin()) / getLineCoefficient();
+    }
+
     /**
      * Checks the position of a point relative to this segment.
      * @param point Point to be located
