@@ -1,7 +1,7 @@
 package com.sdd.mapoverlay.utils;
 
 public class Point {
-    protected final double x, y;
+    private final double x, y;
 
     public Point(Double x, Double y) {
         this.x = x;

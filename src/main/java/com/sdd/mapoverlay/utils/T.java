@@ -11,17 +11,14 @@ import java.util.Optional;
 // TODO doEquilibrate may break recursion it would be a pain (update should be ok but t keep in mind if weird stuff happens)
 public class T extends AVLTree<Segment> {
 
-    private final ArrayList<Point> intersectionCollection;
 
     public static T getEmpty(ArrayList<Point> intersectionCollection) { return new T(intersectionCollection); }
 
     private T(ArrayList<Point> intersectionCollection) {
         super(null, null);
-        this.intersectionCollection = intersectionCollection;
     }
     private T(Segment data, T parent) {
         super(data, parent);
-        this.intersectionCollection = parent.getIntersectionCollection();
     }
 
     @Override
@@ -34,9 +31,6 @@ public class T extends AVLTree<Segment> {
         return ((T) super.getRightChildUnsafe());
     }
 
-    public ArrayList<Point> getIntersectionCollection() {
-        return intersectionCollection;
-    }
 
     /**
      * @param data Segment to insert to the status
@@ -62,7 +56,7 @@ public class T extends AVLTree<Segment> {
                 }
                 case INTERSECT -> {
                     // The upper endpoint of this segment is an intersection point
-                    this.addIntersectionPoint(data.getUpperEndpoint());
+//                    this.addIntersectionPoint(data.getUpperEndpoint());
                     switch (this.getData().whereIs(data.getLowerEndpoint())) {
                         case LEFT -> {
                             Segment currDataCopy = this.getData();
@@ -188,11 +182,5 @@ public class T extends AVLTree<Segment> {
         }
 
         return new SegmentPair(left, right);
-    }
-
-
-    // TODO intersection reporting should be out of this class I think
-    private void addIntersectionPoint(Point point) {
-        intersectionCollection.add(point);
     }
 }

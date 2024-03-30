@@ -1,43 +1,44 @@
 package com.sdd.mapoverlay.utils;
 
+import com.sdd.mapoverlay.utils.Records.Intersection;
 import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
 import java.util.ArrayList;
 
 public class SegmentCollection {
-    private ArrayList<Point> overlay;
+    private ArrayList<Intersection> overlay;
     private ArrayList<Segment> collection;
 
     public void setCollection(ArrayList<Segment> collection) {
         this.collection = collection;
         this.overlay = null;
     }
-    public ArrayList<Point> getOverlay() {
+    public ArrayList<Intersection> getOverlay() {
         if (overlay == null) {
             overlay = findIntersections();
         }
         return overlay;
     }
 
-    private ArrayList<Point> findIntersections() {
+    private ArrayList<Intersection> findIntersections() {
         if (collection == null) {
             throw new NullPointerException("No collection to run the algorithm on");
         }
-        ArrayList<Point> overlay = new ArrayList<>();
+        ArrayList<Intersection> newOverlay = new ArrayList<>();
         Q eventQueue = Q.getEmptyQueue();
         collection.forEach(s -> {
             eventQueue.insert(new EventPoint(s, s.getUpperEndpoint()));
             eventQueue.insert(new EventPoint(s, s.getLowerEndpoint()));
         });
-        T statusStructure = T.getEmpty(overlay);
+        T statusStructure = T.getEmpty(new ArrayList<>());
         while (!eventQueue.isEmpty()) {
-            handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue);
+            handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue, newOverlay);
         }
         return overlay;
     }
 
-    private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue) {
+    private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue, ArrayList<Intersection> overlay) {
         ULCSets ulcSets;
         // Line 2 in algo
         if(p.getSegments().size() > 1) {
@@ -53,20 +54,22 @@ public class SegmentCollection {
         );
         // Line 3 & 4
         if (ulcSets.getULCSize() > 1) {
-            // TODO report as intersection
+            overlay.add(new Intersection(p, ulcSets.getCombinedSets()));
         }
         // Line 5
         ulcSets.C().forEach(statusStructure::delete);
         ulcSets.L().forEach(statusStructure::delete);
-        // Line 6
+        // Line 6 & 7
         ulcSets.U().forEach(statusStructure::insert);
         ulcSets.C().forEach(statusStructure::insert);
+        // Line 8 to 16
         if (ulcSets.U().isEmpty() && ulcSets.C().isEmpty()) {
             SegmentPair neighbours = statusStructure.findLeftAndRightNeighbour(p);
             if (neighbours.bothPresent()) {
-                // TODO provide correct arguments
-                findNewEvent(neighbours.left(), neighbours.right(), p, 0.0, eventQueue);
+                findNewEvent(neighbours.left(), neighbours.right(), p, p.getY(), eventQueue);
             }
+        } else {
+
         }
     }
 

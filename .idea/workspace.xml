@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="T.delete, edge cases, findIntersection and findNewEvent">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Pseudo code implementation and findLeftAndRight algo">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/Intersection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +176,8 @@
       <workItem from="1710756364145" duration="2927000" />
       <workItem from="1711111206881" duration="1541000" />
       <workItem from="1711391712148" duration="7521000" />
-      <workItem from="1711634202221" duration="654000" />
+      <workItem from="1711634202221" duration="2680000" />
+      <workItem from="1711815600404" duration="3505000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -261,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710759120358</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Pseudo code implementation and findLeftAndRight algo">
+      <option name="closed" value="true" />
+      <created>1711636813276</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1711636813276</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +304,7 @@
     <MESSAGE value="Q insert fix (included balancing)" />
     <MESSAGE value="T insertion beginning" />
     <MESSAGE value="T.delete, edge cases, findIntersection and findNewEvent" />
-    <option name="LAST_COMMIT_MESSAGE" value="T.delete, edge cases, findIntersection and findNewEvent" />
+    <MESSAGE value="Pseudo code implementation and findLeftAndRight algo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pseudo code implementation and findLeftAndRight algo" />
   </component>
 </project>
