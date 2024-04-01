@@ -10,6 +10,10 @@ public class SegmentCollection {
     private ArrayList<Intersection> overlay;
     private ArrayList<Segment> collection;
 
+    public SegmentCollection(ArrayList<Segment> collection) {
+        this.collection = collection;
+    }
+
     public void setCollection(ArrayList<Segment> collection) {
         this.collection = collection;
         this.overlay = null;
@@ -21,7 +25,7 @@ public class SegmentCollection {
         return overlay;
     }
 
-    private ArrayList<Intersection> findIntersections() {
+    public ArrayList<Intersection> findIntersections() {
         if (collection == null) {
             throw new NullPointerException("No collection to run the algorithm on");
         }
