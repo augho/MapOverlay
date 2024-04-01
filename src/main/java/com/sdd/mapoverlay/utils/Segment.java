@@ -61,7 +61,6 @@ public class Segment {
         return upperEndpoint;
     }
 
-    // TODO change to array
     public static Segment fromSeries(XYChart.Series<Number, Number> series) {
         return new Segment(
                 (Double) series.getData().get(0).getXValue(),

@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Pseudo code implementation and findLeftAndRight algo">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/Intersection.java" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="edge segments off UC sets + sanitization of T">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/SegmentPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/SegmentPair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
     </list>
@@ -79,28 +79,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.MapOverlay [:HelloApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MapOverlay [:MapOverlayApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MapOverlay [run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.MapOverlay [:HelloApplication.main()].executor": "Run",
+    "Gradle.MapOverlay [:MapOverlayApplication.main()].executor": "Run",
+    "Gradle.MapOverlay [run].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Gradle.MapOverlay [run]">
     <configuration name="MapOverlayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.sdd.mapoverlay.MapOverlayApplication" />
@@ -177,7 +177,8 @@
       <workItem from="1711111206881" duration="1541000" />
       <workItem from="1711391712148" duration="7521000" />
       <workItem from="1711634202221" duration="2680000" />
-      <workItem from="1711815600404" duration="3505000" />
+      <workItem from="1711815600404" duration="3627000" />
+      <workItem from="1711990402171" duration="4695000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -275,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711636813276</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="edge segments off UC sets + sanitization of T">
+      <option name="closed" value="true" />
+      <created>1711819216082</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1711819216082</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,6 +314,7 @@
     <MESSAGE value="T insertion beginning" />
     <MESSAGE value="T.delete, edge cases, findIntersection and findNewEvent" />
     <MESSAGE value="Pseudo code implementation and findLeftAndRight algo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pseudo code implementation and findLeftAndRight algo" />
+    <MESSAGE value="edge segments off UC sets + sanitization of T" />
+    <option name="LAST_COMMIT_MESSAGE" value="edge segments off UC sets + sanitization of T" />
   </component>
 </project>

@@ -15,7 +15,7 @@ public record ULCSets(ArrayList<Segment> U, ArrayList<Segment> L, ArrayList<Segm
         return U.size() + L.size() + C.size();
     }
 
-    public SegmentPair getEdgeSegmentsOfUC(Double sweepLineY, Point p) {
+    public SegmentPair getEdgeSegmentsOfUC(Double sweepLineY, Point eventPoint) {
         ArrayList<Segment> ucSets = new ArrayList<>(U);
         ucSets.addAll(C);
         Segment leftmost = ucSets.get(0);
@@ -27,10 +27,11 @@ public record ULCSets(ArrayList<Segment> U, ArrayList<Segment> L, ArrayList<Segm
                 rightmost = segment;
             }
         }
-        if (leftmost.whereIs(p) != Position.RIGHT) {
+        // TODO Make sure those conditions are necessary
+        if (leftmost.whereIs(eventPoint) != Position.RIGHT) {
             leftmost = null;
         }
-        if (rightmost.whereIs(p) != Position.LEFT) {
+        if (rightmost.whereIs(eventPoint) != Position.LEFT) {
             rightmost = null;
         }
 

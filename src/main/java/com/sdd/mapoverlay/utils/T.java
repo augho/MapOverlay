@@ -164,6 +164,7 @@ public class T extends AVLTree<Segment> {
         return findLeftAndRightNeighbour(p, null, null);
     }
     private SegmentPair findLeftAndRightNeighbour(Point p, Segment left, Segment right) {
+        // TODO not sure about this method
         switch (getData().whereIs(p)) {
             case LEFT -> {
                 if (isLeaf()) {
@@ -180,7 +181,66 @@ public class T extends AVLTree<Segment> {
             }
             case INTERSECT -> throw new RuntimeException("Why here ?");
         }
+        throw new RuntimeException("Why here ??");
+    }
 
-        return new SegmentPair(left, right);
+    public Optional<Segment> findLeftNeighbour(Segment segment, Double sweepLineY) {
+        return Optional.ofNullable(
+                findLeftNeighbour(new Point(segment.xAt(sweepLineY), sweepLineY), null)
+        );
+    }
+
+    private Segment findLeftNeighbour(Point p, Segment leftNeighbour) {
+        switch (getData().whereIs(p)) {
+            case LEFT -> {
+                if (isLeaf()) {
+                    return leftNeighbour;
+                }
+                return getRightChildUnsafe().findLeftNeighbour(p, leftNeighbour);
+            }
+            case RIGHT -> {
+                if (isLeaf()) {
+                    return getData();
+                }
+                return getRightChildUnsafe().findLeftNeighbour(p, getData());
+            }
+            case INTERSECT -> {
+                if (isLeaf()) {
+                    return leftNeighbour;
+                }
+                return getLeftChildUnsafe().findLeftNeighbour(p, leftNeighbour);
+            }
+        }
+        throw new RuntimeException("Why here ??");
+    }
+
+    public Optional<Segment> findRightNeighbour(Segment segment, Double sweepLineY) {
+        return Optional.ofNullable(
+                findRightNeighbour(new Point(segment.xAt(sweepLineY), sweepLineY), null)
+        );
+    }
+
+    private Segment findRightNeighbour(Point p, Segment rightNeighbour) {
+        switch (getData().whereIs(p)) {
+            case LEFT -> {
+                if (isLeaf()) {
+                    return getData();
+                }
+                return getLeftChildUnsafe().findRightNeighbour(p, getData());
+            }
+            case RIGHT -> {
+                if (isLeaf()) {
+                    return rightNeighbour;
+                }
+                return getLeftChildUnsafe().findRightNeighbour(p, rightNeighbour);
+            }
+            case INTERSECT -> {
+                if (isLeaf()) {
+                    return rightNeighbour;
+                }
+                return getRightChildUnsafe().findRightNeighbour(p, rightNeighbour);
+            }
+        }
+        throw new RuntimeException("Why here ??");
     }
 }

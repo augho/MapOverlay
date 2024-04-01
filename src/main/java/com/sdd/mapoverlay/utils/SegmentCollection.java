@@ -69,7 +69,17 @@ public class SegmentCollection {
                 findNewEvent(neighbours.left(), neighbours.right(), p, p.getY(), eventQueue);
             }
         } else {
-
+            SegmentPair extremesOfUC =  ulcSets.getEdgeSegmentsOfUC(p.getY(), p);
+            extremesOfUC.getLeft().ifPresent(segment -> {
+                statusStructure.findLeftNeighbour(segment, p.getY()).ifPresent(leftNeighbour -> {
+                    findNewEvent(leftNeighbour, segment, p, p.getY(), eventQueue);
+                });
+            });
+            extremesOfUC.getRight().ifPresent(segment -> {
+                statusStructure.findRightNeighbour(segment, p.getY()).ifPresent(rightNeighbour -> {
+                    findNewEvent(segment, rightNeighbour, p, p.getY(), eventQueue);
+                });
+            });
         }
     }
 
