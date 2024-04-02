@@ -37,51 +37,53 @@ public class T extends AVLTree<Segment> {
      *
      */
     public void insert(Segment data) {
+        if (isEmpty()) {
+            this.setData(data);
+        }
         // A lot of error thrown here, those are cases that shouldn't happen according to our
         // algorithm. And we obviously trust our algorithm
         Position dataPositionOnSweepLine = this.getData().whereIs(data.getUpperEndpoint());
-        if(this.isLeaf()) {
-            switch (dataPositionOnSweepLine) {
-                case LEFT -> {
-                    Segment currDataCopy = this.getData();
-                    this.setData(data);
-                    this.setLeftChild(new T(data, this));
-                    this.setRightChild(new T(currDataCopy, this));
-                    this.doEquilibrate();
+        switch (dataPositionOnSweepLine) {
+            case LEFT -> {
+                if (!isLeaf()) {
+                    this.getLeftChildUnsafe().insert(data);
                 }
-                case RIGHT -> {
-                    this.setLeftChild(new T(this.getData(), this));
-                    this.setRightChild(new T(data, this));
-                    this.doEquilibrate();
-                }
-                case INTERSECT -> {
-                    // The upper endpoint of this segment is an intersection point
-//                    this.addIntersectionPoint(data.getUpperEndpoint());
-                    switch (this.getData().whereIs(data.getLowerEndpoint())) {
-                        case LEFT -> {
-                            Segment currDataCopy = this.getData();
-                            this.setData(data);
-                            this.setLeftChild(new T(data, this));
-                            this.setRightChild(new T(currDataCopy, this));
-                            this.doEquilibrate();
-                        }
-                        case RIGHT -> {
-                            this.setLeftChild(new T(this.getData(), this));
-                            this.setRightChild(new T(data, this));
-                            this.doEquilibrate();
-                        }
-                        case INTERSECT -> throw new RuntimeException("Segments are parallel");
-                    }
-                }
+                Segment currDataCopy = this.getData();
+                this.setData(data);
+                this.setLeftChild(new T(data, this));
+                this.setRightChild(new T(currDataCopy, this));
+                this.doEquilibrate();
             }
-        } else {
-            switch (dataPositionOnSweepLine) {
-                case LEFT -> ((T) this.getLeftChild().orElseThrow()).insert(data);
-                case RIGHT -> ((T) this.getRightChild().orElseThrow()).insert(data);
-                case INTERSECT -> {
+            case RIGHT -> {
+                if(!isLeaf()) {
+                    this.getRightChildUnsafe().insert(data);
+                }
+                this.setLeftChild(new T(this.getData(), this));
+                this.setRightChild(new T(data, this));
+                this.doEquilibrate();
+            }
+            case INTERSECT -> {
+                if(!isLeaf()) {
+                    // TODO Correct to always go left ?
                     // Will be intersected next to the intersecting segment which can be found
                     // In its left subtree
-                    ((T) this.getLeftChild().orElseThrow()).insert(data);
+                    this.getLeftChildUnsafe().insert(data);
+                }
+                // The upper endpoint of this segment is an intersection point
+                switch (this.getData().whereIs(data.getLowerEndpoint())) {
+                    case LEFT -> {
+                        Segment currDataCopy = this.getData();
+                        this.setData(data);
+                        this.setLeftChild(new T(data, this));
+                        this.setRightChild(new T(currDataCopy, this));
+                        this.doEquilibrate();
+                    }
+                    case RIGHT -> {
+                        this.setLeftChild(new T(this.getData(), this));
+                        this.setRightChild(new T(data, this));
+                        this.doEquilibrate();
+                    }
+                    case INTERSECT -> throw new RuntimeException("Segments are parallel");
                 }
             }
         }
