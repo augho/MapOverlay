@@ -193,4 +193,26 @@ public class AVLTree<S> {
         }
     }
 
+    public void inOrderTraversal(StringBuilder sb, int level, String side) {
+        if (isEmpty()) {
+            return;
+        }
+
+        getRightChild().ifPresent(rightChild -> rightChild.inOrderTraversal(sb, level + 1, "r"));
+
+        sb
+                .append(" ".repeat(level * 2))
+                .append("(").append(level).append(")")
+                .append(getData()).append("\n");
+
+        getLeftChild().ifPresent(leftChild -> leftChild.inOrderTraversal(sb, level + 1, "l"));
+    }
+
+    public void printTree() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[PRINT TREE]").append("\n");
+        this.inOrderTraversal(sb, 0, "R");
+        System.out.println(sb);
+    }
+
 }

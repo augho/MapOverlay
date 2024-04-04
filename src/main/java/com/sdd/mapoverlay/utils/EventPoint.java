@@ -49,4 +49,9 @@ public class EventPoint extends Point {
             return Position.RIGHT;
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " : " + segments.size();
+    }
 }

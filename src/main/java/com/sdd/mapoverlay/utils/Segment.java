@@ -4,7 +4,6 @@ import javafx.scene.chart.XYChart;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class Segment {
@@ -31,6 +30,9 @@ public class Segment {
                 this.upperEndpoint = new Point(x2, y2);
             }
         }
+    }
+    public static Segment getSegment(Point p1, Point p2) {
+        return new Segment(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
     /**
@@ -171,4 +173,5 @@ public class Segment {
         System.out.println("(u, v) = " + "("+ u + ", " + v + ")");
         return Optional.empty();
     }
+
 }

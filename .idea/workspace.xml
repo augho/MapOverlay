@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Test framework added">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/base_case.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/edgecase1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/edgecase11.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/edgecase12.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/edgecase2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/edgecase3inter.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/edgecaseParall.txt" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Rewrite of T insertion">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/BinaryTreePrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/AVLTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/AVLTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +114,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -131,6 +131,7 @@
     &quot;Gradle.MapOverlay [:MapOverlayApplication.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.MapOverlay [run].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.MapOverlay [test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.QTest.insertTest.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
@@ -154,7 +155,7 @@
       <recent name="$PROJECT_DIR$/src/test/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.MapOverlay [test]">
+  <component name="RunManager" selected="Gradle.QTest.insertTest">
     <configuration name="MapOverlayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.sdd.mapoverlay.MapOverlayApplication" />
       <module name="MapOverlay.main" />
@@ -212,8 +213,33 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="QTest.insertTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.sdd.mapoverlay.QTest.insertTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.QTest.insertTest" />
         <item itemvalue="Gradle.MapOverlay [test]" />
         <item itemvalue="Gradle.MapOverlay [run]" />
         <item itemvalue="Application.MapOverlayApplication" />
@@ -255,6 +281,9 @@
       <workItem from="1711634202221" duration="2680000" />
       <workItem from="1711815600404" duration="3627000" />
       <workItem from="1711990402171" duration="7857000" />
+      <workItem from="1712043464242" duration="751000" />
+      <workItem from="1712126502854" duration="4824000" />
+      <workItem from="1712131342046" duration="3371000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -376,7 +405,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712003450922</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Rewrite of T insertion">
+      <option name="closed" value="true" />
+      <created>1712044532953</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1712044532953</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -409,6 +446,14 @@
     <MESSAGE value="edge segments off UC sets + sanitization of T" />
     <MESSAGE value="More or less end of algorithmic implementation" />
     <MESSAGE value="Test framework added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test framework added" />
+    <MESSAGE value="Rewrite of T insertion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rewrite of T insertion" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.sdd.mapoverlay.utils.AVLTree" memberName="parent" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

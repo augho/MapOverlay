@@ -36,6 +36,8 @@ public class SegmentCollection {
             eventQueue.insert(new EventPoint(s, s.getLowerEndpoint()));
         });
         T statusStructure = T.getEmpty(new ArrayList<>());
+        System.out.println("Starting handling of event point");
+        eventQueue.printTree();
         while (!eventQueue.isEmpty()) {
             handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue, newOverlay);
         }
@@ -65,6 +67,7 @@ public class SegmentCollection {
         ulcSets.L().forEach(statusStructure::delete);
         // Line 6 & 7
         ulcSets.U().forEach(statusStructure::insert);
+        statusStructure.printTree();
         ulcSets.C().forEach(statusStructure::insert);
         // Line 8 to 16
         if (ulcSets.U().isEmpty() && ulcSets.C().isEmpty()) {
