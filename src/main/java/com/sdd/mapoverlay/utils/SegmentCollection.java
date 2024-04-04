@@ -47,11 +47,8 @@ public class SegmentCollection {
     private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue, ArrayList<Intersection> overlay) {
         ULCSets ulcSets;
         // Line 2 in algo
-        if(p.getSegments().size() > 1) {
-            ulcSets = statusStructure.findAllContaining(p);
-        } else {
-            ulcSets = ULCSets.getEmpty();
-        }
+        ulcSets = statusStructure.isEmpty() ? ULCSets.getEmpty() : statusStructure.findAllContaining(p);
+
         // Line 1 in algo
         ulcSets.U().addAll(p.getSegments()
                     .stream()

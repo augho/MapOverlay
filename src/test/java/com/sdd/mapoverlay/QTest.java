@@ -30,16 +30,16 @@ public class QTest {
 
         eventQueue.insert(new EventPoint(s1, s1.getLowerEndpoint()));
 
-        eventQueue.printTree();
+//        eventQueue.printTree();
         eventQueue.insert(new EventPoint(s2, s2.getLowerEndpoint()));
-        eventQueue.printTree();
+//        eventQueue.printTree();
 
 
-//        eventQueue.insert(new EventPoint(s3, s3.getUpperEndpoint()));
-//        eventQueue.insert(new EventPoint(s3, s3.getLowerEndpoint()));
-//
-//        eventQueue.insert(new EventPoint(s4, s4.getLowerEndpoint()));
-//        eventQueue.insert(new EventPoint(s4, s4.getUpperEndpoint()));
+        eventQueue.insert(new EventPoint(s3, s3.getUpperEndpoint()));
+        eventQueue.insert(new EventPoint(s3, s3.getLowerEndpoint()));
+
+        eventQueue.insert(new EventPoint(s4, s4.getLowerEndpoint()));
+        eventQueue.insert(new EventPoint(s4, s4.getUpperEndpoint()));
 
         ArrayList<EventPoint> events = new ArrayList<>();
         do {
@@ -49,10 +49,9 @@ public class QTest {
 
         events.forEach(System.out::println);
 
-        // TODO find the source of null elements
-        events = (ArrayList<EventPoint>) events.stream().filter(Objects::nonNull).collect(Collectors.toList());
+//        events = (ArrayList<EventPoint>) events.stream().filter(Objects::nonNull).collect(Collectors.toList());
 
-//        Assertions.assertEquals(4, events.size());
+        Assertions.assertEquals(4, events.size());
 
         for (int i = 1; i < events.size(); i++) {
             Assertions.assertEquals(Position.LEFT, events.get(i - 1).compare(events.get(i)));

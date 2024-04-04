@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Removed inheritance because of weird type casting issues">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Fixed null issues with AVL when doing rotations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java" afterDir="false" />
@@ -126,7 +124,8 @@
     "Gradle.MapOverlay [:HelloApplication.main()].executor": "Run",
     "Gradle.MapOverlay [:MapOverlayApplication.main()].executor": "Run",
     "Gradle.MapOverlay [run].executor": "Run",
-    "Gradle.MapOverlay [test].executor": "Run",
+    "Gradle.MapOverlay [test].executor": "Debug",
+    "Gradle.OverlayTest.testOverlay.executor": "Run",
     "Gradle.QTest.insertTest.executor": "Run",
     "Gradle.TTest.insertionTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -152,20 +151,7 @@
       <recent name="$PROJECT_DIR$/src/test/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.QTest.insertTest">
-    <configuration name="MapOverlayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.sdd.mapoverlay.MapOverlayApplication" />
-      <module name="MapOverlay.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.sdd.mapoverlay.utils.Records.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.OverlayTest.testOverlay">
     <configuration name="MapOverlay [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -208,6 +194,30 @@
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="OverlayTest.testOverlay" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.sdd.mapoverlay.OverlayTest.testOverlay&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="QTest.insertTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -260,11 +270,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.OverlayTest.testOverlay" />
+        <item itemvalue="Gradle.MapOverlay [test]" />
         <item itemvalue="Gradle.QTest.insertTest" />
         <item itemvalue="Gradle.TTest.insertionTest" />
-        <item itemvalue="Gradle.MapOverlay [test]" />
         <item itemvalue="Gradle.MapOverlay [run]" />
-        <item itemvalue="Application.MapOverlayApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -307,7 +317,7 @@
       <workItem from="1712126502854" duration="4824000" />
       <workItem from="1712131342046" duration="3371000" />
       <workItem from="1712235277537" duration="4014000" />
-      <workItem from="1712251619713" duration="2304000" />
+      <workItem from="1712251619713" duration="4814000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -445,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712236301238</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fixed null issues with AVL when doing rotations">
+      <option name="closed" value="true" />
+      <created>1712254189532</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712254189532</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -480,7 +498,8 @@
     <MESSAGE value="Test framework added" />
     <MESSAGE value="Rewrite of T insertion" />
     <MESSAGE value="Removed inheritance because of weird type casting issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed inheritance because of weird type casting issues" />
+    <MESSAGE value="Fixed null issues with AVL when doing rotations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed null issues with AVL when doing rotations" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

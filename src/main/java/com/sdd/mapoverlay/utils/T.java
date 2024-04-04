@@ -89,6 +89,9 @@ public class T {
             return null;
         } else if (isLeaf() && !this.getData().sameAs(data)) {
             return new DeleteResult(null, this);
+        } else if (isRoot() && this.getData().sameAs(data)) {
+            this.setData(null);
+            return new DeleteResult(null, this);
         }
         if (getLeftChildUnsafe().isLeaf() && getLeftChildUnsafe().getData().sameAs(data)) {
             this.become(getRightChildUnsafe());
@@ -142,14 +145,17 @@ public class T {
                 }
             }
             case INTERSECT -> {
-                if (isLeaf()) {
+                if (!isLeaf()) {
                     this.getLeftChildUnsafe().addAllContaining(point, sets);
                     this.getRightChildUnsafe().addAllContaining(point, sets);
                 } else {
                     Segment data = getData();
                     if (data.getLowerEndpoint().sameAs(point)) {
                         sets.L().add(data);
+                    } else if (data.getUpperEndpoint().sameAs(point)) {
+                        System.out.println("Found upper endpoint what should we do sir ?");
                     } else {
+                        // TODO is it really in C though ? What if its in the line but not in the segment ?
                         sets.C().add(data);
                     }
                 }
@@ -176,7 +182,7 @@ public class T {
                 }
                 return getRightChildUnsafe().findLeftAndRightNeighbour(p, getData(), right);
             }
-            case INTERSECT -> throw new RuntimeException("Why here ?");
+            case INTERSECT -> throw new RuntimeException("Why here ? p: " + p + " / s: " + getData() ); // Error thrown
         }
         throw new RuntimeException("Why here ??");
     }
