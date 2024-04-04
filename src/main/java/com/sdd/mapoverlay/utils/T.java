@@ -12,7 +12,7 @@ import java.util.Optional;
 public class T {
 
 
-    public static T getEmpty(ArrayList<Point> intersectionCollection) { return new T(null, null); }
+    public static T getEmpty() { return new T(null, null); }
 
     /**
      * @param data Segment to insert to the status
@@ -22,6 +22,7 @@ public class T {
         if (isEmpty()) {
             System.out.println("[INSERT IN T] " + data);
             this.setData(data);
+            return;
         }
         // A lot of error thrown here, those are cases that shouldn't happen according to our
         // algorithm. And we obviously trust our algorithm
@@ -372,7 +373,7 @@ public class T {
         T rootCopy = new T(this);
         this.become(getRightChildUnsafe());
 
-        T leftChildCopy = new T(this.leftChild);
+        T leftChildCopy = getLeftChild().isPresent() ? new T(this.leftChild) : null;
         this.setLeftChild(rootCopy);
         this.leftChild.setRightChild(leftChildCopy);
 
@@ -387,7 +388,7 @@ public class T {
         T rootCopy = new T(this);
         this.become(getLeftChildUnsafe());
 
-        T rightChildCopy = new T(this.rightChild);
+        T rightChildCopy = getRightChild().isPresent() ? new T(this.rightChild) : null;
         this.setRightChild(rootCopy);
         this.rightChild.setLeftChild(rightChildCopy);
 
@@ -408,7 +409,7 @@ public class T {
     /**
      * Implements the algorithm seen in class
      */
-    protected void doEquilibrate() {
+    private void doEquilibrate() {
         if (this.getBalance() == 2) {
             if(this.rightChild.getBalance() >= 0) {
                 this.doLeftRotation();
@@ -426,7 +427,7 @@ public class T {
         }
     }
 
-    public void inOrderTraversal(StringBuilder sb, int level, String side) {
+    private void inOrderTraversal(StringBuilder sb, int level, String side) {
         if (isEmpty()) {
             return;
         }

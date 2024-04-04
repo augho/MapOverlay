@@ -35,7 +35,7 @@ public class SegmentCollection {
             eventQueue.insert(new EventPoint(s, s.getUpperEndpoint()));
             eventQueue.insert(new EventPoint(s, s.getLowerEndpoint()));
         });
-        T statusStructure = T.getEmpty(new ArrayList<>());
+        T statusStructure = T.getEmpty();
         System.out.println("Starting handling of event point");
         eventQueue.printTree();
         while (!eventQueue.isEmpty()) {

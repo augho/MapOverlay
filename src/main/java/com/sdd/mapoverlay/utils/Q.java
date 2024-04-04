@@ -77,6 +77,7 @@ public class Q {
 
     }
 
+
     //--------------------------------------------------------------------------------------------------------------
     //AVL TREE
 
@@ -209,9 +210,9 @@ public class Q {
         Q rootCopy = new Q(this);
         this.become(getRightChildUnsafe());
 
-        Q leftChildCopy = new Q(this.leftChild);
+        Q leftChildCopy = this.getLeftChild().isPresent() ? new Q(this.leftChild) : null;
+        rootCopy.setRightChild(leftChildCopy);
         this.setLeftChild(rootCopy);
-        this.leftChild.setRightChild(leftChildCopy);
 
         this.leftChild.updateHeight();
         this.updateHeight();
@@ -224,7 +225,7 @@ public class Q {
         Q rootCopy = new Q(this);
         this.become(getLeftChildUnsafe());
 
-        Q rightChildCopy = new Q(this.rightChild);
+        Q rightChildCopy = getRightChild().isPresent() ? new Q(this.rightChild) : null;
         this.setRightChild(rootCopy);
         this.rightChild.setLeftChild(rightChildCopy);
 
@@ -265,6 +266,10 @@ public class Q {
 
     public void inOrderTraversal(StringBuilder sb, int level, String side) {
         if (isEmpty()) {
+            sb
+                    .append(" ".repeat(level * 2))
+                    .append("(").append(level).append(")")
+                    .append(getData()).append("\n");
             return;
         }
 
