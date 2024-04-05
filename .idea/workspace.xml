@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Fixed T delete method and handleEventPoint Line2">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="IT WORKS !!!!!!!!!!!!!!!!!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventType.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/BinaryTreePrinter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/base_case.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/base_case.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +110,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "augho"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/augho/MapOverlay.git",
+    "accountId": "014b4679-6776-4396-b200-b7da12de95a4"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -126,8 +139,8 @@
     "Gradle.MapOverlay [:HelloApplication.main()].executor": "Run",
     "Gradle.MapOverlay [:MapOverlayApplication.main()].executor": "Run",
     "Gradle.MapOverlay [run].executor": "Run",
-    "Gradle.MapOverlay [test].executor": "Debug",
-    "Gradle.OverlayTest.testOverlay.executor": "Run",
+    "Gradle.MapOverlay [test].executor": "Run",
+    "Gradle.OverlayTest.testOverlay.executor": "Debug",
     "Gradle.QTest.insertTest.executor": "Run",
     "Gradle.TTest.insertionTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -283,7 +296,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-19.0.2-corretto-19.0.2-f644763e9732-f4b396da" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -320,7 +334,8 @@
       <workItem from="1712131342046" duration="3371000" />
       <workItem from="1712235277537" duration="4014000" />
       <workItem from="1712251619713" duration="6642000" />
-      <workItem from="1712298385400" duration="2368000" />
+      <workItem from="1712298385400" duration="2617000" />
+      <workItem from="1712308110478" duration="3672000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -474,7 +489,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712259412859</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="IT WORKS !!!!!!!!!!!!!!!!!!">
+      <option name="closed" value="true" />
+      <created>1712303346931</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1712303346932</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -511,16 +534,17 @@
     <MESSAGE value="Removed inheritance because of weird type casting issues" />
     <MESSAGE value="Fixed null issues with AVL when doing rotations" />
     <MESSAGE value="Fixed T delete method and handleEventPoint Line2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed T delete method and handleEventPoint Line2" />
+    <MESSAGE value="IT WORKS !!!!!!!!!!!!!!!!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="IT WORKS !!!!!!!!!!!!!!!!!!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <condition expression="p.getX() == 15.0 &amp;&amp; p.getY() == 15.0" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="14" />
+          <condition expression="newEventPoint.getX() == 10.0 &amp;&amp; newEventPoint.getY() == 10.0" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

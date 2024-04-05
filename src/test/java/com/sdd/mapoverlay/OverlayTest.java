@@ -44,6 +44,7 @@ public class OverlayTest {
 
     @Test
     public void testOverlay() throws FileNotFoundException {
+        // 2, 3inter
         ArrayList<Segment> segments = readSegmentFile("base_case.txt");
         SegmentCollection segmentCollection = new SegmentCollection(segments);
         ArrayList<Intersection> res = segmentCollection.findIntersections();

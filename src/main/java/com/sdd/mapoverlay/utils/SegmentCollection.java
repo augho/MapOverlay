@@ -5,6 +5,7 @@ import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class SegmentCollection {
     private ArrayList<Intersection> overlay;
@@ -80,6 +81,7 @@ public class SegmentCollection {
                     findNewEvent(leftNeighbour, segment, p, p.getY(), eventQueue);
                 });
             });
+
             extremesOfUC.getRight().ifPresent(segment -> {
                 statusStructure.findRightNeighbour(segment, p.getY()).ifPresent(rightNeighbour -> {
                     findNewEvent(segment, rightNeighbour, p, p.getY(), eventQueue);
@@ -95,12 +97,11 @@ public class SegmentCollection {
             Double sweepLineY,
             Q eventQueue
     ) {
-        leftSegment.getIntersection(rightSegment).ifPresent(
-                intersectionPoint -> {
-                    if(intersectionPoint.getY() < sweepLineY) {
-                        eventQueue.insert(new EventPoint(leftSegment, intersectionPoint));
-                    }
+        // TODO remake
+        leftSegment.getIntersection(rightSegment).ifPresent(intersectionPoint -> {
+                if(intersectionPoint.getY() <= sweepLineY) {
+                    eventQueue.insert(new EventPoint(leftSegment, intersectionPoint));
                 }
-        );
+        });
     }
 }

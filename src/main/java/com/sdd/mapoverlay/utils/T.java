@@ -185,7 +185,7 @@ public class T {
                 }
                 return getRightChildUnsafe().findLeftAndRightNeighbour(p, getData(), right);
             }
-            case INTERSECT -> throw new RuntimeException("Why here ? p: " + p + " / s: " + getData() ); // Error thrown
+            case INTERSECT -> throw new RuntimeException("Why here ? p: " + p + " / s: " + getData());
         }
         throw new RuntimeException("Why here ??");
     }
