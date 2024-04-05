@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Fixed null issues with AVL when doing rotations">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Fixed T delete method and handleEventPoint Line2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,7 +319,8 @@
       <workItem from="1712126502854" duration="4824000" />
       <workItem from="1712131342046" duration="3371000" />
       <workItem from="1712235277537" duration="4014000" />
-      <workItem from="1712251619713" duration="4814000" />
+      <workItem from="1712251619713" duration="6642000" />
+      <workItem from="1712298385400" duration="2368000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -463,7 +466,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712254189532</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Fixed T delete method and handleEventPoint Line2">
+      <option name="closed" value="true" />
+      <created>1712259412859</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1712259412859</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,9 +510,20 @@
     <MESSAGE value="Rewrite of T insertion" />
     <MESSAGE value="Removed inheritance because of weird type casting issues" />
     <MESSAGE value="Fixed null issues with AVL when doing rotations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed null issues with AVL when doing rotations" />
+    <MESSAGE value="Fixed T delete method and handleEventPoint Line2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed T delete method and handleEventPoint Line2" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="p.getX() == 15.0 &amp;&amp; p.getY() == 15.0" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.sdd.mapoverlay.utils.AVLTree" memberName="parent" />

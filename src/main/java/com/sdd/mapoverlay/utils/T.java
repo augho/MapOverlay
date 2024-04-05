@@ -164,6 +164,9 @@ public class T {
     }
 
     public SegmentPair findLeftAndRightNeighbour(Point p) {
+        if (isEmpty()) {
+            return new SegmentPair(null, null);
+        }
         return findLeftAndRightNeighbour(p, null, null);
     }
     private SegmentPair findLeftAndRightNeighbour(Point p, Segment left, Segment right) {

@@ -1,6 +1,7 @@
 package com.sdd.mapoverlay;
 
 
+import com.sdd.mapoverlay.utils.Records.Intersection;
 import com.sdd.mapoverlay.utils.Segment;
 import com.sdd.mapoverlay.utils.SegmentCollection;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,10 @@ public class OverlayTest {
     public void testOverlay() throws FileNotFoundException {
         ArrayList<Segment> segments = readSegmentFile("base_case.txt");
         SegmentCollection segmentCollection = new SegmentCollection(segments);
-        segmentCollection.findIntersections().forEach(System.out::println);
+        ArrayList<Intersection> res = segmentCollection.findIntersections();
+        System.out.println("RESULTS:");
+        System.out.println("Count = " + res.size());
+        res.forEach(System.out::println);
     }
 
 

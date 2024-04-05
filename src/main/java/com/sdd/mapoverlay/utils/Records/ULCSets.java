@@ -28,12 +28,12 @@ public record ULCSets(ArrayList<Segment> U, ArrayList<Segment> L, ArrayList<Segm
             }
         }
         // TODO Make sure those conditions are necessary
-        if (leftmost.whereIs(eventPoint) != Position.RIGHT) {
-            leftmost = null;
-        }
-        if (rightmost.whereIs(eventPoint) != Position.LEFT) {
-            rightmost = null;
-        }
+//        if (leftmost.whereIs(eventPoint) != Position.RIGHT) {
+//            leftmost = null;
+//        }
+//        if (rightmost.whereIs(eventPoint) != Position.LEFT) {
+//            rightmost = null;
+//        }
 
         return new SegmentPair(
                 leftmost,

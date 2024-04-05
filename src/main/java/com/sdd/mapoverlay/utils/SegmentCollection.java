@@ -41,6 +41,7 @@ public class SegmentCollection {
         while (!eventQueue.isEmpty()) {
             handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue, newOverlay);
         }
+        overlay = newOverlay;
         return overlay;
     }
 

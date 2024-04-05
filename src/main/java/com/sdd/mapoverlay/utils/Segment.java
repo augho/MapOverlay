@@ -171,7 +171,7 @@ public class Segment {
         System.out.println("s2 = " + segment);
         System.out.println("s1 = " + this);
         System.out.println("(u, v) = " + "("+ u + ", " + v + ")");
-        return Optional.empty();
+        return Optional.of(new Point(u, v));
     }
 
 }
