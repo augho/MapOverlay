@@ -24,4 +24,8 @@ public class Point {
     public boolean sameAs(Point point) {
         return point.getX() == this.getX() && point.getY() == this.getY();
     }
+
+    public boolean almostEqual(Point point) {
+        return Math.abs(point.getX() - this.getX()) < 0.001 && Math.abs(point.getY() - this.getY()) < 0.001;
+    }
 }
