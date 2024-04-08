@@ -41,7 +41,7 @@ public class Q {
      * @param newEventPoint Event point to be inserted
      */
     public void insert(EventPoint newEventPoint) {
-        assert newEventPoint.getSegments().size() == 1;
+//        assert newEventPoint.getSegments().size() == 1;
         // Structure is empty we insert the event on the root node
         if (this.isEmpty()) {
             this.setData(newEventPoint);

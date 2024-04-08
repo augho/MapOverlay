@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="IT WORKS !!!!!!!!!!!!!!!!!!">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Or not">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/BinaryTreePrinter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/base_case.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/base_case.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,18 +109,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "augho"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;augho&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/augho/MapOverlay.git",
-    "accountId": "014b4679-6776-4396-b200-b7da12de95a4"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/augho/MapOverlay.git&quot;,
+    &quot;accountId&quot;: &quot;014b4679-6776-4396-b200-b7da12de95a4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -140,7 +139,7 @@
     "Gradle.MapOverlay [:MapOverlayApplication.main()].executor": "Run",
     "Gradle.MapOverlay [run].executor": "Run",
     "Gradle.MapOverlay [test].executor": "Run",
-    "Gradle.OverlayTest.testOverlay.executor": "Debug",
+    "Gradle.OverlayTest.testOverlay.executor": "Run",
     "Gradle.QTest.insertTest.executor": "Run",
     "Gradle.TTest.insertionTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -157,7 +156,7 @@
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "editor.preferences.completion",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -335,7 +334,11 @@
       <workItem from="1712235277537" duration="4014000" />
       <workItem from="1712251619713" duration="6642000" />
       <workItem from="1712298385400" duration="2617000" />
-      <workItem from="1712308110478" duration="3672000" />
+      <workItem from="1712308110478" duration="3827000" />
+      <workItem from="1712316820461" duration="2020000" />
+      <workItem from="1712322168619" duration="12000" />
+      <workItem from="1712422621053" duration="4573000" />
+      <workItem from="1712572891932" duration="4555000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -497,7 +500,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712303346932</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Or not">
+      <option name="closed" value="true" />
+      <created>1712311904384</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1712311904384</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,16 +546,17 @@
     <MESSAGE value="Fixed null issues with AVL when doing rotations" />
     <MESSAGE value="Fixed T delete method and handleEventPoint Line2" />
     <MESSAGE value="IT WORKS !!!!!!!!!!!!!!!!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="IT WORKS !!!!!!!!!!!!!!!!!!" />
+    <MESSAGE value="Or not" />
+    <option name="LAST_COMMIT_MESSAGE" value="Or not" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <condition expression="newEventPoint.getX() == 10.0 &amp;&amp; newEventPoint.getY() == 10.0" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="18" />
+          <condition expression="p.getX() == 10.0 &amp;&amp; p.getY() == 10.0 " language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

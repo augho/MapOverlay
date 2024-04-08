@@ -18,7 +18,7 @@ public class T {
      * @param data Segment to insert to the status
      *
      */
-    public void insert(Segment data) {
+    public void insert(Segment data, Point eventPoint) {
         if (isEmpty()) {
             System.out.println("[INSERT IN T] " + data);
             this.setData(data);
@@ -26,11 +26,11 @@ public class T {
         }
         // A lot of error thrown here, those are cases that shouldn't happen according to our
         // algorithm. And we obviously trust our algorithm
-        Position dataPositionOnSweepLine = this.getData().whereIs(data.getUpperEndpoint());
-        switch (dataPositionOnSweepLine) {
+        switch (getData().whereIs(eventPoint)) {
             case LEFT -> {
                 if (!isLeaf()) {
-                    this.getLeftChildUnsafe().insert(data);
+                    this.getLeftChildUnsafe().insert(data, eventPoint);
+                    doEquilibrate();
                     return;
                 }
                 Segment currDataCopy = this.getData();
@@ -43,7 +43,8 @@ public class T {
             }
             case RIGHT -> {
                 if(!isLeaf()) {
-                    this.getRightChildUnsafe().insert(data);
+                    this.getRightChildUnsafe().insert(data, eventPoint);
+                    doEquilibrate();
                     return;
                 }
                 this.setLeftChild(new T(this.getData(), this));
@@ -57,7 +58,8 @@ public class T {
                     // TODO Correct to always go left ?
                     // Will be intersected next to the intersecting segment which can be found
                     // In its left subtree
-                    this.getLeftChildUnsafe().insert(data);
+                    this.getLeftChildUnsafe().insert(data, eventPoint);
+                    doEquilibrate();
                     return;
                 }
                 // The upper endpoint of this segment is an intersection point
@@ -72,7 +74,7 @@ public class T {
 
                     }
                     case RIGHT -> {
-                        this.setLeftChild(new T(this.getData(), this));
+                        this.setLeftChild(new T(getData(), this));
                         this.setRightChild(new T(data, this));
                         this.doEquilibrate();
                         System.out.println("[INSERT IN T] " + data);
@@ -84,7 +86,7 @@ public class T {
         }
     }
 
-    public DeleteResult delete(Segment data) {
+    public DeleteResult delete(Segment data, Point eventPoint) {
         if (isEmpty()) {
             return null;
         } else if (isLeaf() && !this.getData().sameAs(data)) {
@@ -103,25 +105,38 @@ public class T {
         }
         // inside node to be deleted
         if (getData().sameAs(data)) {
-            DeleteResult result = getLeftChildUnsafe().delete(data);
+            DeleteResult result = getLeftChildUnsafe().delete(data, eventPoint);
             setData(result.newData());
             this.doEquilibrate();
             return new DeleteResult(result.newData(), this);
         }
         // For the search we look at the lower endpoint as it's the one on the sweep line
-        switch (this.getData().whereIs(data.getLowerEndpoint())) {
+        switch (this.getData().whereIs(eventPoint)) {
             case LEFT -> {
-                DeleteResult result = getLeftChildUnsafe().delete(data);
+                DeleteResult result = getLeftChildUnsafe().delete(data, eventPoint);
                 this.doEquilibrate();
                 return result;
             }
             case RIGHT -> {
-                DeleteResult result = getRightChildUnsafe().delete(data);
+                DeleteResult result = getRightChildUnsafe().delete(data, eventPoint);
                 this.doEquilibrate();
                 return result;
             }
-            // TODO below
-            case INTERSECT -> throw new RuntimeException("To implement");
+            case INTERSECT -> {
+                switch (getData().whereIs(data.getUpperEndpoint())) {
+                    case LEFT -> {
+                        DeleteResult result = getLeftChildUnsafe().delete(data, eventPoint);
+                        this.doEquilibrate();
+                        return result;
+                    }
+                    case RIGHT -> {
+                        DeleteResult result = getRightChildUnsafe().delete(data, eventPoint);
+                        this.doEquilibrate();
+                        return result;
+                    }
+                    case INTERSECT -> throw new RuntimeException("Segments are parallel: " + getData() + " / " + data);
+                }
+            }
         }
         throw new RuntimeException("Shouldn't be here");
     }
@@ -198,11 +213,11 @@ public class T {
 
     private Segment findLeftNeighbour(Point p, Segment leftNeighbour) {
         switch (getData().whereIs(p)) {
-            case LEFT -> {
+            case LEFT, INTERSECT -> {
                 if (isLeaf()) {
                     return leftNeighbour;
                 }
-                return getRightChildUnsafe().findLeftNeighbour(p, leftNeighbour);
+                return getLeftChildUnsafe().findLeftNeighbour(p, leftNeighbour);
             }
             case RIGHT -> {
                 if (isLeaf()) {
@@ -210,12 +225,7 @@ public class T {
                 }
                 return getRightChildUnsafe().findLeftNeighbour(p, getData());
             }
-            case INTERSECT -> {
-                if (isLeaf()) {
-                    return leftNeighbour;
-                }
-                return getLeftChildUnsafe().findLeftNeighbour(p, leftNeighbour);
-            }
+
         }
         throw new RuntimeException("Why here ??");
     }
@@ -234,13 +244,7 @@ public class T {
                 }
                 return getLeftChildUnsafe().findRightNeighbour(p, getData());
             }
-            case RIGHT -> {
-                if (isLeaf()) {
-                    return rightNeighbour;
-                }
-                return getLeftChildUnsafe().findRightNeighbour(p, rightNeighbour);
-            }
-            case INTERSECT -> {
+            case RIGHT, INTERSECT -> {
                 if (isLeaf()) {
                     return rightNeighbour;
                 }

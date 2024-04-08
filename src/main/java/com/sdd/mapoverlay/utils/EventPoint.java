@@ -1,13 +1,14 @@
 package com.sdd.mapoverlay.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * If there is more than one segment, all segments contained within this event point intersect on this point,
  * some may have their endpoint on it too and should be treated accordingly
  */
 public class EventPoint extends Point {
-    private ArrayList<Segment> segments = new ArrayList<>();
+    private final HashSet<Segment> segments = new HashSet<>();
 
     public EventPoint(Segment segment, Point point) {
         super(point.getX(), point.getY());
@@ -19,23 +20,23 @@ public class EventPoint extends Point {
         this.segments.addAll(segments);
     }
 
-    public ArrayList<Segment> getSegments() {
+    public HashSet<Segment> getSegments() {
         return segments;
     }
 
-    public void setSegments(ArrayList<Segment> segments) {
-        this.segments = segments;
-    }
+//    public void setSegments(ArrayList<Segment> segments) {
+//        this.segments = segments;
+//    }
 
-    public boolean contains(Segment segment) {
-        return this.segments.stream().anyMatch(s -> s.sameAs(segment));
-    }
+//    public boolean contains(Segment segment) {
+//        return this.segments.stream().anyMatch(s -> s.sameAs(segment));
+//    }
 
     public void addSegment(Segment segment) {
         this.segments.add(segment);
     }
 
-    public void addSegments(ArrayList<Segment> segments) {
+    public void addSegments(HashSet<Segment> segments) {
         this.segments.addAll(segments);
     }
 

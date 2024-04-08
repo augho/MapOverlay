@@ -21,8 +21,8 @@ public class TTest {
         Segment s3 = Segment.getSegment(p2, p4); // Horizontal
         Segment s4 = Segment.getSegment(p3, p1); // Horizontal
 
-        statusStructure.insert(s1);
-        statusStructure.insert(s2);
+        statusStructure.insert(s1, s1.getUpperEndpoint());
+        statusStructure.insert(s2, s2.getUpperEndpoint());
 
         statusStructure.findRightNeighbour(s2, s2.xAt(12.0)).ifPresent(
                 segment -> Assertions.assertTrue(segment.sameAs(s1))

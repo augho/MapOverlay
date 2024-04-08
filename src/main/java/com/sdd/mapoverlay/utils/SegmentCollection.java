@@ -5,6 +5,7 @@ import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 
 public class SegmentCollection {
@@ -62,29 +63,30 @@ public class SegmentCollection {
             overlay.add(new Intersection(p, ulcSets.getCombinedSets()));
         }
         // Line 5
-        ulcSets.C().forEach(statusStructure::delete);
-        ulcSets.L().forEach(statusStructure::delete);
+        ulcSets.C().forEach(segment -> statusStructure.delete(segment, p));
+        ulcSets.L().forEach(segment -> statusStructure.delete(segment, p));
         // Line 6 & 7
-        ulcSets.U().forEach(statusStructure::insert);
+        ulcSets.U().forEach(segment -> statusStructure.insert(segment, p));
         statusStructure.printTree();
-        ulcSets.C().forEach(statusStructure::insert);
+        System.out.println(p);
+        ulcSets.C().forEach(segment -> statusStructure.insert(segment, p));
         // Line 8 to 16
         if (ulcSets.U().isEmpty() && ulcSets.C().isEmpty()) {
             SegmentPair neighbours = statusStructure.findLeftAndRightNeighbour(p);
             if (neighbours.bothPresent()) {
-                findNewEvent(neighbours.left(), neighbours.right(), p, p.getY(), eventQueue);
+                findNewEvent(neighbours.left(), neighbours.right(), p.getY(), eventQueue);
             }
         } else {
             SegmentPair extremesOfUC =  ulcSets.getEdgeSegmentsOfUC(p.getY(), p);
             extremesOfUC.getLeft().ifPresent(segment -> {
                 statusStructure.findLeftNeighbour(segment, p.getY()).ifPresent(leftNeighbour -> {
-                    findNewEvent(leftNeighbour, segment, p, p.getY(), eventQueue);
+                    findNewEvent(leftNeighbour, segment, p.getY(), eventQueue);
                 });
             });
 
             extremesOfUC.getRight().ifPresent(segment -> {
                 statusStructure.findRightNeighbour(segment, p.getY()).ifPresent(rightNeighbour -> {
-                    findNewEvent(segment, rightNeighbour, p, p.getY(), eventQueue);
+                    findNewEvent(segment, rightNeighbour, p.getY(), eventQueue);
                 });
             });
         }
@@ -93,14 +95,17 @@ public class SegmentCollection {
     private void findNewEvent(
             Segment leftSegment,
             Segment rightSegment,
-            EventPoint p,
             Double sweepLineY,
             Q eventQueue
     ) {
         // TODO remake
         leftSegment.getIntersection(rightSegment).ifPresent(intersectionPoint -> {
                 if(intersectionPoint.getY() <= sweepLineY) {
-                    eventQueue.insert(new EventPoint(leftSegment, intersectionPoint));
+                    ArrayList<Segment> intersectionPair = new ArrayList<>();
+                    intersectionPair.add(leftSegment);
+                    intersectionPair.add(rightSegment);
+
+                    eventQueue.insert(new EventPoint(intersectionPair, intersectionPoint));
                 }
         });
     }
