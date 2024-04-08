@@ -48,6 +48,7 @@ public class Q {
             return;
         }
 
+
         switch (newEventPoint.compare(this.getData())) {
             case LEFT -> {
                 // if no child then create new one with newEventPoint otherwise inserts into child
@@ -56,7 +57,10 @@ public class Q {
                             left.insert(newEventPoint);
                             this.doEquilibrate();
                         },
-                        () -> this.setLeftChild(new Q(newEventPoint, this))
+                        () -> {
+                            this.setLeftChild(new Q(newEventPoint, this));
+                            doEquilibrate();
+                        }
                 );
             }
             case RIGHT -> {
@@ -66,7 +70,10 @@ public class Q {
                             right.insert(newEventPoint);
                             this.doEquilibrate();
                         },
-                        () -> this.setRightChild(new Q(newEventPoint, this))
+                        () -> {
+                            this.setRightChild(new Q(newEventPoint, this));
+                            doEquilibrate();
+                        }
                 );
             }
             case INTERSECT -> {
@@ -234,33 +241,35 @@ public class Q {
     }
 
     private void doDoubleLeftRotation() {
-        getLeftChildUnsafe().doRightRotation();
-        this.doLeftRotation();
+        getRightChildUnsafe().doRightRotation();
+        doLeftRotation();
     }
 
     private void doDoubleRightRotation() {
-        getRightChildUnsafe().doLeftRotation();
-        this.doRightRotation();
+        getLeftChildUnsafe().doLeftRotation();
+        doRightRotation();
     }
 
     /**
      * Implements the algorithm seen in class
      */
     protected void doEquilibrate() {
-        if (this.getBalance() == 2) {
-            if(this.rightChild.getBalance() >= 0) {
-                this.doLeftRotation();
+        if (getBalance() == 2) {
+            if (rightChild.getBalance() >= 0) {
+                doLeftRotation();
             } else {
-                this.doDoubleLeftRotation();
-            }
-        } else if (this.getBalance() == -2) {
-            if (this.leftChild.getBalance() <= 0) {
-                this.doRightRotation();
-            } else {
-                this.doDoubleRightRotation();
+                doDoubleLeftRotation();
             }
         } else {
-            this.updateHeight();
+            if (getBalance() == -2) {
+                if (leftChild.getBalance() <= 0) {
+                    doRightRotation();
+                } else {
+                    doDoubleRightRotation();
+                }
+            } else {
+                updateHeight();
+            }
         }
     }
 

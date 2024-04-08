@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Or not">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="EventPoint data from ArrayList to HashSet + fix T.delete and T.insert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +139,7 @@
     "Gradle.MapOverlay [run].executor": "Run",
     "Gradle.MapOverlay [test].executor": "Run",
     "Gradle.OverlayTest.testOverlay.executor": "Run",
+    "Gradle.QTest.balanceTest.executor": "Debug",
     "Gradle.QTest.insertTest.executor": "Run",
     "Gradle.TTest.insertionTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -165,7 +165,7 @@
       <recent name="$PROJECT_DIR$/src/test/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.OverlayTest.testOverlay">
+  <component name="RunManager" selected="Gradle.QTest.balanceTest">
     <configuration name="MapOverlay [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -234,6 +234,30 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="QTest.balanceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.sdd.mapoverlay.QTest.balanceTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="QTest.insertTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -258,37 +282,13 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TTest.insertionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.sdd.mapoverlay.TTest.insertionTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.QTest.balanceTest" />
         <item itemvalue="Gradle.OverlayTest.testOverlay" />
+        <item itemvalue="Gradle.MapOverlay [run]" />
         <item itemvalue="Gradle.MapOverlay [test]" />
         <item itemvalue="Gradle.QTest.insertTest" />
-        <item itemvalue="Gradle.TTest.insertionTest" />
-        <item itemvalue="Gradle.MapOverlay [run]" />
       </list>
     </recent_temporary>
   </component>
@@ -338,7 +338,9 @@
       <workItem from="1712316820461" duration="2020000" />
       <workItem from="1712322168619" duration="12000" />
       <workItem from="1712422621053" duration="4573000" />
-      <workItem from="1712572891932" duration="4555000" />
+      <workItem from="1712572891932" duration="6002000" />
+      <workItem from="1712584864515" duration="2917000" />
+      <workItem from="1712590376714" duration="1960000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -508,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712311904384</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="EventPoint data from ArrayList to HashSet + fix T.delete and T.insert">
+      <option name="closed" value="true" />
+      <created>1712579068441</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1712579068441</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,16 +557,33 @@
     <MESSAGE value="Fixed T delete method and handleEventPoint Line2" />
     <MESSAGE value="IT WORKS !!!!!!!!!!!!!!!!!!" />
     <MESSAGE value="Or not" />
-    <option name="LAST_COMMIT_MESSAGE" value="Or not" />
+    <MESSAGE value="EventPoint data from ArrayList to HashSet + fix T.delete and T.insert" />
+    <option name="LAST_COMMIT_MESSAGE" value="EventPoint data from ArrayList to HashSet + fix T.delete and T.insert" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <condition expression="p.getX() == 10.0 &amp;&amp; p.getY() == 10.0 " language="JAVA" />
+          <condition expression="p.getX() == 2.0 &amp;&amp; p.getY() == 3.0 " language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
-          <line>52</line>
+          <line>54</line>
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="intersectionPoint.sameAs(new Point(2.0, 3.0))" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/QTest.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Q.java</url>
+          <line>250</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -57,4 +57,23 @@ public class QTest {
             Assertions.assertEquals(Position.LEFT, events.get(i - 1).compare(events.get(i)));
         }
     }
+
+    @Test
+    public void balanceTest() {
+        Point p1 = new Point(2.0, 7.0);
+        Point p2 = new Point(4.0, 3.0);
+        Point p3 = new Point(4.0, 7.0);
+
+        Segment s1 = Segment.getSegment(p1, p2);
+        Segment s2 = Segment.getSegment(p1, p3);
+        Segment s3 = Segment.getSegment(p2, p3);
+
+        Q eventQueue = Q.getEmptyQueue();
+
+        eventQueue.insert(new EventPoint(s1, p1));
+        eventQueue.insert(new EventPoint(s2, p2));
+        eventQueue.insert(new EventPoint(s3, p3));
+
+        eventQueue.printTree();
+    }
 }

@@ -34,11 +34,13 @@ public class SegmentCollection {
         ArrayList<Intersection> newOverlay = new ArrayList<>();
         Q eventQueue = Q.getEmptyQueue();
         collection.forEach(s -> {
+            System.out.println(s.getLowerEndpoint());
             eventQueue.insert(new EventPoint(s, s.getUpperEndpoint()));
+            eventQueue.printTree();
             eventQueue.insert(new EventPoint(s, s.getLowerEndpoint()));
         });
         T statusStructure = T.getEmpty();
-        System.out.println("Starting handling of event point");
+        System.out.println("[LOG] Starting handling of event points");
         eventQueue.printTree();
         while (!eventQueue.isEmpty()) {
             handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue, newOverlay);
@@ -67,26 +69,24 @@ public class SegmentCollection {
         ulcSets.L().forEach(segment -> statusStructure.delete(segment, p));
         // Line 6 & 7
         ulcSets.U().forEach(segment -> statusStructure.insert(segment, p));
-        statusStructure.printTree();
-        System.out.println(p);
         ulcSets.C().forEach(segment -> statusStructure.insert(segment, p));
         // Line 8 to 16
         if (ulcSets.U().isEmpty() && ulcSets.C().isEmpty()) {
             SegmentPair neighbours = statusStructure.findLeftAndRightNeighbour(p);
             if (neighbours.bothPresent()) {
-                findNewEvent(neighbours.left(), neighbours.right(), p.getY(), eventQueue);
+                findNewEvent(neighbours.left(), neighbours.right(), p, eventQueue);
             }
         } else {
             SegmentPair extremesOfUC =  ulcSets.getEdgeSegmentsOfUC(p.getY(), p);
             extremesOfUC.getLeft().ifPresent(segment -> {
                 statusStructure.findLeftNeighbour(segment, p.getY()).ifPresent(leftNeighbour -> {
-                    findNewEvent(leftNeighbour, segment, p.getY(), eventQueue);
+                    findNewEvent(leftNeighbour, segment, p, eventQueue);
                 });
             });
 
             extremesOfUC.getRight().ifPresent(segment -> {
                 statusStructure.findRightNeighbour(segment, p.getY()).ifPresent(rightNeighbour -> {
-                    findNewEvent(segment, rightNeighbour, p.getY(), eventQueue);
+                    findNewEvent(segment, rightNeighbour, p, eventQueue);
                 });
             });
         }
@@ -95,12 +95,14 @@ public class SegmentCollection {
     private void findNewEvent(
             Segment leftSegment,
             Segment rightSegment,
-            Double sweepLineY,
+            Point eventPoint,
             Q eventQueue
     ) {
         // TODO remake
+        double sweepLineY = eventPoint.getY();
         leftSegment.getIntersection(rightSegment).ifPresent(intersectionPoint -> {
-                if(intersectionPoint.getY() <= sweepLineY) {
+                if(intersectionPoint.getY() < sweepLineY ||
+                        intersectionPoint.getY() == sweepLineY && intersectionPoint.getX() > eventPoint.getX()) {
                     ArrayList<Segment> intersectionPair = new ArrayList<>();
                     intersectionPair.add(leftSegment);
                     intersectionPair.add(rightSegment);

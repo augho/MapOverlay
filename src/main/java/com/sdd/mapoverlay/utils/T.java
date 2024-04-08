@@ -410,33 +410,35 @@ public class T {
     }
 
     private void doDoubleLeftRotation() {
-        getLeftChildUnsafe().doRightRotation();
-        this.doLeftRotation();
+        getRightChildUnsafe().doRightRotation();
+        doLeftRotation();
     }
 
     private void doDoubleRightRotation() {
-        getRightChildUnsafe().doLeftRotation();
-        this.doRightRotation();
+        getLeftChildUnsafe().doLeftRotation();
+        doRightRotation();
     }
 
     /**
      * Implements the algorithm seen in class
      */
     private void doEquilibrate() {
-        if (this.getBalance() == 2) {
-            if(this.rightChild.getBalance() >= 0) {
-                this.doLeftRotation();
+        if (getBalance() == 2) {
+            if (rightChild.getBalance() >= 0) {
+                doLeftRotation();
             } else {
-                this.doDoubleLeftRotation();
-            }
-        } else if (this.getBalance() == -2) {
-            if (this.leftChild.getBalance() <= 0) {
-                this.doRightRotation();
-            } else {
-                this.doDoubleRightRotation();
+                doDoubleLeftRotation();
             }
         } else {
-            this.updateHeight();
+            if (getBalance() == -2) {
+                if (leftChild.getBalance() <= 0) {
+                    doRightRotation();
+                } else {
+                    doDoubleRightRotation();
+                }
+            } else {
+                updateHeight();
+            }
         }
     }
 
