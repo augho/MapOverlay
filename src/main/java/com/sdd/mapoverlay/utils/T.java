@@ -80,7 +80,7 @@ public class T {
                         System.out.println("[INSERT IN T] " + data);
 
                     }
-                    case INTERSECT -> throw new RuntimeException("Segments are parallel: " + getData() + " / " + data);
+                    case INTERSECT -> throw new RuntimeException(eventPoint +" Segments are parallel: " + getData() + " / " + data);
                 }
             }
         }
@@ -91,7 +91,7 @@ public class T {
             return null;
         } else if (isLeaf() && !this.getData().sameAs(data)) {
             return new DeleteResult(null, this);
-        } else if (isRoot() && this.getData().sameAs(data)) {
+        } else if (isRoot() && isLeaf() && this.getData().sameAs(data)) {
             this.setData(null);
             return new DeleteResult(null, this);
         }
@@ -462,5 +462,11 @@ public class T {
         sb.append("[PRINT T]").append("\n");
         this.inOrderTraversal(sb, 0, "R");
         System.out.println(sb);
+    }
+
+    public boolean scanForNull() {
+        if (isLeaf() && isRoot()) return false;
+        if(isLeaf()) return isEmpty();
+        else return rightChild.scanForNull() || leftChild.scanForNull();
     }
 }

@@ -53,7 +53,7 @@ public class OverlayTest {
 
     @Test
     public void testOverlay() throws FileNotFoundException {
-        ArrayList<Intersection> res = computeOverlay("edgecase3inter.txt");
+        ArrayList<Intersection> res = computeOverlay("edgecase2.txt");
 
         System.out.println("RESULTS:");
         System.out.println("Count = " + res.size());
@@ -96,5 +96,11 @@ public class OverlayTest {
         assertEquals(3, res.get(0).segments().size());
         assertTrue(res.get(0).p().sameAs(new Point(3.0, 5.0)));
     }
-
+    @Test
+    public void testEdge2() throws FileNotFoundException {
+        ArrayList<Intersection> res = computeOverlay("edgecase2.txt");
+        assertEquals(2, res.size());
+        assertEquals(2, res.get(0).segments().size());
+        assertEquals(2, res.get(1).segments().size());
+    }
 }

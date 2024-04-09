@@ -128,9 +128,9 @@ public class Segment {
 
          final double axPlusB = getLineCoefficient() * point.getX() + getLineOrigin();
          if (point.getY() > axPlusB) {
-             return Position.LEFT;
+             return getLineCoefficient() > 0 ? Position.LEFT : Position.RIGHT;
          } else if (point.getY() < axPlusB) {
-             return Position.RIGHT;
+             return getLineCoefficient() > 0 ? Position.RIGHT : Position.LEFT;
          } else {
              return Position.INTERSECT;
          }

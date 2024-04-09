@@ -34,9 +34,7 @@ public class SegmentCollection {
         ArrayList<Intersection> newOverlay = new ArrayList<>();
         Q eventQueue = Q.getEmptyQueue();
         collection.forEach(s -> {
-            System.out.println(s.getLowerEndpoint());
             eventQueue.insert(new EventPoint(s, s.getUpperEndpoint()));
-            eventQueue.printTree();
             eventQueue.insert(new EventPoint(s, s.getLowerEndpoint()));
         });
         T statusStructure = T.getEmpty();
@@ -60,13 +58,17 @@ public class SegmentCollection {
                     .filter(segment -> segment.getUpperEndpoint().sameAs(p))
                     .toList()
         );
+        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
         // Line 3 & 4
         if (ulcSets.getULCSize() > 1) {
             overlay.add(new Intersection(p, ulcSets.getCombinedSets()));
         }
+        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
         // Line 5
         ulcSets.C().forEach(segment -> statusStructure.delete(segment, p));
         ulcSets.L().forEach(segment -> statusStructure.delete(segment, p));
+        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
+
         // Line 6 & 7
         ulcSets.U().forEach(segment -> statusStructure.insert(segment, p));
         ulcSets.C().forEach(segment -> statusStructure.insert(segment, p));
@@ -90,6 +92,7 @@ public class SegmentCollection {
                 });
             });
         }
+        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
     }
 
     private void findNewEvent(
