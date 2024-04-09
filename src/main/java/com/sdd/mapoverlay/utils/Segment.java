@@ -13,7 +13,6 @@ public class Segment {
     private Double lineOrigin = null;
 
     public Segment(Double x1, Double y1, Double x2, Double y2) {
-
         if (y1 < y2) {
             this.lowerEndpoint = new Point(x1, y1);
             this.upperEndpoint = new Point(x2, y2);
@@ -74,7 +73,7 @@ public class Segment {
 
     @Override
     public String toString() {
-        return lowerEndpoint.toString() + " " + upperEndpoint.toString();
+        return lowerEndpoint + " " + upperEndpoint;
     }
 
     /**
@@ -127,12 +126,16 @@ public class Segment {
         */
 
          final double axPlusB = getLineCoefficient() * point.getX() + getLineOrigin();
+
+         if (Comparator.closeEnough(axPlusB, point.getY())) {
+             return Position.INTERSECT;
+         }
          if (point.getY() > axPlusB) {
              return getLineCoefficient() > 0 ? Position.LEFT : Position.RIGHT;
          } else if (point.getY() < axPlusB) {
              return getLineCoefficient() > 0 ? Position.RIGHT : Position.LEFT;
          } else {
-             return Position.INTERSECT;
+             throw  new RuntimeException();
          }
     }
 
@@ -159,7 +162,6 @@ public class Segment {
             Maybe some issue, parallels or overlapping segments
             - Parallel if a = c, that edge case is not supposed to happen I think
         */
-        // TODO Round the result to 2 digits
         final double a = this.getLineCoefficient();
         final double b = this.getLineOrigin();
 

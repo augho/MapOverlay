@@ -21,11 +21,10 @@ public class Point {
         return x +  " " + y;
     }
 
-    public boolean sameAs(Point point) {
+    private boolean exactSameAs(Point point) {
         return point.getX() == this.getX() && point.getY() == this.getY();
     }
-
-    public boolean almostEqual(Point point) {
-        return Math.abs(point.getX() - this.getX()) < 0.001 && Math.abs(point.getY() - this.getY()) < 0.001;
+    public boolean sameAs(Point point) {
+        return Comparator.closeEnough(this, point);
     }
 }

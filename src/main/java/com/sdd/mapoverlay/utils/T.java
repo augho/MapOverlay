@@ -160,6 +160,11 @@ public class T {
                 }
             }
             case INTERSECT -> {
+                if (isLeaf()) {
+                    // Breakpoint spot
+                    Point pp = new Point(3.0, 4.0);
+                    double x = pp.getX();
+                }
                 if (!isLeaf()) {
                     this.getLeftChildUnsafe().addAllContaining(point, sets);
                     this.getRightChildUnsafe().addAllContaining(point, sets);
@@ -185,7 +190,6 @@ public class T {
         return findLeftAndRightNeighbour(p, null, null);
     }
     private SegmentPair findLeftAndRightNeighbour(Point p, Segment left, Segment right) {
-        // TODO not sure about this method
         switch (getData().whereIs(p)) {
             case LEFT -> {
                 if (isLeaf()) {

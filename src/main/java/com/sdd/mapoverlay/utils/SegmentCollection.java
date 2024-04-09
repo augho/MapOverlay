@@ -101,7 +101,7 @@ public class SegmentCollection {
             Point eventPoint,
             Q eventQueue
     ) {
-        // TODO remake
+        // TODO remake & approximation
         double sweepLineY = eventPoint.getY();
         leftSegment.getIntersection(rightSegment).ifPresent(intersectionPoint -> {
                 if(intersectionPoint.getY() < sweepLineY ||

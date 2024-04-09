@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="AVL doubleRotations mixup fixed + Q insert fix + more unit test">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Segment.whereIs fix">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +344,7 @@
       <workItem from="1712584864515" duration="2917000" />
       <workItem from="1712590376714" duration="2934000" />
       <workItem from="1712604927825" duration="2181000" />
-      <workItem from="1712668144585" duration="4054000" />
+      <workItem from="1712668144585" duration="9925000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -527,7 +530,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712592890797</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Segment.whereIs fix">
+      <option name="closed" value="true" />
+      <created>1712677518534</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1712677518534</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +579,8 @@
     <MESSAGE value="Or not" />
     <MESSAGE value="EventPoint data from ArrayList to HashSet + fix T.delete and T.insert" />
     <MESSAGE value="AVL doubleRotations mixup fixed + Q insert fix + more unit test" />
-    <option name="LAST_COMMIT_MESSAGE" value="AVL doubleRotations mixup fixed + Q insert fix + more unit test" />
+    <MESSAGE value="Segment.whereIs fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Segment.whereIs fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -594,10 +606,15 @@
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <condition expression="eventPoint.sameAs(new Point(3.0, 6.0))" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="28" />
+          <line>206</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="point.sameAs(pp)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java</url>
+          <line>165</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

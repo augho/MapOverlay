@@ -44,7 +44,7 @@ public class EventPoint extends Point {
         if (eventPoint.sameAs(this)) {
             return Position.INTERSECT;
         } else if (this.getY() > eventPoint.getY()
-                || this.getY() == eventPoint.getY() && this.getX() < eventPoint.getX()) {
+                || Comparator.closeEnough(getY(), eventPoint.getY()) && this.getX() < eventPoint.getX()) {
             return Position.LEFT;
         } else {
             return Position.RIGHT;

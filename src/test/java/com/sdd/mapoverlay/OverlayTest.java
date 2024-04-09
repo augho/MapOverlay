@@ -53,7 +53,7 @@ public class OverlayTest {
 
     @Test
     public void testOverlay() throws FileNotFoundException {
-        ArrayList<Intersection> res = computeOverlay("edgecase2.txt");
+        ArrayList<Intersection> res = computeOverlay("edgecaseParall.txt");
 
         System.out.println("RESULTS:");
         System.out.println("Count = " + res.size());
