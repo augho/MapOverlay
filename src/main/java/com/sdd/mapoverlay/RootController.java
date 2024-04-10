@@ -1,6 +1,8 @@
 package com.sdd.mapoverlay;
 
+import com.sdd.mapoverlay.utils.Point;
 import com.sdd.mapoverlay.utils.Segment;
+import com.sdd.mapoverlay.utils.Records.Intersection;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +20,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class RootController implements Initializable{
-
+       
     @FXML
     public LineChart<Number, Number> lineChart;
 
@@ -63,6 +65,7 @@ public class RootController implements Initializable{
     protected void addPoint(Double x, Double y) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>(x, y));
+        System.out.println(series.getData());
         lineChart.getData().add(series);
         for (XYChart.Data<Number, Number> data : series.getData()) {
             System.out.println("Test");
@@ -71,6 +74,36 @@ public class RootController implements Initializable{
             point.setScaleX(0.75);
             point.setScaleY(0.75);
             System.out.println(point);
+        }
+    }
+
+    protected void addPoint(Point p){
+        this.addPoint(p.getX(), p.getY());
+    }
+
+    protected void addIntersectionPoints(ArrayList<Intersection> intersectionPoints) {
+        // Create a new series
+        XYChart.Series<Number, Number> serie = new XYChart.Series<>();
+        for (Intersection intersection : intersectionPoints) {
+            serie.getData().add(new XYChart.Data<>(intersection.p().getX(), intersection.p().getY()));
+            System.out.println("Adding intersection point: " + intersection.p().getX() + ", " + intersection.p().getY());
+        }
+        System.out.println(serie.getData());
+
+        // Add the series to your chart
+        lineChart.getData().add(serie);
+
+        for (XYChart.Data<Number, Number> data : serie.getData()) {
+            System.out.println(data);
+            Node point = data.getNode();
+            if (point == null) {
+                System.out.println("Point is null");
+            } else {
+                System.out.println("Point is not null");
+                point.setStyle("-fx-background-color: #0077B6;");
+                point.setScaleX(0.75);
+                point.setScaleY(0.75);
+            }
         }
     }
 

@@ -1,19 +1,25 @@
 package com.sdd.mapoverlay;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Objects;
+import java.util.Stack;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+
 import com.sdd.mapoverlay.utils.Logs;
 import com.sdd.mapoverlay.utils.Segment;
 import com.sdd.mapoverlay.utils.Store;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Stack;
 
 public class EditPanelController {
     public Button addSegmentButton;
@@ -54,14 +60,9 @@ public class EditPanelController {
             displayAddSegmentError(e.getMessage());
             return;
         }
-        Store.getRootController().addSegment(x1, y1, x2, y2);
-        logsHistory.push(new Logs(new Segment(x1, y1, x2, y2), "ADD"));
-        
-        System.out.println("Showing logs");
-        for (Logs log : logsHistory) {
-            System.out.println(log.toString());
-        }
-
+        Segment segment = new Segment(x1, y1, x2, y2);
+        Store.getRootController().addSegment(segment);
+        logsHistory.push(new Logs(segment, "ADD"));
         segmentError.setVisible(false);
     }
 
@@ -139,6 +140,8 @@ public class EditPanelController {
             displayLoadFileError(e.getMessage());
         }
 
+        //Clear the logsHistory (Stack)
+        logsHistory.clear();
     }
 
     private void displayLoadFileError(String msg) {
@@ -148,10 +151,18 @@ public class EditPanelController {
 
     @FXML
     private void onSaveButtonClick() {
-        String defaultDirectory = System.getProperty("user.home") + File.separator + "Downloads";
+        String defaultDirectory = System.getProperty("user.home");
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(defaultDirectory));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+    	
+        //Check if defaultDirectory+File.Separator+"Downloads" exists, if not, same for "Téléchargements", if not just open the defaultDirectory
+        if (new File(defaultDirectory + File.separator + "Downloads").exists()) {
+            fileChooser.setInitialDirectory(new File(defaultDirectory + File.separator + "Downloads"));
+        } else if (new File(defaultDirectory + File.separator + "Téléchargements").exists()) {
+            fileChooser.setInitialDirectory(new File(defaultDirectory + File.separator + "Téléchargements"));
+        } else {
+            fileChooser.setInitialDirectory(new File(defaultDirectory));
+        }
+
         File file = fileChooser.showSaveDialog(null);
         if (file == null) {
             displaySaveFileError("You need to select a file");

@@ -28,7 +28,7 @@ public class SidePanelController {
         try {
             swapContainer.getChildren().set(0, fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("[ERR]Couldn't load edit-panel");
+            System.out.println("[ERR]Couldn't load play-panel");
         }
 
     }
@@ -58,7 +58,7 @@ public class SidePanelController {
         try {
             swapContainer.getChildren().set(0, fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("[ERR]Couldn't load edit-panel");
+            System.out.println("[ERR]Couldn't load segmentList-panel");
         }
     }
     
