@@ -88,7 +88,6 @@ public class RootController implements Initializable{
             serie.getData().add(new XYChart.Data<>(intersection.p().getX(), intersection.p().getY()));
             System.out.println("Adding intersection point: " + intersection.p().getX() + ", " + intersection.p().getY());
         }
-        System.out.println(serie.getData());
 
         // Add the series to your chart
         lineChart.getData().add(serie);
@@ -99,11 +98,12 @@ public class RootController implements Initializable{
             if (point == null) {
                 System.out.println("Point is null");
             } else {
-                System.out.println("Point is not null");
-                point.setStyle("-fx-background-color: #0077B6;");
-                point.setScaleX(0.75);
-                point.setScaleY(0.75);
+                point.setStyle("-fx-background-color: #B63F00;");
+                point.setScaleX(1.15);
+                point.setScaleY(1.15);
             }
+            Node line = serie.getNode().lookup(".chart-series-line");
+            line.setStyle("-fx-stroke: #FF000000;");
         }
     }
 

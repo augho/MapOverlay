@@ -26,13 +26,12 @@ public class PlayPanelController {
         System.out.println("Play button clicked");
         ArrayList<Intersection> pointsToPlace = computeOverlay();
         System.out.println("Overlay computed");
-        RootController rootController = new RootController();
-        System.out.println("Root controller created");
+        
         System.out.println("Adding intersection points");
         /* for (Intersection point : pointsToPlace) {
             rootController.addInterPoint(point.p().getX(), point.p().getY());
         } */
-        rootController.addIntersectionPoints(pointsToPlace);
+        Store.getRootController().addIntersectionPoints(pointsToPlace);
         System.out.println("Intersection points added2");
     }
 

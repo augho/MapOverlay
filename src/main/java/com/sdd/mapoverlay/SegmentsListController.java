@@ -71,6 +71,7 @@ public class SegmentsListController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         segmentsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         List<Segment> segments = Store.getRootController().getChartContent();
+        System.out.println(Store.getRootController().getChartContent());
 
         segmentsListView.getItems().addAll(segments);
 
