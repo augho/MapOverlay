@@ -54,6 +54,7 @@ public class RootController implements Initializable{
         line.setStyle("-fx-stroke-width: 2px;");
         line.setStyle("-fx-stroke: #90E0EF;");
     }
+
     public void addSegment(Segment segment) {
         this.addSegment(
                 segment.getLowerEndpoint().getX(),
@@ -84,6 +85,14 @@ public class RootController implements Initializable{
     protected void addIntersectionPoints(ArrayList<Intersection> intersectionPoints) {
         // Create a new series
         XYChart.Series<Number, Number> serie = new XYChart.Series<>();
+        // Delete the previous series if it exists
+        XYChart.Series<Number, Number> previousSerie = this.getSerieByName("Intersection_Points");
+        if (previousSerie != null) {
+            System.out.println("Removing previous serie");
+            lineChart.getData().remove(previousSerie);
+        }
+
+        serie.setName("Intersection_Points");
         for (Intersection intersection : intersectionPoints) {
             serie.getData().add(new XYChart.Data<>(intersection.p().getX(), intersection.p().getY()));
             System.out.println("Adding intersection point: " + intersection.p().getX() + ", " + intersection.p().getY());
@@ -91,6 +100,8 @@ public class RootController implements Initializable{
 
         // Add the series to your chart
         lineChart.getData().add(serie);
+        System.out.println("Number of data points in the series: " + serie.getData().size());
+        System.out.println("Name of the series: " + serie.getName());
 
         for (XYChart.Data<Number, Number> data : serie.getData()) {
             System.out.println(data);
@@ -162,11 +173,74 @@ public class RootController implements Initializable{
         fileContent.forEach(this::addSegment);
     }
 
-    public List<Segment> getChartContent() {
-        return this.lineChart.getData()
-                .stream()
-                .map(Segment::fromSeries)
-                .toList();
+    public List<Object> getChartContent() {
+        List<Segment> segments = new ArrayList<>();
+        List<Point> intersections = new ArrayList<>();
+        for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            if (series.getData().size() == 2) {
+                segments.add(new Segment(
+                        (Double) series.getData().get(0).getXValue(),
+                        (Double) series.getData().get(0).getYValue(),
+                        (Double) series.getData().get(1).getXValue(),
+                        (Double) series.getData().get(1).getYValue()
+                ));
+            } else {
+                for (int i=0; i<series.getData().size(); i++) {
+                    intersections.add(new Point(
+                            (Double) series.getData().get(i).getXValue(),
+                            (Double) series.getData().get(i).getYValue()
+                    ));
+                }
+            }
+        }
+        List<Object> result = new ArrayList<>();
+        result.add(segments);
+        result.add(intersections);
+        return result;
+    }
+
+    public List<Segment> getSegmentsFromChart() {
+        return lineChart.getData().stream()
+                .filter(series -> series.getData().size() == 2)
+                .map(series -> new Segment(
+                        series.getData().get(0).getXValue().doubleValue(),
+                        series.getData().get(0).getYValue().doubleValue(),
+                        series.getData().get(1).getXValue().doubleValue(),
+                        series.getData().get(1).getYValue().doubleValue()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public XYChart.Series<Number, Number> getSerieByName(String serieName) {
+        for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            if (series.getName() != null && series.getName().equals(serieName)) {
+                return series;
+            }
+        }
+        return null; // Si la série n'est pas trouvée
+    }
+
+    public void displayIntersectionPoints(boolean display) {
+        if (display){
+
+        }
+    }
+
+
+    public List<Point> getIntersectionPointsFromChart() {
+        List<Point> intersectionPoints = new ArrayList<>();
+        for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            if (series.getData().size() !=2) {
+                for (int i=0; i<series.getData().size(); i++) {
+                    intersectionPoints.add(new Point(
+                            series.getData().get(i).getXValue().doubleValue(),
+                            series.getData().get(i).getYValue().doubleValue()
+                    ));
+                }
+            }
+        }
+        System.out.println("Intersection points: " + intersectionPoints);
+        return intersectionPoints;
     }
 
     private void handleScrollEvent(ScrollEvent event) {

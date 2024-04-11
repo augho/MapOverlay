@@ -70,8 +70,9 @@ public class SegmentsListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         segmentsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        List<Segment> segments = Store.getRootController().getChartContent();
-        System.out.println(Store.getRootController().getChartContent());
+        List<Segment> segments = Store.getRootController().getSegmentsFromChart();
+        System.out.println("Segments" +Store.getRootController().getSegmentsFromChart());
+        System.out.println("Inter "+Store.getRootController().getIntersectionPointsFromChart());
 
         segmentsListView.getItems().addAll(segments);
 
