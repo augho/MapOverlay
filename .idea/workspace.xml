@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="Segment.whereIs fix">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="fixed floating point error">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/SegmentTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/EventPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,9 +141,14 @@
     "Gradle.MapOverlay [:MapOverlayApplication.main()].executor": "Run",
     "Gradle.MapOverlay [run].executor": "Run",
     "Gradle.MapOverlay [test].executor": "Run",
+    "Gradle.OverlayTest.testEdge12.executor": "Run",
+    "Gradle.OverlayTest.testEdge3inter.executor": "Run",
     "Gradle.OverlayTest.testOverlay.executor": "Run",
     "Gradle.QTest.balanceTest.executor": "Run",
     "Gradle.QTest.insertTest.executor": "Run",
+    "Gradle.SegmentTest.horizontalSegmentTest.executor": "Run",
+    "Gradle.SegmentTest.otherTest.executor": "Run",
+    "Gradle.SegmentTest.verticalSegmentTest.executor": "Debug",
     "Gradle.TTest.insertionTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -167,7 +173,7 @@
       <recent name="$PROJECT_DIR$/src/test/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.OverlayTest.testOverlay">
+  <component name="RunManager" selected="Gradle.MapOverlay [run]">
     <configuration name="MapOverlay [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -212,6 +218,30 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="OverlayTest.testEdge3inter" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.sdd.mapoverlay.OverlayTest.testEdge3inter&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="OverlayTest.testOverlay" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -236,7 +266,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="QTest.balanceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SegmentTest.otherTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -249,31 +279,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.sdd.mapoverlay.QTest.balanceTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="QTest.insertTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.sdd.mapoverlay.QTest.insertTest&quot;" />
+            <option value="&quot;com.sdd.mapoverlay.SegmentTest.otherTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -286,11 +292,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.OverlayTest.testOverlay" />
         <item itemvalue="Gradle.MapOverlay [run]" />
-        <item itemvalue="Gradle.QTest.balanceTest" />
+        <item itemvalue="Gradle.OverlayTest.testOverlay" />
+        <item itemvalue="Gradle.SegmentTest.otherTest" />
         <item itemvalue="Gradle.MapOverlay [test]" />
-        <item itemvalue="Gradle.QTest.insertTest" />
+        <item itemvalue="Gradle.OverlayTest.testEdge3inter" />
       </list>
     </recent_temporary>
   </component>
@@ -344,7 +350,11 @@
       <workItem from="1712584864515" duration="2917000" />
       <workItem from="1712590376714" duration="2934000" />
       <workItem from="1712604927825" duration="2181000" />
-      <workItem from="1712668144585" duration="9925000" />
+      <workItem from="1712668144585" duration="10961000" />
+      <workItem from="1712734375613" duration="10365000" />
+      <workItem from="1712837918938" duration="7935000" />
+      <workItem from="1712906036900" duration="17552000" />
+      <workItem from="1712949851919" duration="7149000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -538,7 +548,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712677518534</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="fixed floating point error">
+      <option name="closed" value="true" />
+      <created>1712691486960</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1712691486960</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -580,7 +598,8 @@
     <MESSAGE value="EventPoint data from ArrayList to HashSet + fix T.delete and T.insert" />
     <MESSAGE value="AVL doubleRotations mixup fixed + Q insert fix + more unit test" />
     <MESSAGE value="Segment.whereIs fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Segment.whereIs fix" />
+    <MESSAGE value="fixed floating point error" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed floating point error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -588,7 +607,7 @@
         <line-breakpoint type="java-line">
           <condition expression="intersectionPoint.sameAs(new Point(2.0, 3.0))" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
-          <line>106</line>
+          <line>112</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -599,7 +618,7 @@
         <line-breakpoint type="java-line">
           <condition expression="p.getX() == 3.0 &amp;&amp; p.getY() == 5.0" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
-          <line>72</line>
+          <line>76</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -607,14 +626,60 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java</url>
-          <line>206</line>
+          <line>227</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
-        <line-breakpoint type="java-line">
+        <line-breakpoint enabled="true" type="java-line">
           <condition expression="point.sameAs(pp)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java</url>
-          <line>165</line>
+          <line>184</line>
           <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="p.sameAs(breakPoint);" language="JAVA" mode="CODE_FRAGMENT" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/SegmentTest.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="point.sameAs(bp)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java</url>
+          <line>157</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="p.sameAs(bp2)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="p.getSegments().size() &gt; 1" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="p.sameAs(bp3)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="p.sameAs(bp4)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/SegmentTest.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

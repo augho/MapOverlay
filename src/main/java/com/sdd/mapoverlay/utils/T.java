@@ -4,7 +4,6 @@ import com.sdd.mapoverlay.utils.Records.DeleteResult;
 import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 // TODO Edge case when segment intersect on the lower endpoint of one what happens
@@ -20,7 +19,7 @@ public class T {
      */
     public void insert(Segment data, Point eventPoint) {
         if (isEmpty()) {
-            System.out.println("[INSERT IN T] " + data);
+//            System.out.println("[INSERT IN T] " + data);
             this.setData(data);
             return;
         }
@@ -38,7 +37,7 @@ public class T {
                 this.setLeftChild(new T(data, this));
                 this.setRightChild(new T(currDataCopy, this));
                 this.doEquilibrate();
-                System.out.println("[INSERT IN T] " + data);
+//                System.out.println("[INSERT IN T] " + data);
 
             }
             case RIGHT -> {
@@ -50,7 +49,7 @@ public class T {
                 this.setLeftChild(new T(this.getData(), this));
                 this.setRightChild(new T(data, this));
                 this.doEquilibrate();
-                System.out.println("[INSERT IN T] " + data);
+//                System.out.println("[INSERT IN T] " + data);
 
             }
             case INTERSECT -> {
@@ -70,14 +69,14 @@ public class T {
                         this.setLeftChild(new T(data, this));
                         this.setRightChild(new T(currDataCopy, this));
                         this.doEquilibrate();
-                        System.out.println("[INSERT IN T] " + data);
+//                        System.out.println("[INSERT IN T] " + data);
 
                     }
                     case RIGHT -> {
                         this.setLeftChild(new T(getData(), this));
                         this.setRightChild(new T(data, this));
                         this.doEquilibrate();
-                        System.out.println("[INSERT IN T] " + data);
+//                        System.out.println("[INSERT IN T] " + data);
 
                     }
                     case INTERSECT -> throw new RuntimeException(eventPoint +" Segments are parallel: " + getData() + " / " + data);
@@ -148,24 +147,46 @@ public class T {
     }
 
     private void addAllContaining(Point point, ULCSets sets) {
+        Point bp = new Point(106.91368780696644,138.93940904861532);
+        Point bp2 = new Point(64.75,157.36);
+
+        if (point.sameAs(bp2) && isRoot()) {
+            System.out.println("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            System.out.println(getStatus());
+            printTree();
+        }
+        double xx = bp.getX();
         switch (getData().whereIs(point)) {
             case LEFT -> {
                 if (!isLeaf()) {
                     this.getLeftChildUnsafe().addAllContaining(point, sets);
                 }
+//                else {
+//                    System.out.println("[LEAF] " + getData());
+//
+//                }
             }
             case RIGHT -> {
                 if (!isLeaf()) {
                     this.getRightChildUnsafe().addAllContaining(point, sets);
                 }
+//                else {
+//                    System.out.println("[LEAF] " + getData());
+//
+//                }
             }
             case INTERSECT -> {
+                // TODO Remove breakpoint if
                 if (isLeaf()) {
+//                    System.out.println("[LEAF] " + getData());
                     // Breakpoint spot
-                    Point pp = new Point(3.0, 4.0);
+                    Point pp = new Point(106.91368780696644,138.93940904861532);
+                    Point pp2 = new Point(64.75,157.36);
                     double x = pp.getX();
                 }
                 if (!isLeaf()) {
+//                    System.out.println("[NODE] ");
+//                    printTree();
                     this.getLeftChildUnsafe().addAllContaining(point, sets);
                     this.getRightChildUnsafe().addAllContaining(point, sets);
                 } else {
@@ -217,6 +238,7 @@ public class T {
 
     private Segment findLeftNeighbour(Point p, Segment leftNeighbour) {
         switch (getData().whereIs(p)) {
+            // TODO Rethink the intersect case if 2 segments intersect on p one is left of the other but intersects p
             case LEFT, INTERSECT -> {
                 if (isLeaf()) {
                     return leftNeighbour;
@@ -472,5 +494,12 @@ public class T {
         if (isLeaf() && isRoot()) return false;
         if(isLeaf()) return isEmpty();
         else return rightChild.scanForNull() || leftChild.scanForNull();
+    }
+
+    public String getStatus() {
+        if(isEmpty()) return "null";
+        if (isLeaf()) return getData().toString();
+        return getLeftChild().map(T::getStatus).orElse("") + " | "
+                + getRightChild().map(T::getStatus).orElse("");
     }
 }

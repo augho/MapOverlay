@@ -5,8 +5,6 @@ import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
 
 public class SegmentCollection {
     private ArrayList<Intersection> overlay;
@@ -39,7 +37,7 @@ public class SegmentCollection {
         });
         T statusStructure = T.getEmpty();
         System.out.println("[LOG] Starting handling of event points");
-        eventQueue.printTree();
+//        eventQueue.printTree();
         while (!eventQueue.isEmpty()) {
             handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue, newOverlay);
         }
@@ -48,6 +46,15 @@ public class SegmentCollection {
     }
 
     private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue, ArrayList<Intersection> overlay) {
+        Point bp4 = new Point(112.75205970860071, 162.77637250728935);
+        Point bp3 = new Point(111.52268832789706, 157.7570826825404);
+        Point bp2 = new Point(64.75, 157.36); // overlay_test
+        Point breakPoint = new Point(106.91368780696644,138.93940904861532); // fichier1
+        System.out.println("\n[HANDLING] event point: " + p);
+        System.out.println(statusStructure.getStatus());
+        // Why here ? p: 106.91368780696644 138.93940904861532 : 2 / s: 104.08 127.37 129.56 231.4
+        // 104.08 127.37 129.56 231.4
+        // 124.18 98.87 68.64 227.76
         ULCSets ulcSets;
         // Line 2 in algo
         ulcSets = statusStructure.isEmpty() ? ULCSets.getEmpty() : statusStructure.findAllContaining(p);
@@ -58,16 +65,13 @@ public class SegmentCollection {
                     .filter(segment -> segment.getUpperEndpoint().sameAs(p))
                     .toList()
         );
-        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
         // Line 3 & 4
         if (ulcSets.getULCSize() > 1) {
             overlay.add(new Intersection(p, ulcSets.getCombinedSets()));
         }
-        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
         // Line 5
         ulcSets.C().forEach(segment -> statusStructure.delete(segment, p));
         ulcSets.L().forEach(segment -> statusStructure.delete(segment, p));
-        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
 
         // Line 6 & 7
         ulcSets.U().forEach(segment -> statusStructure.insert(segment, p));
@@ -80,6 +84,7 @@ public class SegmentCollection {
             }
         } else {
             SegmentPair extremesOfUC =  ulcSets.getEdgeSegmentsOfUC(p.getY(), p);
+            System.out.println(statusStructure.getStatus());
             extremesOfUC.getLeft().ifPresent(segment -> {
                 statusStructure.findLeftNeighbour(segment, p.getY()).ifPresent(leftNeighbour -> {
                     findNewEvent(leftNeighbour, segment, p, eventQueue);
@@ -92,7 +97,8 @@ public class SegmentCollection {
                 });
             });
         }
-        if (statusStructure.scanForNull()) System.out.println("[NULL CHECK FAILED] " + p );
+        System.out.println("[POST HANDLING]");
+        System.out.println(statusStructure.getStatus());
     }
 
     private void findNewEvent(

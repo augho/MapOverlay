@@ -9,10 +9,12 @@ import java.util.Optional;
 public class Segment {
     private final Point lowerEndpoint, upperEndpoint;
 
-    private Double lineCoefficient = null;
+    private final SegmentType segmentType;
+
+    private Double slope = null;
     private Double lineOrigin = null;
 
-    public Segment(Double x1, Double y1, Double x2, Double y2) {
+    public Segment(double x1, double y1, double x2, double y2) {
         if (y1 < y2) {
             this.lowerEndpoint = new Point(x1, y1);
             this.upperEndpoint = new Point(x2, y2);
@@ -28,6 +30,19 @@ public class Segment {
                 this.lowerEndpoint = new Point(x1, y1);
                 this.upperEndpoint = new Point(x2, y2);
             }
+        }
+        if(y1 == y2) {
+            segmentType = SegmentType.HORIZONTAL;
+            slope = 0.0;
+            lineOrigin = y1;
+        } else if(x1 == x2) {
+            segmentType = SegmentType.VERTICAL;
+            slope = Double.NaN;
+            lineOrigin = Double.NaN;
+        } else {
+            segmentType = SegmentType.SLOPED;
+            slope = (y2 - y1) / (x2 - x1);
+            lineOrigin = y1 - slope * x1;
         }
     }
     public static Segment getSegment(Point p1, Point p2) {
@@ -82,34 +97,72 @@ public class Segment {
      * @return true if equals
      */
     public boolean sameAs(Segment s) {
-        return this.getUpperEndpoint().sameAs(s.getUpperEndpoint()) && this.lowerEndpoint.sameAs(s.getLowerEndpoint());
+        return upperEndpoint.sameAs(s.getUpperEndpoint()) && lowerEndpoint.sameAs(s.getLowerEndpoint());
     }
 
     /**
      * @return The coefficient of the line containing this segment
      */
-    private double getLineCoefficient() {
-        if (lineCoefficient == null) {
-            lineCoefficient =
-                    (upperEndpoint.getY() - lowerEndpoint.getY()) / (upperEndpoint.getX() - lowerEndpoint.getX());
-        }
-        return lineCoefficient;
+    public double getSlope() {
+        return slope;
     }
 
     /**
      * @return The origin of the line containing this segments (y when x = 0)
      */
-    private double getLineOrigin() {
-        if (lineOrigin == null) {
-            lineOrigin = upperEndpoint.getY() - this.getLineCoefficient() * upperEndpoint.getX();
-        }
+    public double getLineOrigin() {
         return lineOrigin;
     }
+
+    private SegmentType getSegmentType () { return segmentType; }
 
     public Double xAt(Double y) {
         // y = ax + b
         // x = (y - b) / a
-        return (y - getLineOrigin()) / getLineCoefficient();
+        switch (segmentType) {
+            case SLOPED -> {
+                return (y - lineOrigin) / slope;
+            }
+            case VERTICAL -> {
+                if (lowerEndpoint.getY() <= y && y <= upperEndpoint.getY()) {
+                    return upperEndpoint.getX();
+                } else {
+                    throw new RuntimeException(
+                            this +" | " + lowerEndpoint.getY() + "<=" + y + "<=" + upperEndpoint.getY()
+                    );
+                }
+            }
+            case HORIZONTAL -> {
+                if (Comparator.closeEnough(y, upperEndpoint.getY())) {
+                    return upperEndpoint.getY();
+                } else {
+                    throw new RuntimeException(this +" | " + y + "!=" + upperEndpoint.getY());
+                }
+            }
+        }
+        throw new RuntimeException("Why here ?");
+    }
+
+    private boolean contains(Point p) {
+        switch (segmentType) {
+            case VERTICAL -> {
+                if (!Comparator.closeEnough(p.getX(), upperEndpoint.getX())) {
+                    return false;
+                }
+                return Comparator.sandwiched(lowerEndpoint.getY(), p.getY(), upperEndpoint.getY());
+            }
+            case HORIZONTAL -> {
+                if (!Comparator.closeEnough(p.getY(), upperEndpoint.getY())) {
+                    return false;
+                }
+                return Comparator.sandwiched(lowerEndpoint.getX(), p.getX(), upperEndpoint.getX());
+            }
+            case SLOPED -> {
+                return Comparator.sandwiched(lowerEndpoint.getX(), p.getX(), upperEndpoint.getX()) &&
+                        Comparator.sandwiched(lowerEndpoint.getY(), p.getY(), upperEndpoint.getY());
+            }
+        }
+        throw new RuntimeException("Why here ?");
     }
 
     /**
@@ -124,18 +177,43 @@ public class Segment {
             y > ax + b -> left
             y = ax + b -> intersection
         */
+        if (segmentType == SegmentType.HORIZONTAL) {
+            if (!Comparator.closeEnough(point.getY(), upperEndpoint.getY())) {
+                if (point.getY() < upperEndpoint.getY()) {
+                    return Position.RIGHT;
+                } else {
+                    throw new RuntimeException("Think this through: " + this + " | " + point);
+                }
+            }
+            if (point.getX() < upperEndpoint.getX()) {
+                return Position.LEFT;
+            } else if (lowerEndpoint.getX() < point.getX()){
+                return Position.RIGHT;
+            } else {
+                return Position.INTERSECT;
+            }
+        }
+        if (segmentType == SegmentType.VERTICAL) {
+            if (Comparator.closeEnough(point.getX(), upperEndpoint.getX())) {
+                return Position.INTERSECT;
+            } else if (point.getX() < upperEndpoint.getX()) {
+                return Position.LEFT;
+            } else {
+                return Position.RIGHT;
+            }
+        }
 
-         final double axPlusB = getLineCoefficient() * point.getX() + getLineOrigin();
+         final double axPlusB = getSlope() * point.getX() + getLineOrigin();
 
          if (Comparator.closeEnough(axPlusB, point.getY())) {
              return Position.INTERSECT;
          }
          if (point.getY() > axPlusB) {
-             return getLineCoefficient() > 0 ? Position.LEFT : Position.RIGHT;
+             return getSlope() > 0 ? Position.LEFT : Position.RIGHT;
          } else if (point.getY() < axPlusB) {
-             return getLineCoefficient() > 0 ? Position.RIGHT : Position.LEFT;
+             return getSlope() > 0 ? Position.RIGHT : Position.LEFT;
          } else {
-             throw  new RuntimeException();
+             throw new RuntimeException(this + " / " + point);
          }
     }
 
@@ -162,18 +240,110 @@ public class Segment {
             Maybe some issue, parallels or overlapping segments
             - Parallel if a = c, that edge case is not supposed to happen I think
         */
-        final double a = this.getLineCoefficient();
-        final double b = this.getLineOrigin();
 
-        final double c = segment.getLineCoefficient();
+        // TODO This is incomplete actually xD
+        final double a = slope;
+        final double b = lineOrigin;
+
+        final double c = segment.getSlope();
         final double d = segment.getLineOrigin();
 
-        final double u = (d - b) / (a - c);
-        final double v = a * u + b;
-        System.out.println("s2 = " + segment);
-        System.out.println("s1 = " + this);
-        System.out.println("(u, v) = " + "("+ u + ", " + v + ")");
-        return Optional.of(new Point(u, v));
+//        // both segments are vertical or both horizontal
+//        if(segment.getSegmentType() == SegmentType.VERTICAL && segmentType == SegmentType.VERTICAL ||
+//        segment.getSegmentType() == SegmentType.HORIZONTAL && segmentType == SegmentType.HORIZONTAL) {
+//            if(upperEndpoint.sameAs(segment.lowerEndpoint)) {
+//                return Optional.of(upperEndpoint);
+//            } else if (lowerEndpoint.sameAs(segment.upperEndpoint)) {
+//                return Optional.of(lowerEndpoint);
+//            } else {
+//                return Optional.empty();
+//            }
+//        }
+//        // the other is vertical
+//        if (segment.getSegmentType() == SegmentType.VERTICAL) {
+//            final double xVertical = segment.getUpperEndpoint().getX();
+//            final double y = a * xVertical + b;
+//
+//            if (Comparator.sandwiched(segment.getLowerEndpoint().getY(), y, segment.getUpperEndpoint().getY())) {
+//                return Optional.of(new Point(xVertical, y));
+//            } else {
+//                return Optional.empty();
+//            }
+//        }
+//        // this one is vertical
+//        if (segmentType == SegmentType.VERTICAL) {
+//            final double xVertical = upperEndpoint.getX();
+//            final double y = c * xVertical + d;
+//            if (Comparator.sandwiched(lowerEndpoint.getY(), y, upperEndpoint.getY())) {
+//                return Optional.of(new Point(xVertical, y));
+//            } else {
+//                return Optional.empty();
+//            }
+//        }
+//        // this one is horizontal
+//        if (segmentType == SegmentType.HORIZONTAL) {
+//            final double yHorizontal = upperEndpoint.getY();
+//            final double x = segment.xAt(yHorizontal);
+//            if (Comparator.sandwiched(lowerEndpoint.getX(), x, upperEndpoint.getX())) {
+//                return Optional.of(new Point(x, yHorizontal));
+//            } else {
+//                return Optional.empty();
+//            }
+//        }
+//        // the other one is horizontal
+//        if (segment.getSegmentType() == SegmentType.HORIZONTAL) {
+//            final double yHorizontal = segment.getUpperEndpoint().getY();
+//            final double x = xAt(yHorizontal);
+//            if (Comparator.sandwiched(segment.getLowerEndpoint().getX(), x, segment.getUpperEndpoint().getX())) {
+//                return Optional.of(new Point(x, yHorizontal));
+//            } else {
+//                return Optional.empty();
+//            }
+//        }
+        // segments are parallel
+        if (a == c || Double.isNaN(a) && Double.isNaN(c)) {
+            if(upperEndpoint.sameAs(segment.lowerEndpoint)) {
+                return Optional.of(upperEndpoint);
+            } else if (lowerEndpoint.sameAs(segment.upperEndpoint)) {
+                return Optional.of(lowerEndpoint);
+            } else {
+                return Optional.empty();
+            }
+        }
+
+        Point candidate;
+
+        if (segment.getSegmentType() == SegmentType.VERTICAL) { // the other is vertical
+            final double xVertical = segment.getUpperEndpoint().getX();
+            final double y = a * xVertical + b;
+
+            candidate = new Point(xVertical, y);
+        } else if (segmentType == SegmentType.VERTICAL) { // this one is vertical
+            final double xVertical = upperEndpoint.getX();
+            final double y = c * xVertical + d;
+
+            candidate = new Point(xVertical, y);
+        } else {  // General case
+            final double u = (d - b) / (a - c);
+            final double v = a * u + b;
+
+            candidate = new Point(u, v);
+        }
+
+//        System.out.println("[CANDIDATE] " + candidate);
+        return this.contains(candidate) && segment.contains(candidate) ? Optional.of(candidate) : Optional.empty();
+        // Making sure that the intersection between the segments lines is sandwiched between their endpoints
+//        if(Comparator.sandwiched(lowerEndpoint.getY(), v, upperEndpoint.getY()) &&
+//                Comparator.sandwiched(segment.getLowerEndpoint().getY(), v, segment.getUpperEndpoint().getY())) {
+//            return Optional.of(new Point(u, v));
+//        }
+//        return Optional.empty();
     }
 
+}
+
+enum SegmentType {
+    HORIZONTAL,
+    VERTICAL,
+    SLOPED
 }
