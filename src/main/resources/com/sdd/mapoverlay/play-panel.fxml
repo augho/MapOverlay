@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="100.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.PlayPanelController">
+<VBox spacing="100.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.PlayPanelController">
 
     <Button fx:id="playButton" onAction="#onPlayButtonClick" styleClass="big-btn" text="Play" />
    <VBox prefHeight="200.0" prefWidth="100.0" styleClass="add-segment-block">
       <children>
          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
             <children>
-               <Button fx:id="prevStepButton" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#onPrevStepButtonClick" onMousePressed="#onPrevStepButtonPressed" styleClass="btn" text="Prev. Step" />
+               <Button fx:id="prevStepButton" disable="false" focusTraversable="false" mnemonicParsing="false" onAction="#onPrevStepButtonClick" onMousePressed="#onPrevStepButtonPressed" styleClass="btn" text="Prev. Step" />
                <Button fx:id="nextStepButton" disable="false" focusTraversable="false" mnemonicParsing="false" onAction="#onNextStepButtonClick" onMousePressed="#onNextStepButtonPressed" styleClass="btn" text="Next Step" />
             </children>
          </HBox>

@@ -45,6 +45,7 @@ public class PlayPanelController {
         // We reset the chart to remove the previous intersection points
         Store.getRootController().lineChart.getData().remove(Store.getRootController().getSerieByName("Intersection_Points"));
         Store.getRootController().addIntersectionPoints(pointsToPlace);
+        nextStepButton.setDisable(pointsToPlace.isEmpty());
         displayOverlayCheckBox.setSelected(true);
 
         try {
@@ -60,31 +61,26 @@ public class PlayPanelController {
     @FXML
     protected void onPrevStepButtonClick() {
         currentStep--;
-        Store.getRootController().highlightIntersectionPoint(pointsToPlace.get(currentStep).p());
-        if (currentStep <= 0) {
-            prevStepButton.setDisable(true);
+        if (currentStep <= 0){
             currentStep = 0;
-        } else {
-            prevStepButton.setDisable(false);
         }
-        if (currentStep == pointsToPlace.size() - 2){
+        Store.getRootController().highlightIntersectionPoint(pointsToPlace.get(currentStep).p());   
+        if (currentStep == pointsToPlace.size() - 2)
             nextStepButton.setDisable(false);
-        }
+        
         labelIntersection.setText("Showing intersection ("+String.format("%,.2f",pointsToPlace.get(currentStep).p().getX())+", "+String.format("%,.2f", pointsToPlace.get(currentStep).p().getY())+")");
     }
 
     @FXML
     protected void onNextStepButtonClick() {
         currentStep++;
-        if (currentStep == pointsToPlace.size())
-            currentStep--;
+        if (currentStep == pointsToPlace.size()){
+            currentStep = pointsToPlace.size()-1;
+        }
         Store.getRootController().highlightIntersectionPoint(pointsToPlace.get(currentStep).p());
         if (currentStep != 0)
             prevStepButton.setDisable(false);
 
-        if (currentStep == pointsToPlace.size() - 1){
-            nextStepButton.setDisable(true);
-        }
         labelIntersection.setText("Showing intersection ("+String.format("%,.2f",pointsToPlace.get(currentStep).p().getX())+", "+String.format("%,.2f", pointsToPlace.get(currentStep).p().getY())+")");
     }
 
@@ -142,6 +138,9 @@ public class PlayPanelController {
 
     @FXML
     public void initialize() {
+        System.out.println("Been here");
+        nextStepButton.setDisable(pointsToPlace.isEmpty() || currentStep == pointsToPlace.size()-1);
+        prevStepButton.setDisable((pointsToPlace.isEmpty() || currentStep == 0));
         timelineFwd = new Timeline(new KeyFrame(Duration.millis(100), event -> onNextStepButtonPressed()));
         timelineBwd = new Timeline(new KeyFrame(Duration.millis(100), event -> onPrevStepButtonPressed()));
         timelineFwd.setCycleCount(Animation.INDEFINITE);
@@ -153,6 +152,8 @@ public class PlayPanelController {
 
         nextStepButton.setOnMouseReleased(event -> {
             timelineFwd.stop();
+            if (currentStep==pointsToPlace.size()-1)
+                nextStepButton.setDisable(true);
         });
 
         prevStepButton.setOnMousePressed(event -> {
@@ -161,6 +162,8 @@ public class PlayPanelController {
 
         prevStepButton.setOnMouseReleased(event -> {
             timelineBwd.stop();
+            if (currentStep == 0)
+                prevStepButton.setDisable(true);
         });
     }
     

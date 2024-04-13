@@ -126,6 +126,7 @@ public class EditPanelController {
 
         //Clear the logsHistory (Stack)
         logsHistory.clear();
+        PlayPanelController.pointsToPlace.clear();
     }
 
     private void displayLoadFileError(String msg) {
