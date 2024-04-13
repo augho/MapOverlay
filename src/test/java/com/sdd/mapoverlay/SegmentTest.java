@@ -61,10 +61,13 @@ public class SegmentTest {
         Segment s134 = new Segment(40.29, 168.95, 134.05, 223.33);
         Segment s68 = new Segment(124.18, 98.87, 68.64, 227.76);
 
+        Segment s142 = new Segment(67.74, 87.24, 142.76, 200.0);
+        Segment s75 = new Segment(122.97, 95.32, 75.91, 199.52);
+
         Point p111 = new Point(111.52268832789706, 157.7570826825404);
         Point p112 = new Point(112.75205970860071, 162.77637250728935);
         Point p64 = new Point(64.75, 157.36);
 
-        System.out.println(s171.getIntersection(s95Big));
+        System.out.println(s142.getIntersection(s68));
     }
 }

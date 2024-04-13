@@ -91,13 +91,15 @@ public class T {
             this.setData(null);
             return new DeleteResult(null, this);
         }
-        if (getLeftChildUnsafe().isLeaf() && getLeftChildUnsafe().getData().sameAs(data)) {
+        if (leftChild.isLeaf() && leftChild.getData().sameAs(data)) {
             this.become(getRightChildUnsafe());
             return new DeleteResult(getData(), this);
 
-        } else if (getRightChildUnsafe().isLeaf() && getRightChildUnsafe().getData().sameAs(data)) {
+        } else if (rightChild.isLeaf() && rightChild.getData().sameAs(data)) {
+            // TODO changed
+            Segment oldData = getData();
             this.become(getLeftChildUnsafe());
-            return new DeleteResult(getData(), this);
+            return new DeleteResult(oldData, this);
         }
         // inside node to be deleted
         if (getData().sameAs(data)) {
@@ -497,5 +499,30 @@ public class T {
         if (isLeaf()) return readable ? getData().readableToString() : getData().toString();
         return getLeftChild().map(t -> t.getStatus(readable)).orElse("") + " | "
                 + getRightChild().map(t -> t.getStatus(readable)).orElse("");
+    }
+    public String getRootAndLeafMirror(boolean readable) {
+        if (isEmpty()) return "null";
+        if (isLeaf()) return readable ? getData().readableToString() : getData().toString();
+        if (isRoot()) return readable ?
+                getData().readableToString() + " / " +
+                        getLeftChild().map(t -> t.getRootAndLeafMirror(true)).orElse("") :
+                getData().toString() + " / " +
+                        getLeftChild().map(t -> t.getRootAndLeafMirror(false)).orElse("");
+        return getRightChild().map(t -> t.getRootAndLeafMirror(readable)).orElse("");
+    }
+
+    public boolean valid() {
+        if (isEmpty() || isLeaf()) return true;
+        if (leftChild.getRightmost().sameAs(getData())) {
+            return getLeftChildUnsafe().valid() && getRightChildUnsafe().valid();
+        } else {
+            System.out.println("[ERR INTEGRITY]" + getData().readableToString());
+            return false;
+        }
+    }
+
+    private Segment getRightmost() {
+        if (isLeaf()) return getData();
+        return rightChild.getRightmost();
     }
 }

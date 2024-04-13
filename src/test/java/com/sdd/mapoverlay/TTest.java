@@ -28,4 +28,19 @@ public class TTest {
                 segment -> Assertions.assertTrue(segment.sameAs(s1))
         );
     }
+
+    @Test
+    public void otherInsertTest() {
+        Segment s2 = new Segment(4.0, 3.0, 2.0, 7.0);
+        Segment s4 = new Segment(2.0, 3.0, 4.0, 7.0);
+        Segment s1 = new Segment(6.0, 5.0, 1.0, 5.0);
+
+        Point p = new Point(3.0, 5.0);
+
+        T statusStructure = T.getEmpty();
+
+        statusStructure.insert(s1, p);
+        statusStructure.insert(s2, p);
+        statusStructure.insert(s4, p);
+    }
 }

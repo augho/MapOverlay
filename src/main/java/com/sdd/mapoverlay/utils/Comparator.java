@@ -1,7 +1,7 @@
 package com.sdd.mapoverlay.utils;
 
 public class Comparator {
-    final static double errorMargin = 0.001;
+    final static double errorMargin = 0.00001;
 
     public static boolean closeEnough(double a, double b) {
         return Math.abs(a - b) < errorMargin;

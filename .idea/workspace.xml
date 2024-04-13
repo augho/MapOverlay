@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="cleanup debug junk">
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="(╯°□°）╯︵ ┻━┻">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Records/ULCSets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/SegmentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/SegmentTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,6 +150,7 @@
     "Gradle.SegmentTest.otherTest.executor": "Run",
     "Gradle.SegmentTest.verticalSegmentTest.executor": "Debug",
     "Gradle.TTest.insertionTest.executor": "Run",
+    "Gradle.TTest.otherInsertTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -265,7 +267,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="SegmentTest.otherTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TTest.otherInsertTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -278,7 +280,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.sdd.mapoverlay.SegmentTest.otherTest&quot;" />
+            <option value="&quot;com.sdd.mapoverlay.TTest.otherInsertTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -293,9 +295,9 @@
       <list>
         <item itemvalue="Gradle.MapOverlay [run]" />
         <item itemvalue="Gradle.OverlayTest.testOverlay" />
-        <item itemvalue="Gradle.SegmentTest.otherTest" />
-        <item itemvalue="Gradle.MapOverlay [test]" />
         <item itemvalue="Gradle.OverlayTest.testEdge3inter" />
+        <item itemvalue="Gradle.TTest.otherInsertTest" />
+        <item itemvalue="Gradle.MapOverlay [test]" />
       </list>
     </recent_temporary>
   </component>
@@ -356,7 +358,7 @@
       <workItem from="1712949851919" duration="8696000" />
       <workItem from="1712960982692" duration="435000" />
       <workItem from="1712994962484" duration="1569000" />
-      <workItem from="1712998780653" duration="6512000" />
+      <workItem from="1712998780653" duration="14954000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -574,7 +576,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712996505838</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="(╯°□°）╯︵ ┻━┻">
+      <option name="closed" value="true" />
+      <created>1713005485582</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1713005485582</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,7 +602,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="File loading, manual add segment" />
     <MESSAGE value="File saving + utils classes" />
     <MESSAGE value="Added Q and EventPoint + refactoring" />
     <MESSAGE value="AVLTree implementation, refactoring of Q and 2 segments intersection compute" />
@@ -617,7 +626,8 @@
     <MESSAGE value="fixed floating point error" />
     <MESSAGE value="tout est cassé" />
     <MESSAGE value="cleanup debug junk" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup debug junk" />
+    <MESSAGE value="(╯°□°）╯︵ ┻━┻" />
+    <option name="LAST_COMMIT_MESSAGE" value="(╯°□°）╯︵ ┻━┻" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -649,6 +659,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java</url>
           <line>84</line>
           <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

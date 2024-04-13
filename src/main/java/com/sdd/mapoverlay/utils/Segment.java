@@ -184,7 +184,7 @@ public class Segment {
         if (segmentType == SegmentType.HORIZONTAL) {
             if (!Comparator.closeEnough(point.getY(), upperEndpoint.getY())) {
                 if (point.getY() < upperEndpoint.getY()) {
-                    return Position.RIGHT;
+                    return Position.LEFT;
                 } else {
                     throw new RuntimeException("Think this through: " + this + " | " + point);
                 }

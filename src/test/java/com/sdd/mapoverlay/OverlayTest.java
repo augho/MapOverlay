@@ -53,11 +53,11 @@ public class OverlayTest {
 
     @Test
     public void testOverlay() throws FileNotFoundException {
-        ArrayList<Intersection> res = computeOverlay("bug_src.txt");
+        ArrayList<Intersection> res = computeOverlay("bug_src2.txt");
         // Why here ? p: 106.91368780696644 138.93940904861532 : 2 / s: 104.08 127.37 129.56 231.4
         System.out.println("RESULTS:");
         System.out.println("Count = " + res.size());
-        res.forEach(System.out::println);
+//        res.forEach(System.out::println);
     }
 
     @Test
