@@ -91,6 +91,10 @@ public class Segment {
         return lowerEndpoint + " " + upperEndpoint;
     }
 
+    public String readableToString() {
+        return Integer.toString((int) upperEndpoint.getX());
+    }
+
     /**
      * Checks if the segments endpoints match
      * @param s Other segment

@@ -44,9 +44,11 @@ public class SegmentCollection {
     }
 
     private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue, ArrayList<Intersection> overlay) {
-
-//        System.out.println("\n[HANDLING] event point: " + p);
-//        System.out.println(statusStructure.getStatus());
+        Point bp = new Point(63.41, 219.94);
+        Point bp2 = new Point(127.53418633029703, 223.12898759579275);
+        final boolean readable = true;
+        System.out.println("\n[HANDLING] event point: " + p);
+        System.out.println(statusStructure.getStatus(readable));
 
         ULCSets ulcSets;
         // Line 2 in algo
@@ -58,6 +60,7 @@ public class SegmentCollection {
                     .filter(segment -> segment.getUpperEndpoint().sameAs(p))
                     .toList()
         );
+        System.out.println(ulcSets.getInventory());
         // Line 3 & 4
         if (ulcSets.getULCSize() > 1) {
             overlay.add(new Intersection(p, ulcSets.getCombinedSets()));
@@ -77,7 +80,7 @@ public class SegmentCollection {
             }
         } else {
             SegmentPair extremesOfUC =  ulcSets.getEdgeSegmentsOfUC(p.getY(), p);
-            System.out.println(statusStructure.getStatus());
+            System.out.println(statusStructure.getStatus(readable));
             extremesOfUC.getLeft().ifPresent(segment -> {
                 statusStructure.findLeftNeighbour(segment, p.getY()).ifPresent(leftNeighbour -> {
                     findNewEvent(leftNeighbour, segment, p, eventQueue);
@@ -90,8 +93,8 @@ public class SegmentCollection {
                 });
             });
         }
-//        System.out.println("[POST HANDLING]");
-//        System.out.println(statusStructure.getStatus());
+        System.out.println("[POST HANDLING]");
+        System.out.println(statusStructure.getStatus(readable));
     }
 
     private void findNewEvent(

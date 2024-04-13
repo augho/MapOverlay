@@ -221,13 +221,13 @@ public class T {
             }
             case INTERSECT -> {
                 switch (s.whereIs(getData().getLowerEndpoint())) {
-                    case LEFT, INTERSECT -> {
+                    case RIGHT, INTERSECT -> {
                         if (isLeaf()) {
                             return leftNeighbour;
                         }
                         return getLeftChildUnsafe().findLeftNeighbour(s, sOnLine, leftNeighbour);
                     }
-                    case RIGHT -> {
+                    case LEFT -> {
                         if (isLeaf()) {
                             return getData();
                         }
@@ -262,13 +262,13 @@ public class T {
             }
             case INTERSECT -> {
                 switch (s.whereIs(getData().getLowerEndpoint())) {
-                    case LEFT -> {
+                    case RIGHT -> {
                         if (isLeaf()) {
                             return getData();
                         }
                         return getLeftChildUnsafe().findRightNeighbour(s, sOnLine, getData());
                     }
-                    case RIGHT, INTERSECT -> {
+                    case LEFT, INTERSECT -> {
                         if (isLeaf()) {
                             return rightNeighbour;
                         }
@@ -492,10 +492,10 @@ public class T {
         else return rightChild.scanForNull() || leftChild.scanForNull();
     }
 
-    public String getStatus() {
+    public String getStatus(boolean readable) {
         if(isEmpty()) return "null";
-        if (isLeaf()) return getData().toString();
-        return getLeftChild().map(T::getStatus).orElse("") + " | "
-                + getRightChild().map(T::getStatus).orElse("");
+        if (isLeaf()) return readable ? getData().readableToString() : getData().toString();
+        return getLeftChild().map(t -> t.getStatus(readable)).orElse("") + " | "
+                + getRightChild().map(t -> t.getStatus(readable)).orElse("");
     }
 }

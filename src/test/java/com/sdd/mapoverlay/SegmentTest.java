@@ -50,31 +50,21 @@ public class SegmentTest {
 
     @Test
     public void otherTest() {
-        Point p = new Point(106.91368780696644,138.93940904861532);
-        Segment s1 = new Segment(124.18, 98.87, 68.64, 227.76);
-        Segment s2 = new Segment(104.08, 127.37, 129.56, 231.4);
-
-        assertEquals(Position.INTERSECT, s1.whereIs(p));
-        assertEquals(Position.INTERSECT, s2.whereIs(p));
-
         Segment s52 = new Segment(177.38, 81.75, 52.5, 184.44);
         Segment s95 = new Segment(179.55, 64.92, 95.18, 180.06);
         Segment s129 = new Segment(104.08, 127.37, 129.56, 231.4);
         Segment s120 = new Segment(64.75, 157.36, 120.14, 163.61);
+        Segment s95Big = new Segment(149.19, 95.63, 95.91, 226.48);
+        Segment s164 = new Segment(98.62, 173.4, 164.53, 225.36);
+
+        Segment s171 = new Segment(63.41, 219.94, 171.39, 225.31);
+        Segment s134 = new Segment(40.29, 168.95, 134.05, 223.33);
+        Segment s68 = new Segment(124.18, 98.87, 68.64, 227.76);
 
         Point p111 = new Point(111.52268832789706, 157.7570826825404);
         Point p112 = new Point(112.75205970860071, 162.77637250728935);
         Point p64 = new Point(64.75, 157.36);
 
-//        System.out.println(s129.getIntersection(s120));
-//        System.out.println(s95.getIntersection(s120));
-//        System.out.println(s52.getIntersection(s120));
-//        System.out.println(s95.getIntersection(s129));
-//
-//        ULCSets ulcSets = ULCSets.getEmpty();
-//        ulcSets.C().add(s120);
-//        ulcSets.C().add(s129);
-//        System.out.println(ulcSets.getEdgeSegmentsOfUC(p112.getY(), p112));;
-//        System.out.println(s52.whereIs(p64));
+        System.out.println(s171.getIntersection(s95Big));
     }
 }

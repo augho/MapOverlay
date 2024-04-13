@@ -55,4 +55,8 @@ public record ULCSets(ArrayList<Segment> U, ArrayList<Segment> L, ArrayList<Segm
 
         return combinedSets;
     }
+
+    public String getInventory() {
+        return "U; " + U.size() + " L; " + L.size() + " C; " + C.size();
+    }
 }
