@@ -4,11 +4,9 @@ import com.sdd.mapoverlay.utils.Records.DeleteResult;
 import com.sdd.mapoverlay.utils.Records.SegmentPair;
 import com.sdd.mapoverlay.utils.Records.ULCSets;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
-// TODO Edge case when segment intersect on the lower endpoint of one what happens
-// TODO doEquilibrate may break recursion it would be a pain (update should be ok but t keep in mind if weird stuff happens)
+
 public class T {
 
 
@@ -20,12 +18,11 @@ public class T {
      */
     public void insert(Segment data, Point eventPoint) {
         if (isEmpty()) {
-            System.out.println("[INSERT IN T] " + data);
+//            System.out.println("[INSERT IN T] " + data);
             this.setData(data);
             return;
         }
-        // A lot of error thrown here, those are cases that shouldn't happen according to our
-        // algorithm. And we obviously trust our algorithm
+
         switch (getData().whereIs(eventPoint)) {
             case LEFT -> {
                 if (!isLeaf()) {
@@ -38,7 +35,7 @@ public class T {
                 this.setLeftChild(new T(data, this));
                 this.setRightChild(new T(currDataCopy, this));
                 this.doEquilibrate();
-                System.out.println("[INSERT IN T] " + data);
+//                System.out.println("[INSERT IN T] " + data);
 
             }
             case RIGHT -> {
@@ -50,12 +47,11 @@ public class T {
                 this.setLeftChild(new T(this.getData(), this));
                 this.setRightChild(new T(data, this));
                 this.doEquilibrate();
-                System.out.println("[INSERT IN T] " + data);
+//                System.out.println("[INSERT IN T] " + data);
 
             }
             case INTERSECT -> {
                 if(!isLeaf()) {
-                    // TODO Correct to always go left ?
                     // Will be intersected next to the intersecting segment which can be found
                     // In its left subtree
                     this.getLeftChildUnsafe().insert(data, eventPoint);
@@ -70,14 +66,14 @@ public class T {
                         this.setLeftChild(new T(data, this));
                         this.setRightChild(new T(currDataCopy, this));
                         this.doEquilibrate();
-                        System.out.println("[INSERT IN T] " + data);
+//                        System.out.println("[INSERT IN T] " + data);
 
                     }
                     case RIGHT -> {
                         this.setLeftChild(new T(getData(), this));
                         this.setRightChild(new T(data, this));
                         this.doEquilibrate();
-                        System.out.println("[INSERT IN T] " + data);
+//                        System.out.println("[INSERT IN T] " + data);
 
                     }
                     case INTERSECT -> throw new RuntimeException(eventPoint +" Segments are parallel: " + getData() + " / " + data);
@@ -110,7 +106,7 @@ public class T {
             this.doEquilibrate();
             return new DeleteResult(result.newData(), this);
         }
-        // For the search we look at the lower endpoint as it's the one on the sweep line
+        // event point corresponds to lower endpoint
         switch (this.getData().whereIs(eventPoint)) {
             case LEFT -> {
                 DeleteResult result = getLeftChildUnsafe().delete(data, eventPoint);
@@ -160,11 +156,6 @@ public class T {
                 }
             }
             case INTERSECT -> {
-                if (isLeaf()) {
-                    // Breakpoint spot
-                    Point pp = new Point(3.0, 4.0);
-                    double x = pp.getX();
-                }
                 if (!isLeaf()) {
                     this.getLeftChildUnsafe().addAllContaining(point, sets);
                     this.getRightChildUnsafe().addAllContaining(point, sets);
@@ -175,7 +166,6 @@ public class T {
                     } else if (data.getUpperEndpoint().sameAs(point)) {
                         System.out.println("Found upper endpoint what should we do sir ?");
                     } else {
-                        // TODO is it really in C though ? What if its in the line but not in the segment ?
                         sets.C().add(data);
                     }
                 }
@@ -211,23 +201,39 @@ public class T {
 
     public Optional<Segment> findLeftNeighbour(Segment segment, Double sweepLineY) {
         return Optional.ofNullable(
-                findLeftNeighbour(new Point(segment.xAt(sweepLineY), sweepLineY), null)
+                findLeftNeighbour(segment, new Point(segment.xAt(sweepLineY), sweepLineY), null)
         );
     }
 
-    private Segment findLeftNeighbour(Point p, Segment leftNeighbour) {
-        switch (getData().whereIs(p)) {
-            case LEFT, INTERSECT -> {
+    private Segment findLeftNeighbour(Segment s, Point sOnLine, Segment leftNeighbour) {
+        switch (getData().whereIs(sOnLine)) {
+            case LEFT -> {
                 if (isLeaf()) {
                     return leftNeighbour;
                 }
-                return getLeftChildUnsafe().findLeftNeighbour(p, leftNeighbour);
+                return getLeftChildUnsafe().findLeftNeighbour(s, sOnLine, leftNeighbour);
             }
             case RIGHT -> {
                 if (isLeaf()) {
                     return getData();
                 }
-                return getRightChildUnsafe().findLeftNeighbour(p, getData());
+                return getRightChildUnsafe().findLeftNeighbour(s, sOnLine, getData());
+            }
+            case INTERSECT -> {
+                switch (s.whereIs(getData().getLowerEndpoint())) {
+                    case RIGHT, INTERSECT -> {
+                        if (isLeaf()) {
+                            return leftNeighbour;
+                        }
+                        return getLeftChildUnsafe().findLeftNeighbour(s, sOnLine, leftNeighbour);
+                    }
+                    case LEFT -> {
+                        if (isLeaf()) {
+                            return getData();
+                        }
+                        return getRightChildUnsafe().findLeftNeighbour(s, sOnLine, getData());
+                    }
+                }
             }
 
         }
@@ -236,23 +242,39 @@ public class T {
 
     public Optional<Segment> findRightNeighbour(Segment segment, Double sweepLineY) {
         return Optional.ofNullable(
-                findRightNeighbour(new Point(segment.xAt(sweepLineY), sweepLineY), null)
+                findRightNeighbour(segment, new Point(segment.xAt(sweepLineY), sweepLineY), null)
         );
     }
 
-    private Segment findRightNeighbour(Point p, Segment rightNeighbour) {
-        switch (getData().whereIs(p)) {
+    private Segment findRightNeighbour(Segment s, Point sOnLine, Segment rightNeighbour) {
+        switch (getData().whereIs(sOnLine)) {
             case LEFT -> {
                 if (isLeaf()) {
                     return getData();
                 }
-                return getLeftChildUnsafe().findRightNeighbour(p, getData());
+                return getLeftChildUnsafe().findRightNeighbour(s, sOnLine, getData());
             }
-            case RIGHT, INTERSECT -> {
+            case RIGHT -> {
                 if (isLeaf()) {
                     return rightNeighbour;
                 }
-                return getRightChildUnsafe().findRightNeighbour(p, rightNeighbour);
+                return getRightChildUnsafe().findRightNeighbour(s, sOnLine, rightNeighbour);
+            }
+            case INTERSECT -> {
+                switch (s.whereIs(getData().getLowerEndpoint())) {
+                    case RIGHT -> {
+                        if (isLeaf()) {
+                            return getData();
+                        }
+                        return getLeftChildUnsafe().findRightNeighbour(s, sOnLine, getData());
+                    }
+                    case LEFT, INTERSECT -> {
+                        if (isLeaf()) {
+                            return rightNeighbour;
+                        }
+                        return getRightChildUnsafe().findRightNeighbour(s, sOnLine, rightNeighbour);
+                    }
+                }
             }
         }
         throw new RuntimeException("Why here ??");
@@ -292,10 +314,6 @@ public class T {
     private T(Segment data, T parent) {
         this.data = data;
         this.parent = parent;
-    }
-
-    public T getParent() {
-        return parent;
     }
 
     public boolean isRoot() {
@@ -472,5 +490,12 @@ public class T {
         if (isLeaf() && isRoot()) return false;
         if(isLeaf()) return isEmpty();
         else return rightChild.scanForNull() || leftChild.scanForNull();
+    }
+
+    public String getStatus(boolean readable) {
+        if(isEmpty()) return "null";
+        if (isLeaf()) return readable ? getData().readableToString() : getData().toString();
+        return getLeftChild().map(t -> t.getStatus(readable)).orElse("") + " | "
+                + getRightChild().map(t -> t.getStatus(readable)).orElse("");
     }
 }

@@ -1,5 +1,6 @@
 package com.sdd.mapoverlay.utils.Records;
 
+import com.sdd.mapoverlay.utils.Comparator;
 import com.sdd.mapoverlay.utils.Point;
 import com.sdd.mapoverlay.utils.Position;
 import com.sdd.mapoverlay.utils.Segment;
@@ -20,21 +21,27 @@ public record ULCSets(ArrayList<Segment> U, ArrayList<Segment> L, ArrayList<Segm
         ucSets.addAll(C);
         Segment leftmost = ucSets.get(0);
         Segment rightmost = ucSets.get(0);
+
         for (Segment segment : ucSets) {
-            if (segment.xAt(sweepLineY) < leftmost.xAt(sweepLineY)) {
+            // x coordinate of the segments on the sweep line
+            final double sOnLine = segment.xAt(sweepLineY);
+            final double lOnLine = leftmost.xAt(sweepLineY);
+            final double rOnLine = rightmost.xAt(sweepLineY);
+            if (Comparator.closeEnough(sOnLine, lOnLine)) {
+                if (segment.getLowerEndpoint().getX() < leftmost.getLowerEndpoint().getX()) {
+                    leftmost = segment;
+                }
+                if (rightmost.getLowerEndpoint().getX() < segment.getLowerEndpoint().getX()) {
+                    rightmost = segment;
+                }
+
+            } else if (sOnLine < lOnLine) {
                 leftmost = segment;
-            } else if (segment.xAt(sweepLineY) > rightmost.xAt(sweepLineY)) {
+
+            } else if (rOnLine < sOnLine) {
                 rightmost = segment;
             }
         }
-        // TODO Make sure those conditions are necessary
-//        if (leftmost.whereIs(eventPoint) != Position.RIGHT) {
-//            leftmost = null;
-//        }
-//        if (rightmost.whereIs(eventPoint) != Position.LEFT) {
-//            rightmost = null;
-//        }
-
         return new SegmentPair(
                 leftmost,
                 rightmost
@@ -47,5 +54,9 @@ public record ULCSets(ArrayList<Segment> U, ArrayList<Segment> L, ArrayList<Segm
         combinedSets.addAll(C);
 
         return combinedSets;
+    }
+
+    public String getInventory() {
+        return "U; " + U.size() + " L; " + L.size() + " C; " + C.size();
     }
 }
