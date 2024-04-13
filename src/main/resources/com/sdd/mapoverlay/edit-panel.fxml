@@ -26,9 +26,7 @@
         <Label fx:id="segmentError" styleClass="error-label" visible="false" wrapText="true" />
       <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="301.0" spacing="32.0">
          <children>
-      
               <Button fx:id="addSegmentButton" onAction="#onAddSegmentButtonClick" styleClass="btn" text="Add" />
-            <Button fx:id="addPointButton" onAction="#onAddButtonClick" styleClass="btn" text="Add Point" visible="false" />
          </children>
       </HBox>
     </VBox>

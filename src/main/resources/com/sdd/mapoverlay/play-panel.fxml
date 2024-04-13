@@ -3,16 +3,23 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="150" stylesheets="@styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.PlayPanelController">
-    <CheckBox fx:id="displayOverlayCheckBox" focusTraversable="false" onAction="#onDisplayOverlayClick" selected="true" styleClass="label-text" text="Show Overlay" />
-    <VBox spacing="5" styleClass="add-segment-block">
-        <Label styleClass="label-text" text="Speed" />
-        <Slider />
-    </VBox>
+<VBox spacing="100.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.PlayPanelController">
 
     <Button fx:id="playButton" onAction="#onPlayButtonClick" styleClass="big-btn" text="Play" />
+   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="add-segment-block">
+      <children>
+         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+            <children>
+               <Button fx:id="prevStepButton" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#onPrevStepButtonClick" styleClass="btn" text="Prev. Step" />
+               <Button fx:id="nextStepButton" disable="false" focusTraversable="false" mnemonicParsing="false" onAction="#onNextStepButtonClick" styleClass="btn" text="Next Step" />
+            </children>
+         </HBox>
+         <Label fx:id="labelIntersection" text="Showing Intersection :" wrapText="true" />
+      </children>
+   </VBox>
+    <CheckBox fx:id="displayOverlayCheckBox" focusTraversable="false" onAction="#onDisplayOverlayClick" selected="true" styleClass="label-text" text="Show Overlay" />
 
 </VBox>
