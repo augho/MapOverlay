@@ -32,6 +32,12 @@ public class EditPanelController {
     public Label saveFileError;
     public static Stack<Logs> logsHistory = SegmentsListController.logsHistory;
 
+    /**
+     * Handles the button click event for adding a segment.
+     * Retrieves the x and y values from the input fields, validates them,
+     * and creates a new segment object. The segment is then added to the root controller
+     * and a log entry is pushed to the logs history. Finally, the segment error visibility is set to false.
+     */
     @FXML
     protected void onAddSegmentButtonClick() {
         String x1Value = this.x1Field.getText();
@@ -70,11 +76,22 @@ public class EditPanelController {
         segmentError.setVisible(false);
     }
 
+    /**
+     * Displays an error message for adding a segment.
+     *
+     * @param msg the error message to display
+     */
     private void displayAddSegmentError(String msg) {
         segmentError.setText(msg);
         segmentError.setVisible(true);
     }
 
+    /**
+     * Handles the event when the "Load" button is clicked.
+     * Opens a file chooser dialog to allow the user to select a text file.
+     * Reads the selected file and processes its content to display on the UI.
+     * If an error occurs during the file loading or processing, an error message is displayed.
+     */
     @FXML
     protected void onLoadButtonClick() {
         String defaultDirectory = System.getProperty("user.home");
@@ -134,6 +151,12 @@ public class EditPanelController {
         loadFileError.setVisible(true);
     }
 
+    /**
+     * Handles the action when the save button is clicked.
+     * Prompts the user to select a file to save the data to.
+     * If a file is selected, the data from the chart's segments is written to the file.
+     * If no file is selected, an error message is displayed.
+     */
     @FXML
     private void onSaveButtonClick() {
         String defaultDirectory = System.getProperty("user.home");
@@ -162,6 +185,11 @@ public class EditPanelController {
         saveFileError.setVisible(false);
     }
 
+    /**
+     * Displays an error message when there is an issue saving the file.
+     *
+     * @param msg The error message to display.
+     */
     private void displaySaveFileError(String msg) {
         saveFileError.setText(msg);
         saveFileError.setVisible(true);

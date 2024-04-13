@@ -37,6 +37,14 @@ public class RootController implements Initializable{
     protected double upperBoundX = 100.00;
 
 
+    /**
+     * Adds a segment to the line chart with the specified coordinates.
+     *
+     * @param x1 The x-coordinate of the starting point of the segment.
+     * @param y1 The y-coordinate of the starting point of the segment.
+     * @param x2 The x-coordinate of the ending point of the segment.
+     * @param y2 The y-coordinate of the ending point of the segment.
+     */
     public void addSegment(Double x1, Double y1, Double x2, Double y2) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         System.out.printf(
@@ -57,11 +65,17 @@ public class RootController implements Initializable{
             point.setScaleX(0.75);
             point.setScaleY(0.75);
         }
+        // Change the color of the line to be more visible
         Node line = series.getNode().lookup(".chart-series-line");
         line.setStyle("-fx-stroke-width: 2px;");
         line.setStyle("-fx-stroke: #90E0EF;");
     }
 
+    /**
+     * Adds a segment to the root controller.
+     *
+     * @param segment the segment to be added
+     */
     public void addSegment(Segment segment) {
         this.addSegment(
                 segment.getLowerEndpoint().getX(),
@@ -70,6 +84,12 @@ public class RootController implements Initializable{
                 segment.getUpperEndpoint().getY());
     }
 
+    /**
+        * Adds a point to the line chart.
+        *
+        * @param x The x-coordinate of the point.
+        * @param y The y-coordinate of the point.
+        */
     protected void addPoint(Double x, Double y) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>(x, y));
@@ -82,10 +102,20 @@ public class RootController implements Initializable{
         }
     }
 
+    /**
+     * Adds a point to the root controller.
+     * 
+     * @param p the point to be added
+     */
     protected void addPoint(Point p){
         this.addPoint(p.getX(), p.getY());
     }
 
+    /**
+     * Adds intersection points to the line chart.
+     *
+     * @param intersectionPoints The list of intersection points to be added.
+     */
     protected void addIntersectionPoints(ArrayList<Intersection> intersectionPoints) {
         // Create a new series
         XYChart.Series<Number, Number> serie = new XYChart.Series<>();
@@ -123,6 +153,11 @@ public class RootController implements Initializable{
 
     }
 
+    /**
+     * Removes a segment from the line chart.
+     *
+     * @param segment the segment to be removed
+     */
     public void removeSegment(Segment segment) {
         List<XYChart.Series<Number, Number>> toRemove = new ArrayList<>();
         for (XYChart.Series<Number, Number> series : lineChart.getData()) {
@@ -138,10 +173,18 @@ public class RootController implements Initializable{
         lineChart.getData().removeAll(toRemove);
     }
 
+    /**
+     * Clears the data in the line chart.
+     */
     private void clearLineChart() {
         this.lineChart.getData().clear();
     }
 
+    /**
+     * Highlights a specific segment on the line chart by changing the style of the segment and its data points.
+     *
+     * @param segment The segment to highlight.
+     */
     public void highlightSegment(Segment segment) {
         for (XYChart.Series<Number, Number> series : lineChart.getData()) {
             // the segment we want to highlight
@@ -176,6 +219,11 @@ public class RootController implements Initializable{
         }
     }
 
+    /**
+     * Highlights the intersection point on the line chart.
+     *
+     * @param intersectionPoint The intersection point to highlight.
+     */
     public void highlightIntersectionPoint(Point intersectionPoint) {
         for (XYChart.Series<Number, Number> series : lineChart.getData()) {
             if (series.getName() != null && series.getName().equals("Intersection_Points")) {
@@ -214,15 +262,29 @@ public class RootController implements Initializable{
         }
     }
 
+    /**
+     * Adds the sweep line to the line chart.
+     */
     public void addSweepLine(){
         lineChart.getData().add(sweepLine);
     }
 
+    /**
+     * Displays the content of a file by adding segments to the line chart.
+     *
+     * @param fileContent the list of segments representing the file content
+     */
     public void displayFileContent(List<Segment> fileContent) {
         this.clearLineChart();
         fileContent.forEach(this::addSegment);
     }
 
+    /**
+     * Retrieves the chart content from the lineChart and returns it as a list of objects.
+     * The chart content includes segments and intersections.
+     *
+     * @return A list containing the segments and intersections extracted from the lineChart.
+     */
     public List<Object> getChartContent() {
         List<Segment> segments = new ArrayList<>();
         List<Point> intersections = new ArrayList<>();
@@ -249,6 +311,11 @@ public class RootController implements Initializable{
         return result;
     }
 
+    /**
+     * Retrieves a list of segments from the line chart data.
+     *
+     * @return A list of segments representing the data in the line chart.
+     */
     public List<Segment> getSegmentsFromChart() {
         return lineChart.getData().stream()
                 .filter(series -> series.getData().size() == 2)
@@ -261,6 +328,12 @@ public class RootController implements Initializable{
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves the XYChart series with the specified name.
+     *
+     * @param serieName the name of the series to retrieve
+     * @return the XYChart series with the specified name, or null if not found
+     */
     public XYChart.Series<Number, Number> getSerieByName(String serieName) {
         for (XYChart.Series<Number, Number> series : lineChart.getData()) {
             if (series.getName() != null && series.getName().equals(serieName)) {
@@ -270,6 +343,11 @@ public class RootController implements Initializable{
         return null; // Si la série n'est pas trouvée
     }
 
+    /**
+     * Retrieves the intersection points from the chart.
+     *
+     * @return A list of intersection points as instances of the Point class.
+     */
     public List<Point> getIntersectionPointsFromChart() {
         List<Point> intersectionPoints = new ArrayList<>();
         for (XYChart.Series<Number, Number> series : lineChart.getData()) {
@@ -287,6 +365,12 @@ public class RootController implements Initializable{
         return intersectionPoints;
     }
 
+    /**
+     * Handles the scroll event triggered by the user.
+     * Adjusts the zoom level of the LineChart based on the scroll direction and mouse cursor position.
+     *
+     * @param event The ScrollEvent object representing the scroll event.
+     */
     private void handleScrollEvent(ScrollEvent event) {
         double zoomFactor = event.getDeltaY() > 0 ? 0.75 : 1.25;
         
@@ -310,11 +394,22 @@ public class RootController implements Initializable{
         yAxis.setUpperBound(newUpperY);
     }
 
+    /**
+     * Handles the mouse pressed event.
+     *
+     * @param event the MouseEvent object representing the mouse pressed event
+     */
     private void handleMousePressed(MouseEvent event) {
         lastX = event.getX();
         lastY = event.getY();
     }
 
+    /**
+     * Handles the mouse dragged event.
+     * Adjusts the visible range of the x-axis and y-axis based on the mouse drag distance.
+     * 
+     * @param event The MouseEvent object representing the mouse drag event.
+     */
     private void handleMouseDragged(MouseEvent event) {
         double xAxisVisibleRange = xAxis.getUpperBound() - xAxis.getLowerBound();
         double yAxisVisibleRange = yAxis.getUpperBound() - yAxis.getLowerBound();

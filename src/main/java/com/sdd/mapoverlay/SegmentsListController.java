@@ -23,6 +23,12 @@ public class SegmentsListController implements Initializable {
     public ListView<Segment> segmentsListView;
     public static Stack<Logs> logsHistory = SidePanelController.logsHistory;
 
+    /**
+     * Handles the delete button click event.
+     * Removes the selected segment from the segments list view,
+     * pushes a log entry for the deletion, and updates the undo button state.
+     * Also removes the segment from the root controller.
+     */
     @FXML
     protected void onDeleteButtonClick() {
         Segment segment = segmentsListView.getSelectionModel().getSelectedItem();
@@ -35,6 +41,14 @@ public class SegmentsListController implements Initializable {
         }
     }
 
+    /**
+     * Handles the action when the "Undo" button is clicked.
+     * If the logs history is not empty, it pops the top log from the history,
+     * adds the segment associated with the log to the root controller,
+     * and adds the segment to the segments list view.
+     * If the logs history becomes empty after popping the top log,
+     * the "Undo" button is disabled.
+     */
     @FXML
     protected void onUndoButtonClick() {
 
@@ -48,6 +62,14 @@ public class SegmentsListController implements Initializable {
         }
     }
 
+    /**
+     * Initializes the SegmentsListController.
+     * This method is called after the FXML file has been loaded and the controller object has been created.
+     * It sets up the initial state of the controller and registers event listeners.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         segmentsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
