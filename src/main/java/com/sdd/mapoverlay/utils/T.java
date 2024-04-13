@@ -6,8 +6,7 @@ import com.sdd.mapoverlay.utils.Records.ULCSets;
 
 import java.util.Optional;
 
-// TODO Edge case when segment intersect on the lower endpoint of one what happens
-// TODO doEquilibrate may break recursion it would be a pain (update should be ok but t keep in mind if weird stuff happens)
+
 public class T {
 
 
@@ -23,8 +22,7 @@ public class T {
             this.setData(data);
             return;
         }
-        // A lot of error thrown here, those are cases that shouldn't happen according to our
-        // algorithm. And we obviously trust our algorithm
+
         switch (getData().whereIs(eventPoint)) {
             case LEFT -> {
                 if (!isLeaf()) {
@@ -54,7 +52,6 @@ public class T {
             }
             case INTERSECT -> {
                 if(!isLeaf()) {
-                    // TODO Correct to always go left ?
                     // Will be intersected next to the intersecting segment which can be found
                     // In its left subtree
                     this.getLeftChildUnsafe().insert(data, eventPoint);
@@ -109,7 +106,7 @@ public class T {
             this.doEquilibrate();
             return new DeleteResult(result.newData(), this);
         }
-        // For the search we look at the lower endpoint as it's the one on the sweep line
+        // event point corresponds to lower endpoint
         switch (this.getData().whereIs(eventPoint)) {
             case LEFT -> {
                 DeleteResult result = getLeftChildUnsafe().delete(data, eventPoint);
@@ -147,46 +144,19 @@ public class T {
     }
 
     private void addAllContaining(Point point, ULCSets sets) {
-        Point bp = new Point(106.91368780696644,138.93940904861532);
-        Point bp2 = new Point(64.75,157.36);
-
-        if (point.sameAs(bp2) && isRoot()) {
-            System.out.println("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            System.out.println(getStatus());
-            printTree();
-        }
-        double xx = bp.getX();
         switch (getData().whereIs(point)) {
             case LEFT -> {
                 if (!isLeaf()) {
                     this.getLeftChildUnsafe().addAllContaining(point, sets);
                 }
-//                else {
-//                    System.out.println("[LEAF] " + getData());
-//
-//                }
             }
             case RIGHT -> {
                 if (!isLeaf()) {
                     this.getRightChildUnsafe().addAllContaining(point, sets);
                 }
-//                else {
-//                    System.out.println("[LEAF] " + getData());
-//
-//                }
             }
             case INTERSECT -> {
-                // TODO Remove breakpoint if
-                if (isLeaf()) {
-//                    System.out.println("[LEAF] " + getData());
-                    // Breakpoint spot
-                    Point pp = new Point(106.91368780696644,138.93940904861532);
-                    Point pp2 = new Point(64.75,157.36);
-                    double x = pp.getX();
-                }
                 if (!isLeaf()) {
-//                    System.out.println("[NODE] ");
-//                    printTree();
                     this.getLeftChildUnsafe().addAllContaining(point, sets);
                     this.getRightChildUnsafe().addAllContaining(point, sets);
                 } else {
@@ -196,7 +166,6 @@ public class T {
                     } else if (data.getUpperEndpoint().sameAs(point)) {
                         System.out.println("Found upper endpoint what should we do sir ?");
                     } else {
-                        // TODO is it really in C though ? What if its in the line but not in the segment ?
                         sets.C().add(data);
                     }
                 }
@@ -232,24 +201,39 @@ public class T {
 
     public Optional<Segment> findLeftNeighbour(Segment segment, Double sweepLineY) {
         return Optional.ofNullable(
-                findLeftNeighbour(new Point(segment.xAt(sweepLineY), sweepLineY), null)
+                findLeftNeighbour(segment, new Point(segment.xAt(sweepLineY), sweepLineY), null)
         );
     }
 
-    private Segment findLeftNeighbour(Point p, Segment leftNeighbour) {
-        switch (getData().whereIs(p)) {
-            // TODO Rethink the intersect case if 2 segments intersect on p one is left of the other but intersects p
-            case LEFT, INTERSECT -> {
+    private Segment findLeftNeighbour(Segment s, Point sOnLine, Segment leftNeighbour) {
+        switch (getData().whereIs(sOnLine)) {
+            case LEFT -> {
                 if (isLeaf()) {
                     return leftNeighbour;
                 }
-                return getLeftChildUnsafe().findLeftNeighbour(p, leftNeighbour);
+                return getLeftChildUnsafe().findLeftNeighbour(s, sOnLine, leftNeighbour);
             }
             case RIGHT -> {
                 if (isLeaf()) {
                     return getData();
                 }
-                return getRightChildUnsafe().findLeftNeighbour(p, getData());
+                return getRightChildUnsafe().findLeftNeighbour(s, sOnLine, getData());
+            }
+            case INTERSECT -> {
+                switch (s.whereIs(getData().getLowerEndpoint())) {
+                    case LEFT, INTERSECT -> {
+                        if (isLeaf()) {
+                            return leftNeighbour;
+                        }
+                        return getLeftChildUnsafe().findLeftNeighbour(s, sOnLine, leftNeighbour);
+                    }
+                    case RIGHT -> {
+                        if (isLeaf()) {
+                            return getData();
+                        }
+                        return getRightChildUnsafe().findLeftNeighbour(s, sOnLine, getData());
+                    }
+                }
             }
 
         }
@@ -258,23 +242,39 @@ public class T {
 
     public Optional<Segment> findRightNeighbour(Segment segment, Double sweepLineY) {
         return Optional.ofNullable(
-                findRightNeighbour(new Point(segment.xAt(sweepLineY), sweepLineY), null)
+                findRightNeighbour(segment, new Point(segment.xAt(sweepLineY), sweepLineY), null)
         );
     }
 
-    private Segment findRightNeighbour(Point p, Segment rightNeighbour) {
-        switch (getData().whereIs(p)) {
+    private Segment findRightNeighbour(Segment s, Point sOnLine, Segment rightNeighbour) {
+        switch (getData().whereIs(sOnLine)) {
             case LEFT -> {
                 if (isLeaf()) {
                     return getData();
                 }
-                return getLeftChildUnsafe().findRightNeighbour(p, getData());
+                return getLeftChildUnsafe().findRightNeighbour(s, sOnLine, getData());
             }
-            case RIGHT, INTERSECT -> {
+            case RIGHT -> {
                 if (isLeaf()) {
                     return rightNeighbour;
                 }
-                return getRightChildUnsafe().findRightNeighbour(p, rightNeighbour);
+                return getRightChildUnsafe().findRightNeighbour(s, sOnLine, rightNeighbour);
+            }
+            case INTERSECT -> {
+                switch (s.whereIs(getData().getLowerEndpoint())) {
+                    case LEFT -> {
+                        if (isLeaf()) {
+                            return getData();
+                        }
+                        return getLeftChildUnsafe().findRightNeighbour(s, sOnLine, getData());
+                    }
+                    case RIGHT, INTERSECT -> {
+                        if (isLeaf()) {
+                            return rightNeighbour;
+                        }
+                        return getRightChildUnsafe().findRightNeighbour(s, sOnLine, rightNeighbour);
+                    }
+                }
             }
         }
         throw new RuntimeException("Why here ??");
@@ -314,10 +314,6 @@ public class T {
     private T(Segment data, T parent) {
         this.data = data;
         this.parent = parent;
-    }
-
-    public T getParent() {
-        return parent;
     }
 
     public boolean isRoot() {

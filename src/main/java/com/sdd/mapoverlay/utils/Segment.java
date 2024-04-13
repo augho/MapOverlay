@@ -11,8 +11,8 @@ public class Segment {
 
     private final SegmentType segmentType;
 
-    private Double slope = null;
-    private Double lineOrigin = null;
+    private final Double slope;
+    private final Double lineOrigin;
 
     public Segment(double x1, double y1, double x2, double y2) {
         if (y1 < y2) {
@@ -143,7 +143,7 @@ public class Segment {
         throw new RuntimeException("Why here ?");
     }
 
-    private boolean contains(Point p) {
+    public boolean contains(Point p) {
         switch (segmentType) {
             case VERTICAL -> {
                 if (!Comparator.closeEnough(p.getX(), upperEndpoint.getX())) {
@@ -241,65 +241,12 @@ public class Segment {
             - Parallel if a = c, that edge case is not supposed to happen I think
         */
 
-        // TODO This is incomplete actually xD
         final double a = slope;
         final double b = lineOrigin;
 
         final double c = segment.getSlope();
         final double d = segment.getLineOrigin();
 
-//        // both segments are vertical or both horizontal
-//        if(segment.getSegmentType() == SegmentType.VERTICAL && segmentType == SegmentType.VERTICAL ||
-//        segment.getSegmentType() == SegmentType.HORIZONTAL && segmentType == SegmentType.HORIZONTAL) {
-//            if(upperEndpoint.sameAs(segment.lowerEndpoint)) {
-//                return Optional.of(upperEndpoint);
-//            } else if (lowerEndpoint.sameAs(segment.upperEndpoint)) {
-//                return Optional.of(lowerEndpoint);
-//            } else {
-//                return Optional.empty();
-//            }
-//        }
-//        // the other is vertical
-//        if (segment.getSegmentType() == SegmentType.VERTICAL) {
-//            final double xVertical = segment.getUpperEndpoint().getX();
-//            final double y = a * xVertical + b;
-//
-//            if (Comparator.sandwiched(segment.getLowerEndpoint().getY(), y, segment.getUpperEndpoint().getY())) {
-//                return Optional.of(new Point(xVertical, y));
-//            } else {
-//                return Optional.empty();
-//            }
-//        }
-//        // this one is vertical
-//        if (segmentType == SegmentType.VERTICAL) {
-//            final double xVertical = upperEndpoint.getX();
-//            final double y = c * xVertical + d;
-//            if (Comparator.sandwiched(lowerEndpoint.getY(), y, upperEndpoint.getY())) {
-//                return Optional.of(new Point(xVertical, y));
-//            } else {
-//                return Optional.empty();
-//            }
-//        }
-//        // this one is horizontal
-//        if (segmentType == SegmentType.HORIZONTAL) {
-//            final double yHorizontal = upperEndpoint.getY();
-//            final double x = segment.xAt(yHorizontal);
-//            if (Comparator.sandwiched(lowerEndpoint.getX(), x, upperEndpoint.getX())) {
-//                return Optional.of(new Point(x, yHorizontal));
-//            } else {
-//                return Optional.empty();
-//            }
-//        }
-//        // the other one is horizontal
-//        if (segment.getSegmentType() == SegmentType.HORIZONTAL) {
-//            final double yHorizontal = segment.getUpperEndpoint().getY();
-//            final double x = xAt(yHorizontal);
-//            if (Comparator.sandwiched(segment.getLowerEndpoint().getX(), x, segment.getUpperEndpoint().getX())) {
-//                return Optional.of(new Point(x, yHorizontal));
-//            } else {
-//                return Optional.empty();
-//            }
-//        }
         // segments are parallel
         if (a == c || Double.isNaN(a) && Double.isNaN(c)) {
             if(upperEndpoint.sameAs(segment.lowerEndpoint)) {
@@ -330,14 +277,8 @@ public class Segment {
             candidate = new Point(u, v);
         }
 
-//        System.out.println("[CANDIDATE] " + candidate);
         return this.contains(candidate) && segment.contains(candidate) ? Optional.of(candidate) : Optional.empty();
-        // Making sure that the intersection between the segments lines is sandwiched between their endpoints
-//        if(Comparator.sandwiched(lowerEndpoint.getY(), v, upperEndpoint.getY()) &&
-//                Comparator.sandwiched(segment.getLowerEndpoint().getY(), v, segment.getUpperEndpoint().getY())) {
-//            return Optional.of(new Point(u, v));
-//        }
-//        return Optional.empty();
+
     }
 
 }

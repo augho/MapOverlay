@@ -36,8 +36,6 @@ public class SegmentCollection {
             eventQueue.insert(new EventPoint(s, s.getLowerEndpoint()));
         });
         T statusStructure = T.getEmpty();
-        System.out.println("[LOG] Starting handling of event points");
-//        eventQueue.printTree();
         while (!eventQueue.isEmpty()) {
             handleEventPoint(eventQueue.popNextEvent(), statusStructure, eventQueue, newOverlay);
         }
@@ -46,15 +44,10 @@ public class SegmentCollection {
     }
 
     private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue, ArrayList<Intersection> overlay) {
-        Point bp4 = new Point(112.75205970860071, 162.77637250728935);
-        Point bp3 = new Point(111.52268832789706, 157.7570826825404);
-        Point bp2 = new Point(64.75, 157.36); // overlay_test
-        Point breakPoint = new Point(106.91368780696644,138.93940904861532); // fichier1
-        System.out.println("\n[HANDLING] event point: " + p);
-        System.out.println(statusStructure.getStatus());
-        // Why here ? p: 106.91368780696644 138.93940904861532 : 2 / s: 104.08 127.37 129.56 231.4
-        // 104.08 127.37 129.56 231.4
-        // 124.18 98.87 68.64 227.76
+
+//        System.out.println("\n[HANDLING] event point: " + p);
+//        System.out.println(statusStructure.getStatus());
+
         ULCSets ulcSets;
         // Line 2 in algo
         ulcSets = statusStructure.isEmpty() ? ULCSets.getEmpty() : statusStructure.findAllContaining(p);
@@ -97,8 +90,8 @@ public class SegmentCollection {
                 });
             });
         }
-        System.out.println("[POST HANDLING]");
-        System.out.println(statusStructure.getStatus());
+//        System.out.println("[POST HANDLING]");
+//        System.out.println(statusStructure.getStatus());
     }
 
     private void findNewEvent(
@@ -107,7 +100,6 @@ public class SegmentCollection {
             Point eventPoint,
             Q eventQueue
     ) {
-        // TODO remake & approximation
         double sweepLineY = eventPoint.getY();
         leftSegment.getIntersection(rightSegment).ifPresent(intersectionPoint -> {
                 if(intersectionPoint.getY() < sweepLineY ||
