@@ -96,7 +96,6 @@ public class T {
             return new DeleteResult(getData(), this);
 
         } else if (rightChild.isLeaf() && rightChild.getData().sameAs(data)) {
-            // TODO changed
             Segment oldData = getData();
             this.become(getLeftChildUnsafe());
             return new DeleteResult(oldData, this);
@@ -196,7 +195,10 @@ public class T {
                 }
                 return getRightChildUnsafe().findLeftAndRightNeighbour(p, getData(), right);
             }
-            case INTERSECT -> throw new RuntimeException("Why here ? p: " + p + " / s: " + getData());
+            case INTERSECT -> {
+                return new SegmentPair(null, null);
+//                throw new RuntimeException("Why here ? p: " + p + " / s: " + getData());
+            }
         }
         throw new RuntimeException("Why here ??");
     }

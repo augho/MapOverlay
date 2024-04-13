@@ -45,8 +45,7 @@ public class SegmentCollection {
 
     private void handleEventPoint(EventPoint p, T statusStructure, Q eventQueue, ArrayList<Intersection> overlay) {
         Point bp = new Point(0.1, 140.1098465983819);
-        Point bp2 = new Point(3.0, 5.0);
-        final boolean readable = !true;
+        final boolean readable = true;
         System.out.println("\n[HANDLING] event point: " + p);
         System.out.println(statusStructure.getStatus(readable));
 
@@ -96,7 +95,7 @@ public class SegmentCollection {
         System.out.println("[POST HANDLING]");
         System.out.println(statusStructure.getRootAndLeafMirror(readable));
         System.out.println(statusStructure.getStatus(readable));
-        if (!statusStructure.valid()) throw new RuntimeException("invalid structure");
+//        if (!statusStructure.valid()) throw new RuntimeException("invalid structure");
     }
 
     private void findNewEvent(

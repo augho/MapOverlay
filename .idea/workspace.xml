@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="(╯°□°）╯︵ ┻━┻">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Comparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/Segment.java" afterDir="false" />
+    <list default="true" id="119edee2-1a34-495b-8696-649bda6104b3" name="Changes" comment="fix T.delete and whereIs bug">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/SegmentCollection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdd/mapoverlay/utils/T.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/OverlayTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/SegmentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/SegmentTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sdd/mapoverlay/TTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,7 +352,7 @@
       <workItem from="1712949851919" duration="8696000" />
       <workItem from="1712960982692" duration="435000" />
       <workItem from="1712994962484" duration="1569000" />
-      <workItem from="1712998780653" duration="14954000" />
+      <workItem from="1712998780653" duration="15309000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -584,7 +578,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713005485582</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fix T.delete and whereIs bug">
+      <option name="closed" value="true" />
+      <created>1713015964451</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1713015964451</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -602,7 +604,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="File saving + utils classes" />
     <MESSAGE value="Added Q and EventPoint + refactoring" />
     <MESSAGE value="AVLTree implementation, refactoring of Q and 2 segments intersection compute" />
     <MESSAGE value="better math and relative position for points" />
@@ -627,7 +628,8 @@
     <MESSAGE value="tout est cassé" />
     <MESSAGE value="cleanup debug junk" />
     <MESSAGE value="(╯°□°）╯︵ ┻━┻" />
-    <option name="LAST_COMMIT_MESSAGE" value="(╯°□°）╯︵ ┻━┻" />
+    <MESSAGE value="fix T.delete and whereIs bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix T.delete and whereIs bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
