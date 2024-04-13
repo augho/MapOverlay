@@ -39,3 +39,7 @@
 .error-label {
     -fx-text-fill: red;
 }
+
+.check-box:selected .mark {
+    -fx-background-color: #26d93c;
+    }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="150" stylesheets="@styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdd.mapoverlay.PlayPanelController">
-    <CheckBox fx:id="displayOverlayCheckBox" onAction="#onDisplayOverlayClick" styleClass="label-text" text="Show Overlay" />
+    <CheckBox fx:id="displayOverlayCheckBox" focusTraversable="false" onAction="#onDisplayOverlayClick" selected="true" styleClass="label-text" text="Show Overlay" />
     <VBox spacing="5" styleClass="add-segment-block">
         <Label styleClass="label-text" text="Speed" />
         <Slider />
