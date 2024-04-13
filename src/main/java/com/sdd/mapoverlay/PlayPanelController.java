@@ -38,28 +38,19 @@ public class PlayPanelController {
 
     @FXML
     protected void onPlayButtonClick() throws FileNotFoundException{
-        
-        /* System.out.println(pointsToPlace.size());
-        System.out.println(currentStep); */
-
-        // Reset the current step and disable the prevStepButton since you can't go before step 0
         currentStep = 0;
 
         pointsToPlace = computeOverlay();
         
         // We reset the chart to remove the previous intersection points
-        System.out.println(Store.getRootController().lineChart.getData().size());
         Store.getRootController().lineChart.getData().remove(Store.getRootController().getSerieByName("Intersection_Points"));
-        System.out.println("Intersection points series removed");
         Store.getRootController().addIntersectionPoints(pointsToPlace);
-
-        Store.getRootController().addSweepLine();
-
         displayOverlayCheckBox.setSelected(true);
+
         try {
+            Store.getRootController().addSweepLine();
             labelIntersection.setText("Showing intersection ("+String.format("%,.2f",pointsToPlace.get(0).p().getX())+", "+String.format("%,.2f", pointsToPlace.get(0).p().getY())+")");
             Store.getRootController().highlightIntersectionPoint(pointsToPlace.get(currentStep).p());
-
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -151,8 +142,8 @@ public class PlayPanelController {
 
     @FXML
     public void initialize() {
-        timelineFwd = new Timeline(new KeyFrame(Duration.millis(80), event -> onNextStepButtonPressed()));
-        timelineBwd = new Timeline(new KeyFrame(Duration.millis(80), event -> onPrevStepButtonPressed()));
+        timelineFwd = new Timeline(new KeyFrame(Duration.millis(100), event -> onNextStepButtonPressed()));
+        timelineBwd = new Timeline(new KeyFrame(Duration.millis(100), event -> onPrevStepButtonPressed()));
         timelineFwd.setCycleCount(Animation.INDEFINITE);
         timelineBwd.setCycleCount(Animation.INDEFINITE);
 

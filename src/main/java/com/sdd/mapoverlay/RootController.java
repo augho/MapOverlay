@@ -73,7 +73,6 @@ public class RootController implements Initializable{
     protected void addPoint(Double x, Double y) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>(x, y));
-        System.out.println(series.getData());
         lineChart.getData().add(series);
         for (XYChart.Data<Number, Number> data : series.getData()) {
             Node point = data.getNode();
@@ -105,7 +104,7 @@ public class RootController implements Initializable{
 
         for (Intersection intersection : intersectionPoints) {
             serie.getData().add(new XYChart.Data<>(intersection.p().getX(), intersection.p().getY()));
-            System.out.println("Adding intersection point: " + intersection.p().getX() + ", " + intersection.p().getY());
+            //System.out.println("Adding intersection point: " + intersection.p().getX() + ", " + intersection.p().getY());
 
         }
 
@@ -145,6 +144,7 @@ public class RootController implements Initializable{
 
     public void highlightSegment(Segment segment) {
         for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            // the segment we want to highlight
             if (series.getData().get(0).getXValue().equals(segment.getLowerEndpoint().getX()) &&
                     series.getData().get(0).getYValue().equals(segment.getLowerEndpoint().getY()) &&
                     series.getData().get(1).getXValue().equals(segment.getUpperEndpoint().getX()) &&
@@ -160,7 +160,9 @@ public class RootController implements Initializable{
                     point.setScaleY(0.75);
                     point.toFront();
                 }
-            } else {
+            }
+            // the other segments
+            else if (series.getData().size() == 2) {
                 for (XYChart.Data<Number, Number> data : series.getData()) {
                     Node point = data.getNode();
                     point.setStyle("-fx-background-color: #0077B6;");
