@@ -32,6 +32,10 @@ public class RootController implements Initializable{
 
     private double lastX;
     private double lastY;
+    private XYChart.Series<Number, Number> sweepLine = new XYChart.Series<>();
+    protected double lowerBoundX = 0.00;
+    protected double upperBoundX = 100.00;
+
 
     public void addSegment(Double x1, Double y1, Double x2, Double y2) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -42,6 +46,9 @@ public class RootController implements Initializable{
         series.getData().add(new XYChart.Data<>(x1, y1));
         series.getData().add(new XYChart.Data<>(x2, y2));
         lineChart.getData().add(series);
+
+        upperBoundX = Math.max(upperBoundX, x1);
+        upperBoundX = Math.max(upperBoundX, x2);
 
         // Change the color of the 2 points and segment added to black
         for (XYChart.Data<Number, Number> data : series.getData()) {
@@ -69,12 +76,10 @@ public class RootController implements Initializable{
         System.out.println(series.getData());
         lineChart.getData().add(series);
         for (XYChart.Data<Number, Number> data : series.getData()) {
-            System.out.println("Test");
             Node point = data.getNode();
             point.setStyle("-fx-background-color: #0077B6;");
             point.setScaleX(0.75);
             point.setScaleY(0.75);
-            System.out.println(point);
         }
     }
 
@@ -85,29 +90,29 @@ public class RootController implements Initializable{
     protected void addIntersectionPoints(ArrayList<Intersection> intersectionPoints) {
         // Create a new series
         XYChart.Series<Number, Number> serie = new XYChart.Series<>();
+
         // Delete the previous series if it exists
         XYChart.Series<Number, Number> previousSerie = this.getSerieByName("Intersection_Points");
         if (previousSerie != null) {
-            System.out.println("Removing previous serie");
             lineChart.getData().remove(previousSerie);
         }
 
+        // Set the name of the serie
         serie.setName("Intersection_Points");
+
+        // Add the serie to your chart
+        lineChart.getData().add(serie);
+
         for (Intersection intersection : intersectionPoints) {
             serie.getData().add(new XYChart.Data<>(intersection.p().getX(), intersection.p().getY()));
             System.out.println("Adding intersection point: " + intersection.p().getX() + ", " + intersection.p().getY());
+
         }
 
-        // Add the series to your chart
-        lineChart.getData().add(serie);
-        System.out.println("Number of data points in the series: " + serie.getData().size());
-        System.out.println("Name of the series: " + serie.getName());
-
+        // Change the color of the points to be more visible to the user
         for (XYChart.Data<Number, Number> data : serie.getData()) {
-            System.out.println(data);
             Node point = data.getNode();
             if (point == null) {
-                System.out.println("Point is null");
             } else {
                 point.setStyle("-fx-background-color: #B63F00;");
                 point.setScaleX(1.15);
@@ -116,6 +121,7 @@ public class RootController implements Initializable{
             Node line = serie.getNode().lookup(".chart-series-line");
             line.setStyle("-fx-stroke: #FF000000;");
         }
+
     }
 
     public void removeSegment(Segment segment) {
@@ -166,6 +172,48 @@ public class RootController implements Initializable{
                 line.setStyle("-fx-stroke: #90E0EF;");
             }
         }
+    }
+
+    public void highlightIntersectionPoint(Point intersectionPoint) {
+        for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            if (series.getName() != null && series.getName().equals("Intersection_Points")) {
+                for (XYChart.Data<Number, Number> data : series.getData()) {
+                    if (data.getXValue().equals(intersectionPoint.getX()) && data.getYValue().equals(intersectionPoint.getY())) {
+                        // we clear the sweep line
+                        sweepLine.getData().clear();
+                        // we add two points to form a sweep line. One point is at the lower bound of the x axis and the other is at the upper bound of the x axis
+                        sweepLine.getData().add(new XYChart.Data<>(lowerBoundX, intersectionPoint.getY()));
+                        sweepLine.getData().add(new XYChart.Data<>(upperBoundX*1.25, intersectionPoint.getY()));
+                        sweepLine.getData().add(new XYChart.Data<>(intersectionPoint.getX(), intersectionPoint.getY()));
+                        // we change the color of the sweep line line to be more visible
+                        Node line = sweepLine.getNode().lookup(".chart-series-line");
+                        line.setStyle("-fx-stroke: #FF0000;");
+                        line.toFront();
+                        for (XYChart.Data<Number, Number> sweepData : sweepLine.getData()) {
+                            Node sweepPoint = sweepData.getNode();
+                            sweepPoint.setStyle("-fx-background-color: #FF000000;");
+                            sweepPoint.setScaleX(0.75);
+                            sweepPoint.setScaleY(0.75);
+                        }
+
+                        Node point = data.getNode();
+                        point.setStyle("-fx-background-color: #FFA500;");
+                        point.setScaleX(1.5);
+                        point.setScaleY(1.5);
+                        point.toFront();
+                    } else {
+                        Node point = data.getNode();
+                        point.setStyle("-fx-background-color: #B63F00;");
+                        point.setScaleX(1.15);
+                        point.setScaleY(1.15);
+                    }
+                }
+            }
+        }
+    }
+
+    public void addSweepLine(){
+        lineChart.getData().add(sweepLine);
     }
 
     public void displayFileContent(List<Segment> fileContent) {
@@ -220,16 +268,10 @@ public class RootController implements Initializable{
         return null; // Si la série n'est pas trouvée
     }
 
-    public void displayIntersectionPoints(boolean display) {
-        if (display){
-
-        }
-    }
-
-
     public List<Point> getIntersectionPointsFromChart() {
         List<Point> intersectionPoints = new ArrayList<>();
         for (XYChart.Series<Number, Number> series : lineChart.getData()) {
+            // Bad practice to use magic numbers but we assume that the intersection points are the only series with more than 2 points
             if (series.getData().size() !=2) {
                 for (int i=0; i<series.getData().size(); i++) {
                     intersectionPoints.add(new Point(

@@ -51,6 +51,10 @@ public class EditPanelController {
         }
 
         double x1, y1, x2, y2;
+
+        Store.getRootController().upperBoundX = Math.max(Store.getRootController().upperBoundX, Double.parseDouble(x1Value));
+        Store.getRootController().upperBoundX = Math.max(Store.getRootController().upperBoundX, Double.parseDouble(x2Value));
+
         try {
             x1 = Double.parseDouble(x1Value);
             x2 = Double.parseDouble(x2Value);
@@ -63,26 +67,6 @@ public class EditPanelController {
         Segment segment = new Segment(x1, y1, x2, y2);
         Store.getRootController().addSegment(segment);
         logsHistory.push(new Logs(segment, "ADD"));
-        segmentError.setVisible(false);
-    }
-
-    @FXML
-    protected void onAddButtonClick(){
-        String x1Value = this.x1Field.getText();
-        String y1Value = this.y1Field.getText();
-
-        x1Field.setText("");
-        y1Field.setText("");
-
-        double x1, y1;
-        try {
-            x1 = Double.parseDouble(x1Value);
-            y1 = Double.parseDouble(y1Value);
-        } catch (NumberFormatException e) {
-            displayAddSegmentError(e.getMessage());
-            return;
-        }
-        Store.getRootController().addPoint(x1, y1);
         segmentError.setVisible(false);
     }
 
