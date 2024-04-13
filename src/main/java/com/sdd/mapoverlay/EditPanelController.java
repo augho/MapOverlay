@@ -169,7 +169,7 @@ public class EditPanelController {
             return;
         }
         try (PrintWriter writer = new PrintWriter(file)) {
-            Store.getRootController().getChartContent()
+            Store.getRootController().getSegmentsFromChart()
                     .forEach(segment -> writer.println(segment.toString()));
         } catch (IOException e) {
             displaySaveFileError(e.getMessage());
